@@ -8,19 +8,19 @@ import tinkerer.paths
 # **************************************************************
 
 # Change this to the name of your blog
-project = 'My blog'                   
+project = u'裏紙'                   
 
 # Change this to the tagline of your blog
-tagline = 'Add intelligent tagline here'                  
+tagline = u'Javaを中心にいろいろと'                  
 
 # Change this to your name
-author = 'Winston Smith'
+author = u'うらがみ'
 
 # Change this to your copyright string
-copyright = '1984, ' + author         
+copyright = u'2013, ' + author         
 
 # Change this to your blog root URL (required for RSS feed)
-website = 'http://127.0.0.1/blog/html/'                              
+website = 'http:/backpaper0.github.com/'                              
 
 # **************************************************************
 # More tweaks you can do
