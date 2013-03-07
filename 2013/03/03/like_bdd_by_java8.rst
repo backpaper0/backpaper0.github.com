@@ -76,6 +76,7 @@ Specsはこんな感じ。
            public void toThrow(Class<? extends Exception> exceptionClass) throws Exception {
                try {
                    c.call();
+                   Assert.fail();
                } catch (Exception e) {
                    if (!exceptionClass.isAssignableFrom(e.getClass())) {
                        Assert.fail();
@@ -141,6 +142,10 @@ SpecRunnerはこんな感じ。
 
 楽しみだ。はよこいJava8。
 
+ギットハブにも置いたよ
+--------------------------
+
+* https://github.com/backpaper0/junit-spec-runner
 
 
 .. author:: default
