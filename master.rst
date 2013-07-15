@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2013/07/15/websocket_pathparam
    2013/07/14/websocket
    2013/07/07/devkan_jaxrs
    2013/06/02/jsr330
