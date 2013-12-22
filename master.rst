@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2013/12/22/visitor
    2013/12/03/javaee_advent_calendar_2013
    2013/09/26/glassfish_server_xpoweredby
    2013/07/17/jaxrs_parameter
