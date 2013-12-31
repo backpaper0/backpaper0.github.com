@@ -316,7 +316,7 @@ Jerseyなら@InjectParamを使うことでパラメータをPOJOにまとめる�
            @InjectParam HogeBean bean) {
        ...
    
-   pubilic class HogeBean {
+   public class HogeBean {
        
        @QueryParam("foo")
        public String foo;
