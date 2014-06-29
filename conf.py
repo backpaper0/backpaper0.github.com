@@ -11,7 +11,7 @@ import tinkerer.paths
 project = u'裏紙'                   
 
 # Change this to the tagline of your blog
-tagline = u'Javaを中心にいろいろと'                  
+tagline = u'₍₍⁽⁽(ી(´・ᴗ・`)ʃ)₎₎⁾⁾'                  
 
 # Change this to your name
 author = u'うらがみ'
@@ -33,7 +33,7 @@ disqus_shortname = None
 html_favicon = 'tinkerer.ico'           
 
 # Pick another Tinkerer theme or use your own
-html_theme = "modern5"
+html_theme = "flat"
 
 # Theme-specific options, see docs
 html_theme_options = { }                                  
