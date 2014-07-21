@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/07/21/jersey_standalone
    2014/07/06/kotlin_default_parameter
    2014/07/01/kotlin_jaxrs
    2013/12/30/javafx
