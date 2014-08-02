@@ -30,7 +30,7 @@ website = 'http://backpaper0.github.io/'
 disqus_shortname = None                                   
 
 # Change your favicon (new favicon goes in _static directory)
-html_favicon = 'tinkerer.ico'           
+html_favicon = 'backpaper0.ico'           
 
 # Pick another Tinkerer theme or use your own
 html_theme = "flat"
