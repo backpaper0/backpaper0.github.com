@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/08/02/glassfish_admingui
    2014/07/21/jersey_standalone
    2014/07/06/kotlin_default_parameter
    2014/07/01/kotlin_jaxrs
