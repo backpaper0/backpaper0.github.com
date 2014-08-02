@@ -20,7 +20,7 @@ author = u'うらがみ'
 copyright = u'2013-2014, ' + author         
 
 # Change this to your blog root URL (required for RSS feed)
-website = 'http:/backpaper0.github.com/'                              
+website = 'http://backpaper0.github.io/'                              
 
 # **************************************************************
 # More tweaks you can do
