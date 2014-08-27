@@ -1,4 +1,4 @@
-関西Wildfly勉強会をやった #wildflykansai
+関西WildFly勉強会をやった #wildflykansai
 =========================================
 
 やりました。
