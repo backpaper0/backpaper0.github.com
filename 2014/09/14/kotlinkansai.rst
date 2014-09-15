@@ -47,6 +47,11 @@
 * イベント後、店変えつつ5時間ぐらい飲み食いしててイベントよりも長いやんけ的な
 * その飲み食いも込みでめちゃくちゃ楽しかった
 
+関連するあれこれ
+--------------------
+
+* `Javaプログラマーのはしくれダイアリー: 「Kotlin Advent Calendar 2012 (全部俺)」を全部俺が読んだ話 <http://yyyank.blogspot.jp/2014/09/kotlin-advent-calendar-2012.html>`_
+
 .. author:: default
 .. categories:: none
 .. tags:: Kotlin
