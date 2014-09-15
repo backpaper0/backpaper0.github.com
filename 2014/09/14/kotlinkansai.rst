@@ -53,6 +53,7 @@
 * `Javaプログラマーのはしくれダイアリー: 「Kotlin Advent Calendar 2012 (全部俺)」を全部俺が読んだ話 <http://yyyank.blogspot.jp/2014/09/kotlin-advent-calendar-2012.html>`_
 * `関西Kotlin勉強会で発表してきたよ〜 - 算譜王におれはなる!!!! <http://taro.hatenablog.jp/entry/2014/09/15/115444>`_
 * `関西Kotlin勉強会に参加したよ - シスアーキ in はてな <http://kozake.hatenablog.com/entry/2014/09/15/123229>`_
+* `関西Kotlin勉強会その後〜たろうさん大阪珍道中 - Togetterまとめ <http://togetter.com/li/719487>`_
 
 .. author:: default
 .. categories:: none
