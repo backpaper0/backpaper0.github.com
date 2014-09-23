@@ -55,6 +55,7 @@
 * `関西Kotlin勉強会に参加したよ - シスアーキ in はてな <http://kozake.hatenablog.com/entry/2014/09/15/123229>`_
 * `関西Kotlin勉強会その後〜たろうさん大阪珍道中 - Togetterまとめ <http://togetter.com/li/719487>`_
 * `Javaプログラマーのはしくれダイアリー: 【Kotlinかわいいよ】関西Kotlin勉強会に行ってきた <http://yyyank.blogspot.jp/2014/09/kotlinkotlin.html>`_
+* `関西Kotlin勉強会に参加してきた話 - shiget84's blog <http://shiget84.hateblo.jp/entry/2014/09/23/223034>`_
   
 .. author:: default
 .. categories:: none
