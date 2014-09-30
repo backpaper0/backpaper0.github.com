@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/09/30/jersey_rx_client
    2014/09/26/nullpo
    2014/09/14/kotlinkansai
    2014/08/27/wildflykansai
