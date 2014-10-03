@@ -4,6 +4,8 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/10/04/stream_collect
+   2014/10/04/stream_methods
    2014/09/30/jersey_rx_client
    2014/09/26/nullpo
    2014/09/14/kotlinkansai
