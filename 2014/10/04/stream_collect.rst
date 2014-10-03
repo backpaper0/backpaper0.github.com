@@ -248,6 +248,11 @@ Streamのcollectメソッドを学ぶ
      val xs = 1 to 5 toList
      xs.scan(0)(_ + _) //0, 1, 3, 6, 10, 15
 
+追記：宿題やった
+~~~~~~~~~~~~~~~~~~~~~
+
+* `ScanCollectorTest.java <https://github.com/backpaper0/sandbox/blob/master/garakuta/src/test/java/ScanCollectorTest.java>`_
+
 
 
 .. _accumulator: http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#accumulator--
