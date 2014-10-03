@@ -2,7 +2,7 @@ Streamのcollectメソッドを学ぶ
 ===================================
 
 `Stream`_ にある数多くのメソッドの中でも分かり辛い感じがする
-`collect` メソッドについて学びます。
+`collectメソッド`_ について学びます。
 
 
 
@@ -20,8 +20,8 @@ Streamのcollectメソッドを学ぶ
 * `A` : **ミュータブル** な中間コンテナの型
 * `R` : 最終的に返される結果の型
 
-例えば `Stream<String>` を単純に繋げて `String` にする場合は、
-`Stream` の各 `String` ( `T` )を `StringBuilder` ( `A` )に `append` した後に `String` ( `R` )に変換する、
+例えば `Stream<Character>` を単純に繋げて `String` にする場合は、
+`Stream` の各 `Character` ( `T` )を `StringBuilder` ( `A` )に `append` した後に `String` ( `R` )に変換する、
 という流れになります。
 
 .. note::
@@ -62,7 +62,7 @@ Streamのcollectメソッドを学ぶ
 文字を結合する `Collector` の例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-例えば `Chracter` の `Stream` を `StringBuilder` へ折り畳んで最終的に
+例えば `Character` の `Stream` を `StringBuilder` へ折り畳んで最終的に
 `String` に変換するという処理を考えてみます。
 
 `Collector` が返す関数はそれぞれ次のような処理を行うようにします。
