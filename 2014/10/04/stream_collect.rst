@@ -266,5 +266,5 @@ Streamのcollectメソッドを学ぶ
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: Java, Stream API
 .. comments::

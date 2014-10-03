@@ -148,5 +148,5 @@ Streamのメソッドを操作の種類別で一覧にした
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: Java, Stream API
 .. comments::
