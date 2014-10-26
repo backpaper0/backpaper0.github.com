@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/10/26/uragamiattack
    2014/10/26/java_8_hotspot_meeting
    2014/10/04/stream_collect
    2014/10/04/stream_methods
