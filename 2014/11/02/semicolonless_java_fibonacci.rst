@@ -125,6 +125,7 @@ Zコンビネータ
 .. code-block:: java
 
    Function<F, F> g = f -> n -> n <= 1 ? n : f.apply(n - 2) + f.apply(n - 1);
+                                           //~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~ この辺が再帰
 
    F fib = z(g);
 
