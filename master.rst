@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/11/02/semicolonless_java_fibonacci
    2014/11/01/prefix_domain
    2014/11/01/funcitonal_programming_in_java
    2014/10/26/uragamiattack
