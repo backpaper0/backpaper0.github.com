@@ -148,6 +148,8 @@ Java 8時代になりセミコロンレスJavaでも再帰を使えるように�
 みませんね。
 はい、ごめんなさい。
 
+続き： :doc:`/2014/11/03/semicolonless_java_fibonacci_without_z_combinator`
+
 .. author:: default
 .. categories:: none
 .. tags:: Java, SemicolonlessJava
