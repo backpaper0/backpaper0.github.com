@@ -239,7 +239,9 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
                .iterate(new javafx.util.Pair<>(t, java.util.Optional.<Integer> empty()), p -> p.getKey().get())
                .map(javafx.util.Pair::getValue)
                .filter(java.util.Optional::isPresent)
-               .map(java.util.Optional::get).findFirst().get())
+               .map(java.util.Optional::get)
+               .findFirst()
+               .get())
                .peek(System.out::println)
                .count() > 0) {
            }
