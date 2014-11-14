@@ -151,6 +151,7 @@ Java EEは、範囲が広くて仕様がでかいので仕方ないのですが�
 * http://kikutaro777.hatenablog.com/entry/2014/11/03/191215
 * http://d.hatena.ne.jp/irof/20141104/p1
 * http://d.hatena.ne.jp/bitter_fox/20141111/1415687739
+* http://d.hatena.ne.jp/nowokay/20141114
 
 .. author:: default
 .. categories:: none
