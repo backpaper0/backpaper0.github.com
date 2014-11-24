@@ -75,7 +75,7 @@ Serverのコンストラクタにホスト、ポート、ルートパス、エ�
 今日のソース
 ------------------
 
-* https://github.com/backpaper0/websocket-example
+* https://github.com/backpaper0/sandbox/tree/master/websocket-example
 
 .. _Tyrus Project: https://tyrus.java.net/
 .. _JSR 356\: Java API for WebSocket: http://jcp.org/en/jsr/detail?id=356

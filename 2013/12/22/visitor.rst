@@ -691,7 +691,7 @@ Javaではデータとアルゴリズムを分離するとき、
 
 まあいいか。
 
-* `本日のコード <https://github.com/backpaper0/visitor-example>`_
+* `本日のコード <https://github.com/backpaper0/sandbox/tree/master/visitor-example>`_
 
 .. author:: default
 .. categories:: none

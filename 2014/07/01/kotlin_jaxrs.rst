@@ -43,14 +43,14 @@ KotlinではじめるJAX-RS
 そんな感じです。
 要するにIntellij IDEAに慣れていないだけ、と。
 
-それと `テストクラス <https://github.com/backpaper0/kotlin-jaxrs-example/blob/master/src/test/java/app/HelloTest.java>`_ はJavaで書いていますが、これはアノテーション付きのstaticメソッドの書き方が分からなかったからです。
+それと `テストクラス <https://github.com/backpaper0/sandbox/tree/master/kotlin-jaxrs-example/blob/master/src/test/java/app/HelloTest.java>`_ はJavaで書いていますが、これはアノテーション付きのstaticメソッドの書き方が分からなかったからです。
 きっと誰かがKotlinに直してプルリクしてくれるに違いない(ﾁﾗｯ
 
 本日のコードはGitHubにあります。
 `Arquillian <http://arquillian.org/>`_ のwildfly-managedでテスト書いてます。
 テスト実行すると多くのJARと `WildFly 8.1.0.Final <http://www.wildfly.org/>`_ をダウンロードするので時間のあるときにどうぞ。
 
-* `kotlin-jaxrs-example <https://github.com/backpaper0/kotlin-jaxrs-example>`_
+* `kotlin-jaxrs-example <https://github.com/backpaper0/sandbox/tree/master/kotlin-jaxrs-example>`_
 
 Kotlinの勉強会もあるみたいですよ。
 

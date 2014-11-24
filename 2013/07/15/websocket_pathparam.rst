@@ -53,7 +53,7 @@ Java API for WebSocketの@PathParamを試す
 今回のソース
 --------------------
 
-* https://github.com/backpaper0/websocket-example
+* https://github.com/backpaper0/sandbox/tree/master/websocket-example
 
 今回作ったクラスはchatというパッケージにしています。
 また、mvn -Pchat exec:java とすればサーバが立ち上がるようにしています。

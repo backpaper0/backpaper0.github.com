@@ -136,7 +136,7 @@ JAX-RS 2からParamConverterが入った事でクリエパラメータやリク�
 
 サンプル書きました。
 
-* https://github.com/backpaper0/jaxrs-example
+* https://github.com/backpaper0/sandbox/tree/master/jaxrs-parameter-example
 
 .. _ParamConverter: http://docs.oracle.com/javaee/7/api/javax/ws/rs/ext/ParamConverter.html
 .. _ParamConverterProvider: http://docs.oracle.com/javaee/7/api/javax/ws/rs/ext/ParamConverterProvider.html
