@@ -33,7 +33,7 @@ disqus_shortname = None
 html_favicon = 'backpaper0.ico'           
 
 # Pick another Tinkerer theme or use your own
-html_theme = "flat"
+html_theme = "syobochim"
 
 # Theme-specific options, see docs
 html_theme_options = { }                                  
@@ -59,7 +59,7 @@ templates_path = ['_templates']
 html_static_path = ['_static', tinkerer.paths.static]
 
 # Add other theme paths here
-html_theme_path = [tinkerer.paths.themes]                 
+html_theme_path = ['_themes', tinkerer.paths.themes]                 
 
 # Add file patterns to exclude from build
 exclude_patterns = ["drafts/*"]                                     
