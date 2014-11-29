@@ -100,7 +100,7 @@ footer { padding: 5px 20px; }
 }
 
 /* Palette */
-{%- set theme_color = "#074e78" -%}
+{%- set theme_color = "#ff7300" -%}
 {%- set theme_color_light = "#93a4ad" -%}
 {%- set theme_color_dark = "#021724" -%}
 
@@ -109,7 +109,7 @@ footer { padding: 5px 20px; }
 
 {%- set header_color = "#f8f8f8" -%}
 {%- set text_color = "#0c0501" -%}
-{%- set link_color = "#0b7dc0" -%}
+{%- set link_color = "#a8783d" -%}
 
 body { background-color: {{ theme_color_light }}; }
 
@@ -128,7 +128,7 @@ div.section h1 a { color: {{ text_color }}; text-decoration: none; }
 .docutils.literal { background-color: {{ sidebar_color }}; }
 
 div.main { background-color: {{ sidebar_color }}; }
-article { background: {{ paper_color }} url('paper.png') repeat; }
+article { background: {{ paper_color }} repeat; }
 
 div.postmeta { color: {{ theme_color_light }}; }
 div.post_separator { border-bottom: 1px dotted {{ theme_color_light }}; }
@@ -201,3 +201,11 @@ div.year_separator { width: 100%; border-top: 1px dotted {{ theme_color_light }}
 
 /* Sidebar */
 aside.sidebar h1 { border-bottom: 1px solid {{ theme_color_light }}; box-shadow: {{ paper_color }} 0 1px 0 0; }
+
+/* */
+header h1:before { content: "そこに"; }
+header h1:after { content: "はあるのか(仮)"; }
+header h1:before, header h1:after { color: {{ header_color }}; }
+header h2:before, .sidebar h1:before { content: "" }
+h1:before, h2:before { content: url('redking.png'); }
+header h2 { color: white; }
