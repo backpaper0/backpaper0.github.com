@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/12/01/javaee_advent_calendar_2014
    2014/12/01/syobochim_advent_calendar_2014
    2014/12/01/irof_advent_calendar_2014
    2014/11/12/java_engineer_training_book
