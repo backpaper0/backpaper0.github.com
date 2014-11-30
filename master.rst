@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/12/01/irof_advent_calendar_2014
    2014/11/12/java_engineer_training_book
    2014/11/08/semicolonless_tail_call_optimization
    2014/11/03/semicolonless_java_fibonacci_without_z_combinator
