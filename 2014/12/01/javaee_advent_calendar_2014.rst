@@ -17,10 +17,22 @@ JerseyはMavenのprofileという機能を使っていてGradleではその辺�
 
 * 参考： `JAX-RSをGradleでアレしたい - 日々常々 <http://d.hatena.ne.jp/irof/20130505/p1>`_
 
+……と書きましたが最近のGradleはprofile対応してるようです。
+
+.. raw:: html
+
+   <blockquote class="twitter-tweet" lang="ja"><p>JAX-RSを始める <a href="https://twitter.com/hashtag/javaee?src=hash">#javaee</a> — 裏紙 <a href="http://t.co/mAX6m50PMd">http://t.co/mAX6m50PMd</a> 現在はGradleもProfileに対応してます <a href="http://t.co/pHMXxcnt7T">http://t.co/pHMXxcnt7T</a></p>&mdash; Nobuhiro Sue (@nobusue) <a href="https://twitter.com/nobusue/status/539304292822159361">2014, 12月 1</a></blockquote>
+   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+というわけでサンプルにGradleのビルドファイルも追加しました。
+
 Mavenのインストールはバイナリを任意の場所にダウンロードして `bin` ディレクトリにパスを通せばおkです。
 
 ビルドファイルの準備
 --------------------------------------------------------------------------------
+
+Mavenの場合
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 まず、 `mvn archetype:generate` してください。
 それから出来たpom.xmlを編集します。
@@ -75,6 +87,19 @@ Mavenのインストールはバイナリを任意の場所にダウンロード
 でもこんなことチンタラやってられないと思うので https://github.com/backpaper0/sandbox をcloneして
 `jersey-blank` ディレクトリ内の `pom.xml` をご利用ください。
 私も大抵、自分が過去に書いたビルドファイルをコピります。
+
+Gradleの場合
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+こんな感じ？
+
+.. code-block:: groovy
+
+   dependencies {
+       compile 'org.glassfish.jersey.core:jersey-server:2.13'
+       compile 'org.glassfish.jersey.containers:jersey-container-jdk-http:2.13'
+       testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-jdk-http:2.13'
+   }
 
 コードを書く
 --------------------------------------------------------------------------------
@@ -163,6 +188,72 @@ IDEから実行するかMavenで。
    Results :
    
    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+mainメソッドでサーバーを立てる
+--------------------------------------------------------------------------------
+
+JUnitテストを走らせている事からもお分かり頂けると思いますが、
+簡単にサーバーを立てる事もできます。
+
+こんな感じ。
+
+.. code-block:: java
+
+   package app;
+   
+   import java.io.IOException;
+   import java.net.URI;
+   
+   import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
+   import org.glassfish.jersey.server.ResourceConfig;
+   
+   import com.sun.net.httpserver.HttpServer;
+   
+   public class Server {
+   
+       public static void main(String[] args) throws IOException {
+           URI uri = URI.create("http://localhost:8080/rest/");
+   
+           ResourceConfig rc = new ResourceConfig();
+           rc.register(Calc.class);
+   
+           HttpServer httpServer = JdkHttpServerFactory.createHttpServer(uri, rc);
+   
+           System.out.println("JAX-RS started");
+           System.in.read();
+   
+           httpServer.stop(0);
+       }
+   }
+
+ほうっておいたら終了しちゃうので `System.in.read()` でスレッドを止めています。
+もちろん、他の手段で止めてもおkです。
+
+アプリケーションサーバにデプロイする
+--------------------------------------------------------------------------------
+
+GlassFishにデプロイする場合はdependencyのscopeをprovidedにしてWARファイルを作ってそれをデプロイすれば良いと思います。
+
+Tomcatにデプロイする場合は `jersey-container-jdk-http` を消して、
+`jersey-container-servlet` を追加してWARファイルを作りましょう。
+こんな感じです。
+
+.. code-block:: xml
+
+   <dependencies>
+     <dependency>
+       <groupId>org.glassfish.jersey.core</groupId>
+       <artifactId>jersey-server</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.glassfish.jersey.containers</groupId>
+       <artifactId>jersey-container-servlet</artifactId>
+       <scope>runtime</scope>
+     </dependency>
+   </dependencies>
+
+私はServlet APIに依存しないよう作る方がポータビリティが高そうで好きなのでscopeをruntimeにしています。
+Servlet APIじゃんじゃん使いたい場合はscopeをcompileにしてください。
 
 まとめ
 --------------------------------------------------------------------------------
