@@ -266,6 +266,7 @@ Servlet APIじゃんじゃん使いたい場合はscopeをcompileにしてくだ
 
 * :doc:`/2013/05/02/jaxrs`
 * :doc:`/2013/07/07/devkan_jaxrs`
+* :doc:`/2014/07/21/jersey_standalone`
 
 はー、これらの資料もJAX-RS 2.0にアップデートしないといけないなー（しろめ
 
