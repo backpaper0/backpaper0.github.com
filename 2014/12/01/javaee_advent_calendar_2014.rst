@@ -22,7 +22,7 @@ JerseyはMavenのprofileという機能を使っていてGradleではその辺�
 .. raw:: html
 
    <blockquote class="twitter-tweet" lang="ja"><p>JAX-RSを始める <a href="https://twitter.com/hashtag/javaee?src=hash">#javaee</a> — 裏紙 <a href="http://t.co/mAX6m50PMd">http://t.co/mAX6m50PMd</a> 現在はGradleもProfileに対応してます <a href="http://t.co/pHMXxcnt7T">http://t.co/pHMXxcnt7T</a></p>&mdash; Nobuhiro Sue (@nobusue) <a href="https://twitter.com/nobusue/status/539304292822159361">2014, 12月 1</a></blockquote>
-   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 というわけでサンプルにGradleのビルドファイルも追加しました。
 
