@@ -11,6 +11,24 @@
 
 {%- extends "layout.html" -%}
 
+{%- block extrahead -%}
+    {{ super() }}
+
+    <script type="text/javascript" src="http://s.hatena.ne.jp/js/HatenaStar.js"></script>
+    <script type="text/javascript">
+       Hatena.Star.Token = 'b6ee99693d89b39811dabf7e484a658530f1dae0';
+       Hatena.Star.SiteConfig = {
+         entryNodes: {
+           'div.main-container': {
+             uri: 'window.location',
+             title: 'document.title',
+             container: 'span.hatenastar'
+           }
+         }
+       };
+    </script>
+{%- endblock -%}
+
 {%- block body -%}
     {{ timestamp(metadata.formatted_date) }}
     {{ body }}
@@ -20,6 +38,7 @@
 	<div>
 	<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ja" data-count="none">ツイート</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <span class="hatenastar"> </span>
 	</div>
 
 {%- endblock -%}
