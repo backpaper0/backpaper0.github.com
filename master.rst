@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/12/07/application_class
    2014/12/04/validation
    2014/12/01/javaee_advent_calendar_2014
    2014/12/01/syobochim_advent_calendar_2014
