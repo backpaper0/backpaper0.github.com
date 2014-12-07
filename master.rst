@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/12/07/tinkerer_hatena_star
    2014/12/07/glassfish_asadmin
    2014/12/07/application_class
    2014/12/04/validation
