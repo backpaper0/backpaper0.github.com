@@ -3,7 +3,7 @@
 
 `@backpaper0`_ がJavaを中心にいろいろと書くます。
 
-.. image:: backpaper0.*
+.. image:: /images/backpaper0.*
 
 好きなこと・もの、興味のあること
 --------------------------------
