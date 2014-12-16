@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/12/15/jersey_optional
    2014/12/14/kotlin_static_method
    2014/12/07/tinkerer_hatena_star
    2014/12/07/glassfish_asadmin
