@@ -17,7 +17,7 @@ tagline = u'₍₍⁽⁽(ી(´・ᴗ・`)ʃ)₎₎⁾⁾'
 author = u'うらがみ'
 
 # Change this to your copyright string
-copyright = u'2013-2014, ' + author         
+copyright = u'2013-2015, ' + author         
 
 # Change this to your blog root URL (required for RSS feed)
 website = 'http://backpaper0.github.io/'                              
