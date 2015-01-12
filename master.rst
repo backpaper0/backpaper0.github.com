@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/01/11/spring_boot
    2014/12/24/glassfish_create_session_id
    2014/12/24/syobotsum
    2014/12/15/jersey_optional
