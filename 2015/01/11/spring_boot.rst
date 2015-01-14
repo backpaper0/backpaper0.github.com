@@ -204,6 +204,7 @@ mvn archetype:generateした直後の状態は次のような感じです。
 を参考にして parent要素と dependency要素を追加しました。
 あとついでにJUnitのバージョンを4.12に上げました。
 それとmaven-compiler-pluginの設定を追加してJava 8でビルドされるようにしました。
+んでもって、spring-boot-maven-pluginの設定を追加してスタンドアロンJARを作れるようにしました。
 
 .. code-block:: xml
 
@@ -255,6 +256,25 @@ mvn archetype:generateした直後の状態は次のような感じです。
          <scope>test</scope>
        </dependency>
      </dependencies>
+   
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-maven-plugin</artifactId>
+         </plugin>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-compiler-plugin</artifactId>
+           <version>3.1</version>
+           <configuration>
+             <source>1.8</source>
+             <target>1.8</target>
+             <encoding>${project.build.sourceEncoding}</encoding>
+           </configuration>
+         </plugin>
+       </plugins>
+     </build>
    
    </project>
 
