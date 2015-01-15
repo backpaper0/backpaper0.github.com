@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/01/15/spring_boot_gradle
    2015/01/14/spring_boot_jersey
    2015/01/11/spring_boot
    2014/12/24/glassfish_create_session_id
