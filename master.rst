@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/01/17/spring_boot_jsr330
    2015/01/16/jersey2_15_cdi
    2015/01/15/spring_boot_gradle
    2015/01/14/spring_boot_jersey
