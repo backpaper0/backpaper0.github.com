@@ -118,6 +118,18 @@ build.gradleにも書いたけどbuildscriptのブロック内で拡張プロパ
 
 教えてくださいお願いしますお願いします（他力本願）。
 
+早速解決しました！
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+   <blockquote class="twitter-tweet" lang="ja"><p><a href="https://twitter.com/backpaper0">@backpaper0</a> buildscriptブロック内で拡張プロパティが使えない件ですが、buildscriptブロック内で拡張プロパティを定義すれば、全体でその値を使えたと思いますよー</p>&mdash; さときち (@satokittyd) <a href="https://twitter.com/satokittyd/status/555730693188091904">2015, 1月 15</a></blockquote>
+   <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
+
+ありがとうございます！
+
+`修正してコミットしました！ <https://github.com/backpaper0/spring_boot_sample/commit/8ba07180a7758000522ebf99007d4c2b629378e2>`_
+
 まとめ
 --------------------------------------------------------------------------------
 
