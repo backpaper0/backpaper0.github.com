@@ -33,7 +33,7 @@ disqus_shortname = None
 html_favicon = 'backpaper0.ico'           
 
 # Pick another Tinkerer theme or use your own
-html_theme = "flat"
+html_theme = "tinkerbelizehole"
 
 # Theme-specific options, see docs
 html_theme_options = { }                                  
@@ -50,7 +50,7 @@ posts_per_page = 2
 # **************************************************************
 
 # Add other Sphinx extensions here
-extensions = ['tinkerer.ext.blog', 'tinkerer.ext.disqus'] 
+extensions = ['tinkerer.ext.blog', 'tinkerer.ext.disqus', 'sphinxjp.themecore'] 
 
 # Add other template paths here
 templates_path = ['_templates']
