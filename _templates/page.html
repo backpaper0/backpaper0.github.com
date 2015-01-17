@@ -11,6 +11,8 @@
 
 {%- extends "layout.html" -%}
 
+{% set css_files = css_files + ["_static/override-style.css"] %}
+
 {%- block extrahead -%}
     {{ super() }}
 
