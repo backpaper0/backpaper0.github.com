@@ -274,5 +274,5 @@ Servlet APIじゃんじゃん使いたい場合はscopeをcompileにしてくだ
 
 .. author:: default
 .. categories:: none
-.. tags:: Java, JAX-RS
+.. tags:: Java, JAX-RS, Jersey
 .. comments::

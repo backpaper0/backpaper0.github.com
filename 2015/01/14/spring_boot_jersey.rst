@@ -182,5 +182,5 @@ Spring MVCはMVCと言うだけあってビューを持つアプリケーショ�
 
 .. author:: default
 .. categories:: none
-.. tags:: Java, Spring Boot, JAX-RS
+.. tags:: Java, Spring Boot, JAX-RS, Jersey
 .. comments::

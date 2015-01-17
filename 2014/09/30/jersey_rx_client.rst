@@ -73,5 +73,5 @@ RxJava学ぼうかな。
 
 .. author:: default
 .. categories:: none
-.. tags:: Java, JAX-RS, Rx
+.. tags:: Java, JAX-RS, Rx, Jersey
 .. comments::

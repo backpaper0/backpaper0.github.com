@@ -114,5 +114,5 @@ nullなら@DefaultValueで設定された値を返す」という感じの実装
 
 .. author:: default
 .. categories:: none
-.. tags:: JAX-RS, Java
+.. tags:: JAX-RS, Java, Jersey
 .. comments::
