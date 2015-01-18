@@ -153,6 +153,11 @@ Java EEは、範囲が広くて仕様がでかいので仕方ないのですが�
 * http://d.hatena.ne.jp/bitter_fox/20141111/1415687739
 * http://d.hatena.ne.jp/nowokay/20141114
 
+他の書評
+--------------------------------------------------------------------------------
+
+* http://vividcode.hatenablog.com/entry/book/java-engineer-dokuhon
+
 .. author:: default
 .. categories:: none
 .. tags:: Java, BookReview
