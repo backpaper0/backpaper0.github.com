@@ -69,6 +69,7 @@ maven-dependency-plugin の treeゴールを使えば依存関係を一覧でき
 Mavenを実行すると次のようなログが書き出されました。
 
 .. code-block:: none
+   :emphasize-lines: 69,70
 
    [INFO] Scanning for projects...
    [INFO]                                                                         
