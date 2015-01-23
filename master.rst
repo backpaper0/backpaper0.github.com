@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/01/24/git_rebase_merge
    2015/01/18/getting_started_libgdx
    2015/01/17/spring_boot_jsr330
    2015/01/16/jersey2_15_cdi
