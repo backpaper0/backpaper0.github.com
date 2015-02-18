@@ -6,7 +6,7 @@
 
 ただし再帰しすぎるとスタックオーバーフローでしにます。
 
-再帰による `1 + 2 + ... + n` を見てみましょう。
+再帰による ``1 + 2 + ... + n`` を見てみましょう。
 
 .. code-block:: java
 
@@ -26,7 +26,7 @@
        interface F<P, R> extends java.util.function.BiFunction<F<P, R>, P, R> {}
    }
 
-とっても分かりやすいコードですが `n` に `10000` 程度を与えただけでスタックオーバーフローになります。
+とっても分かりやすいコードですが ``n`` に ``10000`` 程度を与えただけでスタックオーバーフローになります。
 
 この再帰を末尾再帰にして最適化を行うのが今回の目的です。
 
@@ -122,18 +122,18 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 ただし、幸いにもJavaの標準APIには関数型インターフェースが豊富に用意されているので
 それらをextendsすることで用途に特化した関数型インターフェースを手に入れる事ができます。
 
-まず `TailCall` を関数型インターフェースにする事から始めましょう。
-ここでの課題は `get()` と `result()` の一本化です。
+まず ``TailCall`` を関数型インターフェースにする事から始めましょう。
+ここでの課題は ``get()`` と ``result()`` の一本化です。
 今のままではどうしても匿名クラスを導入する必要があります。
 
-`TailCall` と `Optional<Integer>` の `Pair` を返す `Supplier` とすることで
-`TailCall` を関数型インターフェースにできました。
+``TailCall`` と ``Optional<Integer>`` の ``Pair`` を返す ``Supplier`` とすることで
+``TailCall`` を関数型インターフェースにできました。
 
 .. code-block:: java
 
    interface TailCall extends Supplier<Pair<TailCall, Optional<Integer>>>{}
 
-これにより `done(Integer)` が返す値を匿名クラスではなくラムダ式で書けるようになりました。
+これにより ``done(Integer)`` が返す値を匿名クラスではなくラムダ式で書けるようになりました。
 
 .. code-block:: java
 
@@ -141,7 +141,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
        return () -> new Pair<>(null, Optional.of(result));
    }
 
-また `call(TailCall)` は次のように変更します。
+また ``call(TailCall)`` は次のように変更します。
 
 .. code-block:: java
 
@@ -149,17 +149,17 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
        return () -> new Pair<>(t.get(), Optional.empty());
    }
 
-こうすることで関数 `sum` は次のように書けます。
+こうすることで関数 ``sum`` は次のように書けます。
 
 .. code-block:: java
 
    F sum = (f, p, r) -> p < 1 ? done(r) : call(() -> f.apply(f, p - 1, r + p));
 
-それから結果を求める `Stream` 操作ですが、
-普通の再帰版では `TailCall` の `get()` を呼び出すことで `Stream`
-を構築していましたが `get()` が `Pair<TailCall, Optional<Integer>>` 
+それから結果を求める ``Stream`` 操作ですが、
+普通の再帰版では ``TailCall`` の ``get()`` を呼び出すことで ``Stream``
+を構築していましたが ``get()`` が ``Pair<TailCall, Optional<Integer>>`` 
 を返すようにしたので、
-`Pair<TailCall, Optional<Integer>>` の `Stream` を構築するようにします。
+``Pair<TailCall, Optional<Integer>>`` の ``Stream`` を構築するようにします。
 
 .. code-block:: java
 
@@ -258,10 +258,10 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 セミコロンレスJavaでも末尾再帰の最適化が出来る事が分かりました。
 これによりセミコロンレスJavaがまた一歩、実用的な言語へと近づいたと思われます。
 
-なお、今回は `javax.util.Pair` を使用しましたが、これが大変便利でした。
+なお、今回は ``javax.util.Pair`` を使用しましたが、これが大変便利でした。
 特にふたつの値を返す場合に今までは配列あたりを使用していたのでキャストが必須になっていましたが、
-`Pair` があればキャストも不要でコードがすっきりしました。
-また、ふたつ以上の値を返す場合は `Pair<T, Pair<U, V>>` などとすれば良いですね。
+``Pair`` があればキャストも不要でコードがすっきりしました。
+また、ふたつ以上の値を返す場合は ``Pair<T, Pair<U, V>>`` などとすれば良いですね。
 
 というわけでこれからもセミコロンレスJavaの可能性を探って行きたいと思います。
 

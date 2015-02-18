@@ -43,7 +43,7 @@
 
 * https://github.com/backpaper0/syobotsum
 
-`gradlew android:build` したらapkをビルドできます。
+``gradlew android:build`` したらapkをビルドできます。
 
 ちなみに実機で確認していません(ｷﾘｯ
 

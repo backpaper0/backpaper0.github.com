@@ -17,7 +17,7 @@ ParamConverterってなんやねん！って方は :doc:`/2013/07/17/jaxrs_param
 
 適当ですがサクッちょとサンプル書きました。
 
-* https://github.com/backpaper0/sandbox の `jersey-optional-example` ディレクトリ
+* https://github.com/backpaper0/sandbox の ``jersey-optional-example`` ディレクトリ
 
 リソースクラスをこちらにも掲載します。
 ちょー簡単な例ですが、こんな感じでリソースメソッドの引数にOptionalを使えるようになります。

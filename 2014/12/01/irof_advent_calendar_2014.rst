@@ -17,7 +17,7 @@
 
 * https://github.com/backpaper0/sandbox
 
-irofディレクトリに移動し `gradlew run` してください。
+irofディレクトリに移動し ``gradlew run`` してください。
 
 するとこうなります。
 
@@ -74,11 +74,11 @@ ASMの `ClassWriter <http://asm.ow2.org/asm50/javadoc/user/org/objectweb/asm/Cla
    reader.accept(classVisitor, 0);
 
 ちなみにASMはJDKにも入っています。
-`rt.jar` の `com.sun.xml.internal.ws.org.objectweb.asm` 以下がそうですね。
+``rt.jar`` の ``com.sun.xml.internal.ws.org.objectweb.asm`` 以下がそうですね。
 JAX-WSに使われているようです。
 
 あと `jersey-server <http://repo1.maven.org/maven2/org/glassfish/jersey/core/jersey-server/>`_ にも使われています。
-`jersey.repackaged.org.objectweb.asm` 以下がそうです。
+``jersey.repackaged.org.objectweb.asm`` 以下がそうです。
 
 まとめ
 --------------------------------------------------------------------------------

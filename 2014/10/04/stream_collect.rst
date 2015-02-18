@@ -6,22 +6,22 @@ Streamのcollectメソッドを学ぶ
 
 
 
-`collect` メソッドの概要
+``collect`` メソッドの概要
 ------------------------------
 
-端的に述べると `collectメソッド`_ は `Stream<T>` を `R` に変換する操作です。
+端的に述べると `collectメソッド`_ は ``Stream<T>`` を ``R`` に変換する操作です。
 
 より詳しく述べると、
-`Stream` の各要素( `T` )を中間コンテナ( `A` )に折り畳んだ後に最終的な結果( `R` )に変換する操作です。
+``Stream`` の各要素( ``T`` )を中間コンテナ( ``A`` )に折り畳んだ後に最終的な結果( ``R`` )に変換する操作です。
 
 括弧内のアルファベットは `Collector`_ が持つ3つの型変数に対応しています。
 
-* `T` : Streamの要素の型
-* `A` : **ミュータブル** な中間コンテナの型
-* `R` : 最終的に返される結果の型
+* ``T`` : Streamの要素の型
+* ``A`` : **ミュータブル** な中間コンテナの型
+* ``R`` : 最終的に返される結果の型
 
-例えば `Stream<Character>` を単純に繋げて `String` にする場合は、
-`Stream` の各 `Character` ( `T` )を `StringBuilder` ( `A` )に `append` した後に `String` ( `R` )に変換する、
+例えば ``Stream<Character>`` を単純に繋げて ``String`` にする場合は、
+``Stream`` の各 ``Character`` ( ``T`` )を ``StringBuilder`` ( ``A`` )に ``append`` した後に ``String`` ( ``R`` )に変換する、
 という流れになります。
 
 .. note::
@@ -31,7 +31,7 @@ Streamのcollectメソッドを学ぶ
 
 
 
-`Collector` インターフェースの説明
+``Collector`` インターフェースの説明
 ----------------------------------------
 
 `collectメソッド`_ は引数に `Collector`_ を取ります。
@@ -44,7 +44,7 @@ Streamのcollectメソッドを学ぶ
   並列処理のときは複数回実行されることがある。
 
 * `accumulator`_ : 中間コンテナへ値を折り畳む関数。
-  `Stream` の要素の数だけ実行される。
+  ``Stream`` の要素の数だけ実行される。
 
 * `combiner`_ : ふたつの中間コンテナをひとつにマージする関数。
   並列処理のときに実行されることがある。
@@ -59,24 +59,24 @@ Streamのcollectメソッドを学ぶ
 
 
 
-文字を結合する `Collector` の例
+文字を結合する ``Collector`` の例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-例えば `Character` の `Stream` を `StringBuilder` へ折り畳んで最終的に
-`String` に変換するという処理を考えてみます。
+例えば ``Character`` の ``Stream`` を ``StringBuilder`` へ折り畳んで最終的に
+``String`` に変換するという処理を考えてみます。
 
-`Collector` が返す関数はそれぞれ次のような処理を行うようにします。
+``Collector`` が返す関数はそれぞれ次のような処理を行うようにします。
 
-* `supplier`_ で `StringBuilder` のインスタンスを生成する
-* `accumulator`_ で `StringBuilder` へ `Character` を `append` する
-* `combiner`_ でふたつの `StringBuilder` をひとつにマージする
-* `finisher`_ で `StringBuilder` を `toString` する
+* `supplier`_ で ``StringBuilder`` のインスタンスを生成する
+* `accumulator`_ で ``StringBuilder`` へ ``Character`` を ``append`` する
+* `combiner`_ でふたつの ``StringBuilder`` をひとつにマージする
+* `finisher`_ で ``StringBuilder`` を ``toString`` する
 
 各関数のコードを記載します。
 
-* `supplier`
+* ``supplier``
 
-  引数なしで `StringBuilder` のインスタンスを返します。
+  引数なしで ``StringBuilder`` のインスタンスを返します。
 
   .. code-block:: java
 
@@ -88,11 +88,11 @@ Streamのcollectメソッドを学ぶ
 
      StringBuilder::new
 
-* `accumulator`
+* ``accumulator``
 
-  `StringBuilder` と `Character` を受け取って
-  `append` します。
-  戻り値は `void` です。
+  ``StringBuilder`` と ``Character`` を受け取って
+  ``append`` します。
+  戻り値は ``void`` です。
 
   .. code-block:: java
 
@@ -104,10 +104,10 @@ Streamのcollectメソッドを学ぶ
 
      StringBuilder::append
 
-* `combiner`
+* ``combiner``
 
-  ふたつの `StringBuilder` を受け取ってひとつの
-  `StringBuilder` にマージして返します。
+  ふたつの ``StringBuilder`` を受け取ってひとつの
+  ``StringBuilder`` にマージして返します。
 
   .. code-block:: java
 
@@ -119,9 +119,9 @@ Streamのcollectメソッドを学ぶ
 
      StringBuilder::append
 
-* `finisher`
+* ``finisher``
 
-  `StringBuilder` を受け取って `String` へ変換して返します。
+  ``StringBuilder`` を受け取って ``String`` へ変換して返します。
 
   .. code-block:: java
 
@@ -133,9 +133,9 @@ Streamのcollectメソッドを学ぶ
 
      StringBuilder::toString
 
-これら4つの関数をもとにして `Collector` インスタンスを生成します。
-愚直に `Collector` インターフェースを実装したクラスを作っても良いのですが
-`Collector` の `ofメソッド`_ を利用するのが楽です。
+これら4つの関数をもとにして ``Collector`` インスタンスを生成します。
+愚直に ``Collector`` インターフェースを実装したクラスを作っても良いのですが
+``Collector`` の `ofメソッド`_ を利用するのが楽です。
 
 .. code-block:: java
 
@@ -152,7 +152,7 @@ Streamのcollectメソッドを学ぶ
                         StringBuilder::append,     //combiner
                         StringBuilder::toString)); //finisher
 
-この `Collector` を使って文字を連結してみます。
+この ``Collector`` を使って文字を連結してみます。
 
 .. code-block:: java
 
@@ -161,13 +161,13 @@ Streamのcollectメソッドを学ぶ
 
 
 
-`Collector` の特性
+``Collector`` の特性
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Collector` はネストした列挙型 `Characteristics`_ を使用してみっつの特性を表すことができます。
+``Collector`` はネストした列挙型 `Characteristics`_ を使用してみっつの特性を表すことができます。
 各特性について説明します。
 
-* `CONCURRENT` : ひとつの結果コンテナインスタンスに対して複数スレッドから `accumulator` を実行できる特性です。
+* ``CONCURRENT`` : ひとつの結果コンテナインスタンスに対して複数スレッドから ``accumulator`` を実行できる特性です。
 
   つまり次のような処理を行っても不整合が起こらなければ、この特性を持っていると言えます。
 
@@ -180,22 +180,22 @@ Streamのcollectメソッドを学ぶ
      new Thread(() -> accumulator.accept(acc, t2)).start();
 
 
-* `IDENTITY_FINISH` : `finisher` が恒等関数であり、省略できる特性です。
+* ``IDENTITY_FINISH`` : ``finisher`` が恒等関数であり、省略できる特性です。
 
-  つまり `finisher` が次のような実装になる場合、この特性を持っていると言えます。
+  つまり ``finisher`` が次のような実装になる場合、この特性を持っていると言えます。
 
   .. code-block:: java
 
      Function<A, R> finisher = a -> (R) a;
 
-* `UNORDERED` : 操作が要素の順序に依存しない特性です。
+* ``UNORDERED`` : 操作が要素の順序に依存しない特性です。
 
 いずれの特性も性能向上のためのものと思われます。
 ですので特性をひとつも持たないとしても致命的な問題は無さそうです。
-むしろ自作 `Collector` がどの特性を持っているか分からない、いまいち自信が無いなどの場合は
-`Characteristics` を設定しない方が良いかも知れませんね。
+むしろ自作 ``Collector`` がどの特性を持っているか分からない、いまいち自信が無いなどの場合は
+``Characteristics`` を設定しない方が良いかも知れませんね。
 
-`Collector` インスタンスを生成する際に特性を与えたい場合は `of` メソッドの第5引数(可変長引数です)を使用します。
+``Collector`` インスタンスを生成する際に特性を与えたい場合は ``of`` メソッドの第5引数(可変長引数です)を使用します。
 
 .. code-block:: java
 
@@ -210,16 +210,16 @@ Streamのcollectメソッドを学ぶ
 中間コンテナの型変数について
 ----------------------------------------
 
-`Collector` は自分で実装しても良いですが、よく使われそうな実装を返す
-`static` メソッドを多数定義した `Collectors`_ というユーティリティクラスが提供されています。
+``Collector`` は自分で実装しても良いですが、よく使われそうな実装を返す
+``static`` メソッドを多数定義した `Collectors`_ というユーティリティクラスが提供されています。
 
 `Collectors`_ のメソッド一覧を眺めて戻り値に注目するとほとんどが
-`Collector<T, ?, R>` となっており、
+``Collector<T, ?, R>`` となっており、
 中間コンテナの型がワイルドカードで宣言されていることが分かります。
 
-冒頭でも書きましたが `Stream` の `collectメソッド`_ は `Stream<T>` を `R` に変換する操作です。
-このときの `T` と `R` は `Collector<T, A, R>` のそれに対応します。
-つまり `collectメソッド`_ を使うひと―― `Collector` の利用者――にとっては中間コンテナが何であるか意識する必要はないんですね。
+冒頭でも書きましたが ``Stream`` の `collectメソッド`_ は ``Stream<T>`` を ``R`` に変換する操作です。
+このときの ``T`` と ``R`` は ``Collector<T, A, R>`` のそれに対応します。
+つまり `collectメソッド`_ を使うひと―― ``Collector`` の利用者――にとっては中間コンテナが何であるか意識する必要はないんですね。
 
 このように利用者には不要な中間コンテナの型が見えており、
 実際にはワイルドカードが宣言されているというのは少し残念であり、
@@ -233,12 +233,12 @@ Streamのcollectメソッドを学ぶ
 ---------------------------------
 
 * 使う側としては中間コンテナの存在は無視る
-* よく分からんかったら `Characteristics` は付与しない
+* よく分からんかったら ``Characteristics`` は付与しない
 * 何はともあれ `collectメソッド`_ 便利
 
 こっから宿題。
 
-* Scalaの `scan` みたいなやつを実装してみる。
+* Scalaの ``scan`` みたいなやつを実装してみる。
 
   こんなやつです。
 

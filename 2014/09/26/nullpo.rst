@@ -12,7 +12,7 @@
    for (int x : xs) {
    }
 
-配列・リストが `null` なら拡張forループでぬるぽっ！
+配列・リストが ``null`` なら拡張forループでぬるぽっ！
 
 アンボクシング
 --------------------
@@ -34,7 +34,7 @@ throw
    UnsupportedOperationException e = null;
    throw e;
 
-`null` を `throw` したら投げられる例外はぬるぽっ！
+``null`` を ``throw`` したら投げられる例外はぬるぽっ！
 
 String switch
 ----------------
@@ -45,7 +45,7 @@ String switch
    switch (x) {
    }
 
-`String` のswitch文でぬるぽっ！
+``String`` のswitch文でぬるぽっ！
 
 try with resources
 --------------------
@@ -55,9 +55,9 @@ try with resources
    try (AutoCloseable x = null) {
    }
 
-try with resourcesで `AutoCloseable` が `null` なら `close` するときにぬるぽっ！には **ならない** 。
+try with resourcesで ``AutoCloseable`` が ``null`` なら ``close`` するときにぬるぽっ！には **ならない** 。
 
-`close` の前に `null` チェックするようにコンパイルされます。
+``close`` の前に ``null`` チェックするようにコンパイルされます。
 
 コンストラクタ
 ----------------
@@ -80,7 +80,7 @@ try with resourcesで `AutoCloseable` が `null` なら `close` するときに�
         }
     }
 
-フィールド `x` はfinalなのにぬるぽになるというアレです。
+フィールド ``x`` はfinalなのにぬるぽになるというアレです。
 コンストラクタ終わってないインスタンスはメソッドに渡さないでおきましょー。
 
 メソッド実行

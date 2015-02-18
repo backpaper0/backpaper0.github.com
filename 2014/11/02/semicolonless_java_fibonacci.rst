@@ -39,9 +39,9 @@
        interface G extends java.util.function.Function<G, F> {}
    }
 
-これを `SemicolonlessFibonacci.java` という名前で保存して
-`javac SemicolonlessFibonacci.java` でコンパイルし、
-`java -cp . SemicolonlessFibonacci 10` というふうに実行してください。
+これを ``SemicolonlessFibonacci.java`` という名前で保存して
+``javac SemicolonlessFibonacci.java`` でコンパイルし、
+``java -cp . SemicolonlessFibonacci 10`` というふうに実行してください。
 
 引数をいろいろ変えて試すと標準出力にフィボナッチ数が書き出されることがお分かり頂けると思います。
 
@@ -50,7 +50,7 @@
 
 今回、実現したかったことはステートレスな再帰です。
 
-セミコロンレスJavaでは戻り値をもつメソッドを定義できない( `return` にはセミコロンが必須のため )
+セミコロンレスJavaでは戻り値をもつメソッドを定義できない( ``return`` にはセミコロンが必須のため )
 という制限のためミュータブルなオブジェクトを引数にしてそれを更新することでメソッドの呼び出し元に値を戻すしかありません。
 たぶん。
 

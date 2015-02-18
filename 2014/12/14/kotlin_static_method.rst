@@ -45,7 +45,7 @@ Kotlinの思想がどうあれJava言語、または既存のJavaライブラリ
 今日のコード
 --------------------------------------------------------------------------------
 
-* https://github.com/backpaper0/sandbox の `kotlin-staticmethod-example` ディレクトリ
+* https://github.com/backpaper0/sandbox の ``kotlin-staticmethod-example`` ディレクトリ
 
 .. author:: default
 .. categories:: none

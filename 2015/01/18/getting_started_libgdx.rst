@@ -141,8 +141,8 @@ IntelliJ IDEAへのインポート
 実行する
 --------------------------------------------------------------------------------
 
-desktopプロジェクトの `src/main/java/yourpackage/DesktopLauncher.java` を実行してください。
-( `yourpackage` はセットアップ時に設定したパッケージです。
+desktopプロジェクトの ``src/main/java/yourpackage/DesktopLauncher.java`` を実行してください。
+( ``yourpackage`` はセットアップ時に設定したパッケージです。
 適宜読み替えてください。)
 
 結び

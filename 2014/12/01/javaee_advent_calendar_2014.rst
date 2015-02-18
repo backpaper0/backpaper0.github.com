@@ -26,7 +26,7 @@ JerseyはMavenのprofileという機能を使っていてGradleではその辺�
 
 というわけでサンプルにGradleのビルドファイルも追加しました。
 
-Mavenのインストールはバイナリを任意の場所にダウンロードして `bin` ディレクトリにパスを通せばおkです。
+Mavenのインストールはバイナリを任意の場所にダウンロードして ``bin`` ディレクトリにパスを通せばおkです。
 
 ビルドファイルの準備
 --------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ Mavenのインストールはバイナリを任意の場所にダウンロード
 Mavenの場合
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-まず、 `mvn archetype:generate` してください。
+まず、 ``mvn archetype:generate`` してください。
 それから出来たpom.xmlを編集します。
 
 次のdependencyManagement要素を追加してください。
@@ -57,12 +57,12 @@ Mavenの場合
 とはいえJerseyはサーバ側のAPI、クライアント側のAPI、MVC拡張など多数のJARに別れて提供されているので
 何を追加すれば良いのか最初は分からないと思います。
 
-今回はサーバ側のコードを書きたいので、 `jersey-server` を追加します。
+今回はサーバ側のコードを書きたいので、 ``jersey-server`` を追加します。
 また、Jerseyは `Grizzly <https://grizzly.java.net/>`_ や `Jetty <http://eclipse.org/jetty/>`_
 などのコンテナ上で動きますが、今回は `JDK付属のHttpServer <https://docs.oracle.com/javase/8/docs/jre/api/net/httpserver/spec/com/sun/net/httpserver/HttpServer.html>`_
-で動かしたいので `jersey-container-jdk-http` を追加します。
+で動かしたいので ``jersey-container-jdk-http`` を追加します。
 どんなコンテナが使えるかは http://repo1.maven.org/maven2/org/glassfish/jersey/containers/ を参照ください。
-最後にJUnitでサクッと走らせてテストするため `jersey-test-framework-provider-jdk-http` を追加します。
+最後にJUnitでサクッと走らせてテストするため ``jersey-test-framework-provider-jdk-http`` を追加します。
 
 .. code-block:: xml
 
@@ -85,7 +85,7 @@ Mavenの場合
 とまあ、こんな感じで良いでしょう。
 
 でもこんなことチンタラやってられないと思うので https://github.com/backpaper0/sandbox をcloneして
-`jersey-blank` ディレクトリ内の `pom.xml` をご利用ください。
+``jersey-blank`` ディレクトリ内の ``pom.xml`` をご利用ください。
 私も大抵、自分が過去に書いたビルドファイルをコピります。
 
 Gradleの場合
@@ -106,7 +106,7 @@ Gradleの場合
 
 まあ、この辺は適当に、足し算する簡単なやつで。
 
-`src/main/java/app/Calc.java` を作ります。
+``src/main/java/app/Calc.java`` を作ります。
 
 .. code-block:: java
 
@@ -130,7 +130,7 @@ Gradleの場合
    }
 
 で、JUnitテストです。
-`src/test/java/app/CalcTest.java` を作ります。
+``src/test/java/app/CalcTest.java`` を作ります。
 
 .. code-block:: java
 
@@ -226,7 +226,7 @@ JUnitテストを走らせている事からもお分かり頂けると思いま
        }
    }
 
-ほうっておいたら終了しちゃうので `System.in.read()` でスレッドを止めています。
+ほうっておいたら終了しちゃうので ``System.in.read()`` でスレッドを止めています。
 もちろん、他の手段で止めてもおkです。
 
 アプリケーションサーバにデプロイする
@@ -234,8 +234,8 @@ JUnitテストを走らせている事からもお分かり頂けると思いま
 
 GlassFishにデプロイする場合はdependencyのscopeをprovidedにしてWARファイルを作ってそれをデプロイすれば良いと思います。
 
-Tomcatにデプロイする場合は `jersey-container-jdk-http` を消して、
-`jersey-container-servlet` を追加してWARファイルを作りましょう。
+Tomcatにデプロイする場合は ``jersey-container-jdk-http`` を消して、
+``jersey-container-servlet`` を追加してWARファイルを作りましょう。
 こんな感じです。
 
 .. code-block:: xml

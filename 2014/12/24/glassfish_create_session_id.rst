@@ -6,11 +6,11 @@ GlassFishでセッションIDを生成してるところ
 相変わらずの小ネタです。
 
 以前調べたのですが、
-GlassFishでのHttpSession実装クラスは `org.apache.catalina.session.StandardSession` で、
+GlassFishでのHttpSession実装クラスは ``org.apache.catalina.session.StandardSession`` で、
 これはTomcatのコードを利用したものですが、
 セッションIDの生成処理は変更されているようです。
 
-なんやかんや辿って行くと `com.enterprise.util.uuid.UuidUtil` の `generateUuid`
+なんやかんや辿って行くと ``com.enterprise.util.uuid.UuidUtil`` の ``generateUuid``
 メソッドに行き着きました。
 
 コードを引用します。
@@ -51,8 +51,8 @@ GlassFishでのHttpSession実装クラスは `org.apache.catalina.session.Standa
 とか思ってしまったりしましたが "insure better uniqueness guarantees"
 とか書かれてるし衝突耐性高くて大丈夫なんでしょうたぶん。
 
-ちなみに `org.apache.catalina.session.StandardSession` は `org.glassfish.main.web:web-core <http://repo1.maven.org/maven2/org/glassfish/main/web/web-core/4.1/>`_ に、
-`com.enterprise.util.uuid.UuidUtil` は `org.glassfish.main.common:common-util <http://repo1.maven.org/maven2/org/glassfish/main/common/common-util/4.1/>`_ に入っています。
+ちなみに ``org.apache.catalina.session.StandardSession`` は `org.glassfish.main.web:web-core <http://repo1.maven.org/maven2/org/glassfish/main/web/web-core/4.1/>`_ に、
+``com.enterprise.util.uuid.UuidUtil`` は `org.glassfish.main.common:common-util <http://repo1.maven.org/maven2/org/glassfish/main/common/common-util/4.1/>`_ に入っています。
 
 
 というわけであっさりしていますが、以上。
