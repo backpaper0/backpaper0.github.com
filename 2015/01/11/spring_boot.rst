@@ -305,6 +305,11 @@ mvn archetype:generateした直後の状態は次のような感じです。
 
 * https://github.com/backpaper0/spring_boot_sample
 
+あわせて読みたい
+--------------------------------------------------------------------------------
+
+* `初心者大歓迎! webアプリを作ってみよう!勉強会のレポ起因にブログ書いてもらったからやってみた！！！ - そこに仁義はあるのか(仮) <http://syobochim.hatenablog.com/entry/2015/01/25/193327>`_
+
 .. author:: default
 .. categories:: none
 .. tags:: Java, Spring Boot, Maven

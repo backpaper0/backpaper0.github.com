@@ -135,6 +135,11 @@ build.gradleにも書いたけどbuildscriptのブロック内で拡張プロパ
 
 Gradle化すげえ簡単だった。
 
+あわせて読みたい
+--------------------------------------------------------------------------------
+
+* `初心者大歓迎! webアプリを作ってみよう!勉強会のレポ起因にブログ書いてもらったからやってみた！！！ - そこに仁義はあるのか(仮) <http://syobochim.hatenablog.com/entry/2015/01/25/193327>`_
+
 .. author:: default
 .. categories:: none
 .. tags:: Java, Spring Boot, Gradle
