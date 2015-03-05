@@ -90,10 +90,10 @@ UTF-8以外のファイルを読み込む場合は第二引数に ``Charset`` �
 
 ``Reader`` / ``InputStream`` / ``OutputStream`` にもそれぞれオンメモリで使用するためのクラスがあります。
 
-* ``StringWriter`` は ``String`` へ書き出せる ``Writer``
 * ``StringReader`` は ``String`` を読み込める ``Reader``
-* ``ByteArrayInputStream`` は ``String`` へ書き出せる ``InputStream``
-* ``ByteArrayOutputStream`` は ``String`` を読み込める ``OutputStream``
+* ``StringWriter`` は ``String`` へ書き出せる ``Writer``
+* ``ByteArrayInputStream`` は ``byte[]`` を読み込める ``InputStream``
+* ``ByteArrayOutputStream`` は ``byte[]`` へ書き出せる ``OutputStream``
 
 InputStreamをReaderへ/OutputStreamをWriterへ変換する
 --------------------------------------------------------------------------------
