@@ -9,7 +9,7 @@
    <blockquote class="twitter-tweet" lang="ja"><p>しょぼちむアドベントカレンダー、作っていただけたらきっと嬉しいんだろうけど、自分で作るのは違う気がする！！！！</p>&mdash; しょぼちむ@精進します (@syobochim) <a href="https://twitter.com/syobochim/status/529187751162163200">2014, 11月 3</a></blockquote>
    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
-というツイートのを見て軽い気持ちで作ってみましたが蓋を開けると色んな人が色んな事を書いており、
+というツイートを見て軽い気持ちで作ってみましたが蓋を開けると色んな人が色んな事を書いており、
 しょぼちむ本当に良かったね！っていう感じでいっぱいの楽しいアドベントカレンダーもはや24日目となりました。
 
 「しょぼつむ」作りました
