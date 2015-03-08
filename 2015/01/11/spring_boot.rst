@@ -312,5 +312,5 @@ mvn archetype:generateした直後の状態は次のような感じです。
 
 .. author:: default
 .. categories:: none
-.. tags:: Java, Spring Boot, Maven
+.. tags:: Java, Spring Boot, Maven, syobochim
 .. comments::
