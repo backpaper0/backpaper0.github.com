@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/03/09/jersey_hk2_aop
    2015/03/08/spring_boot_camp
    2015/03/05/io
    2015/02/28/junit_4_12_test_rule
