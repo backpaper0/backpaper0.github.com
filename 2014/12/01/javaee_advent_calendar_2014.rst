@@ -218,16 +218,11 @@ JUnitテストを走らせている事からもお分かり頂けると思いま
            rc.register(Calc.class);
    
            HttpServer httpServer = JdkHttpServerFactory.createHttpServer(uri, rc);
+           Runtime.getRuntime().addShutdownHook(new Thread(() -> httpServer.stop(0)));
    
            System.out.println("JAX-RS started");
-           System.in.read();
-   
-           httpServer.stop(0);
        }
    }
-
-ほうっておいたら終了しちゃうので ``System.in.read()`` でスレッドを止めています。
-もちろん、他の手段で止めてもおkです。
 
 アプリケーションサーバにデプロイする
 --------------------------------------------------------------------------------
