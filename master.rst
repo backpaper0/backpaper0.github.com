@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/03/28/doma_listener_from_config
    2015/03/09/jersey_hk2_aop
    2015/03/08/spring_boot_camp
    2015/03/05/io
