@@ -7,7 +7,7 @@ Doma 2.2.0からは ``Config`` に ``getEntityListenerProvider`` というメソ
 ``EntityListener`` のインスタンス取得をフックできるようになりました。
 
 ``EntityListenerProvider`` は ``EntityListener`` のインスタンスを取得する ``get``
-メソッドを持っていますs。
+メソッドを持っています。
 ``EntityListenerProvider.get`` メソッドのデフォルト実装は次のようになっています。
 
 .. code-block:: java
