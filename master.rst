@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/06/29/grgit
    2015/06/19/payaya_micro_cluster
    2015/06/07/git_archive
    2015/05/29/wildfly_auto_download
