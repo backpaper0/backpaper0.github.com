@@ -24,6 +24,7 @@ Date and Time API と ラムダ式・Stream API
 
 * `「Java 8徹底再入門」に登壇しました。 - Programming Studio <http://www.coppermine.jp/docs/programming/2015/07/jsr310-kanjava.html>`_
 * `関ジャバに参加してきました： 【Date and Time API】Java 8徹底再入門【ラムダ式ハンズオン】(大阪,7/11) - ttshikoの日記 <http://d.hatena.ne.jp/ttshiko/20150712/1436659111>`_
+* `【Date and Time API】Java 8徹底再入門【ラムダ式ハンズオン】(大阪,7/11)に参加してきました - tomoTakaの日記 <http://d.hatena.ne.jp/tomoTaka/20150712>`_
 
 .. author:: default
 .. categories:: none
