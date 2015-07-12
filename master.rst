@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/07/12/jsr310_and_lambda_handson
    2015/06/29/grgit
    2015/06/19/payaya_micro_cluster
    2015/06/07/git_archive
