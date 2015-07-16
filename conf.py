@@ -11,7 +11,7 @@ import tinkerer.paths
 project = u'裏紙'                   
 
 # Change this to the tagline of your blog
-tagline = u'₍₍⁽⁽(ી(´・ᴗ・`)ʃ)₎₎⁾⁾'                  
+tagline = u'㌰㌰⋋( \'Θ\')⋌㌰㌰'                  
 
 # Change this to your name
 author = u'うらがみ'
