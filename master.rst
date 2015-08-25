@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/08/25/serialized_lambda
    2015/07/30/gradle_plugin
    2015/07/12/jsr310_and_lambda_handson
    2015/06/29/grgit
