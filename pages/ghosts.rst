@@ -6,6 +6,7 @@
 * `Arquillianではじめるコンテナを使ったテスト </ghosts/arquillian.html>`_
 * `KotlinでJAX-RS + おまけ </ghosts/kotlin-jaxrs.html>`_
 * `Javaでフィボナッチ数を求めるメソッドを末尾再帰最適化する </ghosts/optimized_tail_call_recursive_fibonacci_in_java.html>`_
+* `KotlinでDoma </ghosts/kotlin-doma.html>`_
 
 .. author:: default
 .. categories:: none
