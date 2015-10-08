@@ -84,5 +84,5 @@ Spring Bootでカラフルなバナーを表示してみた
 
 .. author:: default
 .. categories:: none
-.. tags:: Java, Sprint Boot
+.. tags:: Java, Spring Boot
 .. comments::
