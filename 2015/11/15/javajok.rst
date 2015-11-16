@@ -7,6 +7,7 @@ Eclipseへのインポート手順を解説していた `@backpaper0 <https://tw
 表題の通り、Javaのハンズオンイベントをお手伝いしてきました！
 
 * http://javajok.connpass.com/event/22044/
+* http://irof.hateblo.jp/entry/2015/11/16/235913 一緒にやった `@irofさん <https://twitter.com/irof>`_ のレポート
 
 会場は楽天株式会社大阪支社のカフェテリアをお借り致しました。
 `@bufferingsさん <https://twitter.com/bufferings>`_ 、休日なのにいつも笑顔でお付き合いくださりありがとうございます！
