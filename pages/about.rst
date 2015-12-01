@@ -8,13 +8,11 @@
 好きなこと・もの、興味のあること
 --------------------------------
 
-* GlassFish
-* 並行プログラミング
-* JVM
-* Sphinx
-* ギター
-* チョコレート
-* ネギ
+* JAX-RS
+* Doma
+* GlassFish/Payara
+* java.util.concurrent.*
+* libGDX
 
 .. _`@backpaper0`: https://twitter.com/backpaper0
 
