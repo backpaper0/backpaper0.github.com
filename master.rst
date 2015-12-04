@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/12/05/semicolonless_java_enum_method
    2015/12/01/jjug_ccc_2015_fall
    2015/11/15/javajok
    2015/10/08/spring_boot_rich_banner
