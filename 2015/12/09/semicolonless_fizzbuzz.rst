@@ -276,6 +276,141 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 というわけで、セミコロンなどレスJavaでFizzBuzzしてみた話でした。
 
+追記：new演算子を消す
+--------------------------------------------------
+
+new演算子を使っているのは次の3つのクラスです。
+
+* ``AtomicInteger``
+* ``BigInteger``
+* ``StringBuilder``
+
+まず ``BigInteger`` ですが、
+``BigInteger.valueOf`` という便利なファクトリーメソッドがありました。
+
+.. code-block:: java
+
+   //これはセミコロンを書いて良い普通のJava
+
+   //これは
+   new BigInteger("100");
+
+   //これで良い！！
+   BigInteger.valueOf(100);
+
+次に ``StringBuilder`` ですが、
+``String.valueOf`` と ``String.concat`` を併用すれば良い事に気が付きました。
+
+.. code-block:: java
+
+   //これはセミコロンを書いて良い普通のJava
+
+   //これは
+   String s = new StringBuilder()
+       .append((char) 0x68)
+       .append((char) 0x65)
+       .append((char) 0x6c)
+       .append((char) 0x6c)
+       .append((char) 0x6f).toString();
+
+   //これで良い！！
+   String s = String.valueOf((char) 0x68)
+      .concat(String.valueOf((char) 0x65))
+      .concat(String.valueOf((char) 0x6c))
+      .concat(String.valueOf((char) 0x6c))
+      .concat(String.valueOf((char) 0x6f));
+
+最後に ``AtomicInteger`` ですが、
+
+.. raw:: html
+
+   <blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr"><a href="https://twitter.com/backpaper0">@backpaper0</a> <a href="https://twitter.com/nagise">@nagise</a> IntStream.generate(() -&gt; (int)(Math.random()*100)).distinct().limit(100).sorted()　これでどうでしょ？ツイートの長さ的に*使ってますけど，いい感じにしてください</p>&mdash; 卒研で死にそうなきつね (@bitter_fox) <a href="https://twitter.com/bitter_fox/status/674438084474200066">2015, 12月 9</a></blockquote>
+   <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
+
+素晴らしい！！！(いろんな意味で)
+
+きつねさんのアイデアを元に、
+
+* 数値演算子を使わなくて済むように ``Random.nextInt`` を使用
+* new演算子を使わないためにstaticファクトリーメソッドがある ``SecureRandom`` を使用
+
+といった事に気をつけて次のようなコードにしました。
+
+.. code-block:: java
+
+   //これはセミコロンを書いて良い普通のJava
+
+   //これで1〜100のIntStreamが手に入る
+   SecureRandom r = SecureRandom.getInstanceStrong();
+   IntStream stream = IntStream.generate(() -> r.nextInt(101))
+                               .distinct().limit(101)
+                               .sorted().skip(1);
+
+ちなみに、私が考えついたのは次のようなコードでした。
+
+.. code-block:: java
+
+   //これはセミコロンを書いて良い普通のJava
+   Stream.of((ArrayList) Collectors.toList().supplier().get())
+         .peek(list -> list.add(BigInteger.ONE))
+         .map(list -> IntStream.generate(() ->
+            Stream.of((BigInteger) list.get(0))
+                  .peek(a -> list.remove(0))
+                  .peek(a -> list.add(a.add(BigInteger.ONE)))
+                  .findFirst().get().intValue()))
+         .findFirst().get();
+
+簡単に言うと ``ArrayList`` から値を取り出して返し、その値に1足して、また ``ArrayList`` に格納する、を繰り返しています。
+
+``ArrayList`` の生成には ``Collectors.toList`` で返される ``Collector`` の ``supplier`` を利用しました。
+ぶっちゃけ ``Collectors.toList`` の実装に依存しており美しくないですね。
+
+また、記号を抑えるためにraw型を使用していますが、そのせいでキャストが多発しており、これも美しくないです。
+
+その点、きつねさんが提案してくれた方法はコードが美しく、より狂気があふれており素晴らしい！！！
+
+というわけで、セミコロンなどレスJavaで書いたFizzBuzzは次のようになりました。
+
+.. code-block:: java
+
+   public class SemicolonlessFizzBuzz {
+   
+       public static void main(String... args) throws Exception {
+           if (java.util.stream.Stream
+               .of(java.security.SecureRandom.getInstanceStrong())
+               .map(r -> java.util.stream.IntStream
+                   .generate(() -> r.nextInt(101))
+                   .distinct().limit(101).sorted().skip(1)
+                   .mapToObj(i -> java.util.Optional.of(java.math.BigInteger.valueOf(i)))
+                   .map(i -> i.filter(a -> a.mod(java.math.BigInteger.valueOf(15))
+                       .equals(java.math.BigInteger.ZERO)).map(a ->
+                                       String.valueOf((char) 0x46)
+                               .concat(String.valueOf((char) 0x69))
+                               .concat(String.valueOf((char) 0x7a))
+                               .concat(String.valueOf((char) 0x7a))
+                               .concat(String.valueOf((char) 0x42))
+                               .concat(String.valueOf((char) 0x75))
+                               .concat(String.valueOf((char) 0x7a))
+                               .concat(String.valueOf((char) 0x7a)))
+            .orElseGet(() -> i.filter(a -> a.mod(java.math.BigInteger.valueOf(3))
+                       .equals(java.math.BigInteger.ZERO)).map(a ->
+                                       String.valueOf((char) 0x46)
+                               .concat(String.valueOf((char) 0x69))
+                               .concat(String.valueOf((char) 0x7a))
+                               .concat(String.valueOf((char) 0x7a)))
+            .orElseGet(() -> i.filter(a -> a.mod(java.math.BigInteger.valueOf(5))
+                       .equals(java.math.BigInteger.ZERO)).map(a ->
+                                       String.valueOf((char) 0x42)
+                               .concat(String.valueOf((char) 0x75))
+                               .concat(String.valueOf((char) 0x7a))
+                               .concat(String.valueOf((char) 0x7a)))
+                   .orElseGet(() -> i.get().toString()))))
+               .collect(java.util.stream.Collectors.joining(String.valueOf((char) 0x20))))
+               .peek(fizzbuzz -> System.out.println(fizzbuzz))
+               .count() > 0) {}
+       }
+   }
+
 .. author:: default
 .. categories:: none
 .. tags:: Java, SemicolonlessJava
