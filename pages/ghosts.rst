@@ -8,6 +8,7 @@
 * `Javaでフィボナッチ数を求めるメソッドを末尾再帰最適化する </ghosts/optimized_tail_call_recursive_fibonacci_in_java.html>`_
 * `KotlinでDoma </ghosts/kotlin-doma.html>`_
 * `JAX-RS入門および実践 </ghosts/jaxrs-getting-started-and-practice.html>`_
+* `Java EE 8を先取る </ghosts/jersey-sse-ozark.html>`_
 
 .. author:: default
 .. categories:: none
