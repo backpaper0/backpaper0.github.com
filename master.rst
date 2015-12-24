@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/12/24/run_at_startup_in_javaee
    2015/12/13/semicolonless_javaee
    2015/12/09/semicolonless_fizzbuzz
    2015/12/05/semicolonless_java_enum_method
