@@ -41,7 +41,7 @@ Payara Microを2つ立ち上げた際の2つめのPayara Microのログの抜粋
 
 というわけで次のようにすればいけた。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
    java -Djava.net.preferIPv4Stack=true -jar payara-micro-4.1.152.1.jar --deploy clusterjsp.war --port 8000
 

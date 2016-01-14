@@ -14,7 +14,7 @@ Tinkererをインストールする
 
 easy_installで一発ですよ奥さん。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
     easy_install -U Tinkerer
 
@@ -23,7 +23,7 @@ easy_installで一発ですよ奥さん。
 
 適当にディレクトリ作ってからtinker -sします。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
     mkdir blog
     cd blog
@@ -36,7 +36,7 @@ conf.pyが作成されるのでブログの名前とか設定します。
 
 エントリ作ります。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
     tinker -p "Welcome to Tinkerer"
 
@@ -45,7 +45,7 @@ conf.pyが作成されるのでブログの名前とか設定します。
 ビルドする
 ------------------------
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
     tinker -b
 

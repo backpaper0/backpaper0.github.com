@@ -24,7 +24,7 @@ Spring Bootでカラフルなバナーを表示してみた
 
 次のGroovyコマンドを試してみてください。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
    groovy -e "System.out.write(0x1b);println('[48;05;20mHello, World!')"
 

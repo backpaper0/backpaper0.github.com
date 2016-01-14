@@ -123,7 +123,7 @@ JerseyクライアントでHTTPリクエストを行っているようです。
 
 一旦ドメインを停止してデバッグモードで起動し直します。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
    asadmin start-domain --debug domain1
 
@@ -165,7 +165,7 @@ HTTPリクエストがプロキシ経由になっているのがマズいよう�
 
 ``localhost`` をプロキシを通過する対象から外してみました。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
    asadmin create-jvm-options -Dhttp.nonProxyHosts=localhost
 

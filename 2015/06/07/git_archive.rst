@@ -10,7 +10,7 @@ GitHubにもpushしてない状態でちょっと人に見てもらいたいな�
 
 ``git archive`` コマンドを使います。
 
-.. sourcecode:: none
+.. sourcecode:: sh
 
    git archive --format=zip HEAD > ../hoge.zip
 
