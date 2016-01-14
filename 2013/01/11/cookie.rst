@@ -10,7 +10,7 @@ GlassFish 3.1.2.2でCookieにsecure属性とhttpOnly属性をつける
 
 javax.servlet.SessionCookieConfig_ を使用します。
 
-.. code-block:: java
+.. sourcecode:: java
 
     package example;
 
@@ -36,7 +36,7 @@ GlassFish Server Deployment Descriptorで設定する
 
 `cookie-properties - Oracle GlassFish Server 3.1 Application Deployment Guide`_ を参照。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE glassfish-web-app PUBLIC

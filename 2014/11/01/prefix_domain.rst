@@ -13,14 +13,14 @@ SIerで業務アプリ作ってると検索して結果をグリッド表示す�
 加えて、どちらも前方一致で検索するとします。
 この検索を行うDAOメソッドを何も考えずに書くとこうなります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Select
    List<Emp> select(EmpId empId, DeptId deptId);
 
 ちなみにSQLファイルは雰囲気こんな感じで。
 
-.. code-block:: sql
+.. sourcecode:: sql
 
    SELECT /*%expand */*
      FROM emp
@@ -36,7 +36,7 @@ Stringを使う
 
 そこで検索条件を汎用的な型であるStringに変更します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Select
    List<Emp> select(String empId, String deptId);
@@ -51,7 +51,7 @@ EmpIdの不適切な使用はなくなりましたが、
 
 次にコードを記載します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import java.util.Optional;
    
@@ -79,7 +79,7 @@ EmpIdの不適切な使用はなくなりましたが、
 
 このPrefix<DOMAIN>を使用するとDAOメソッドは次のようになります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Select
    List<Emp> select(Prefix<EmpId> empId, Prefix<DeptId> deptId);

@@ -49,7 +49,7 @@ ASMの `ClassWriter <http://asm.ow2.org/asm50/javadoc/user/org/objectweb/asm/Cla
 
 例えばインスタンスメソッドを実行してるコードを見つけて標準出力に書き出すようなアレは次のように書けます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    ClassReader reader = new ClassReader("irof.Irof");
 

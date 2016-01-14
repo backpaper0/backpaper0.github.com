@@ -5,7 +5,7 @@ KotlinではじめるJAX-RS
 
 説明はもろもろすっ飛ばしてリソースクラスのコード掲載します。
 
-.. code-block:: kotlin
+.. sourcecode:: kotlin
 
    package app
    

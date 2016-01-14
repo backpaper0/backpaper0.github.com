@@ -9,7 +9,7 @@ Visitorパターンについて考えた
 例えば数値を表すNumNode、足し算を表すAddNode、それらのインターフェースとなるNodeがあるとします。
 で、計算を実装する場合Nodeにcalcメソッドとか定義してNumNodeとAddNodeで実装します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -48,7 +48,7 @@ Visitorパターンについて考えた
 
 こいつで2 + 3 + 4を計算する場合は次のように使います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -73,7 +73,7 @@ Visitorパターンについて考えた
 さて、今度は組み立てたNodeをWriterへ書き出したくなったとします。
 Nodeへprintメソッドを追加します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -137,7 +137,7 @@ Nodeから処理を取り除いて外から渡すことを考えてみます。
 
 まずはinstanceofで分岐しつつ各Node実装クラスについて処理してみます。
 
-.. code-block:: java
+.. sourcecode:: java
    
    package visitor;
    
@@ -190,7 +190,7 @@ Stringかprimitiveまたはenumしか使えないので今回の例には不適�
 
 いやいやそんなのポリもーなんとかでアレすれば良いじゃん、という事で次のようなインターフェースを作ります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    interface Visitor4 {
    
@@ -201,7 +201,7 @@ Stringかprimitiveまたはenumしか使えないので今回の例には不適�
 
 これをこういう風に実装すれば……
 
-.. code-block:: java
+.. sourcecode:: java
 
    class Calclurator4 implements Visitor4 {
    
@@ -224,7 +224,7 @@ calcメソッド内のvisit(node)やAddNodeをとるvisitメソッド内でのvi
 
 無理矢理コンパイルを通そうと思うとこんなコードになりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    class Calclurator4 implements Visitor4 {
    
@@ -283,7 +283,7 @@ calcメソッド内のvisit(node)やAddNodeをとるvisitメソッド内でのvi
 
 Nodeにacceptメソッドを追加して実装クラスで対応するvisitメソッドを呼ぶようにします。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -379,7 +379,7 @@ Nodeにacceptメソッドを追加して実装クラスで対応するvisitメ�
 
 これは次のように使います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -427,7 +427,7 @@ Nodeにacceptメソッドを追加して実装クラスで対応するvisitメ�
 使いましょう。
 引数と戻り値をジェネリクスでアレします。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -522,7 +522,7 @@ Nodeにacceptメソッドを追加して実装クラスで対応するvisitメ�
 やってしまいましょう。
 Visitorの定義を少し修正します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package visitor;
    
@@ -615,7 +615,7 @@ Calculatorではチェック例外を投げず、PrinterではIOExceptionを投�
 Groovyではどのメソッドを呼ぶかは実行時に決まるのでacceptメソッドが不要です。
 たしか動的ディスパッチと呼ばれていたと思います。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    class AddNode {
        def left
@@ -646,7 +646,7 @@ Groovyではどのメソッドを呼ぶかは実行時に決まるのでaccept�
 またScalaではパターンマッチを使えば良いです。
 ケースの漏れはsealedを使えば検出可能だったと思います。
 
-.. code-block:: scala
+.. sourcecode:: scala
 
    sealed trait Node
    case class NumNode(value: Int) extends Node

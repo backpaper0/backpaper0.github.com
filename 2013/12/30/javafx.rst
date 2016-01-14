@@ -26,7 +26,7 @@ Hoge駆動の忘年会というぁゃしぃ集まりでは
 StackPaneあたりに必要なだけNodeを突っ込んでvisibleを切り替える、
 というのがもっと良いんじゃないかと現時点では思っています。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package sample;
    
@@ -97,7 +97,7 @@ Scene Builderを使って画面を組み立てる場合はまずTableViewをペ�
 データを表示するときは `TableColumn#setCellValueFactory(Callback) <http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableColumn.html#setCellValueFactory(javafx.util.Callback)>`_ を使って値のファクトリーを設定して、
 TableViewのitemsへaddします。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package sample;
    
@@ -149,7 +149,7 @@ Callback実装クラスではセル毎にcallメソッドが呼ばれるよう�
 TableCellではsetGraphicメソッドでボタンをセットしています。
 これでセルにボタンを置く事が出来るようです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class GridController implements Initializable {
    
@@ -226,7 +226,7 @@ Swingで言うところのJOptionPaneのようなお手軽ダイアログは無�
 SwingWorker的なやつです。
 こんな感じの雰囲気で。
 
-.. code-block:: java
+.. sourcecode:: java
 
 
    Service<String> service = new Service<String>() {
@@ -262,7 +262,7 @@ succeededメソッドは処理が正常終了したときに呼ばれます。
 finally的なアレを実現する方法として今んところ思いついているのは、Taskには実行中かそうでないかを表すrunningというbooleanのプロパティがあるので、
 それにリスナーを追加します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    task.runningProperty().addListener(
            new ChangeListener<Boolean>() {
@@ -283,7 +283,7 @@ StackPaneにメインとなるPaneとProgressIndicatorを含んだPaneを突っ�
 
 というわけでバックグラウンド処理のサンプルを次に記載します。
 
-.. code-block:: java
+.. sourcecode:: java
 
 
    package sample;

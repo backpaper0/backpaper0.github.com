@@ -19,7 +19,7 @@ pom.xmlに突っ込むdependency
 
 があるっぽいですがRxJavaとかよく分かんないので今回はjava8で試します。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependency>
      <groupId>org.glassfish.jersey.ext.rx</groupId>
@@ -33,7 +33,7 @@ pom.xmlに突っ込むdependency
 
 まずはふつうのJAX-RSクライアントのコード。
 
-.. code-block:: java
+.. sourcecode:: java
 
    WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/rest/hello");
 
@@ -47,7 +47,7 @@ pom.xmlに突っ込むdependency
 
 次にRx板のコードです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/rest/hello");
 

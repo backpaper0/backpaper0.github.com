@@ -16,7 +16,7 @@ Stringの引数をひとつだけ受け取るpublicなコンストラクタを�
 
 次のようなクラスでもクエリパラメータなどを受け取ることが出来ます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class Hoge {
 
@@ -29,7 +29,7 @@ Stringの引数をひとつだけ受け取るpublicなコンストラクタを�
 
 リソースメソッドでは次のように使います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    public String get(@QueryParam("abc") Hoge abc) {
@@ -44,7 +44,7 @@ Stringの引数をひとつだけ受け取る"valueOf"という名前のstatic�
 
 次のようなクラスを使用することも可能です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class Hoge {
 
@@ -90,7 +90,7 @@ JAX-RS 2から
 
 ParamConverterの実装クラスではStringから任意のクラスに変換するロジックを書きます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class HogeParamConverter implements ParamConverter<Hoge> {
 
@@ -107,7 +107,7 @@ ParamConverterの実装クラスではStringから任意のクラスに変換す
 
 ParamConverterProviderの実装クラスではリソースメソッドの引数の型やアノテーションをもとにParamConverterを選択して返します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class HogeParamConverterProvider implements ParamConverterProvider {
 

@@ -22,7 +22,7 @@
 ある項のフィボナッチ数を書き出すプログラムですが、こんなコードになりました。
 うわ横に長え。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFibonacci {
    
@@ -54,7 +54,7 @@
 という制限のためミュータブルなオブジェクトを引数にしてそれを更新することでメソッドの呼び出し元に値を戻すしかありません。
 たぶん。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //戻り値のあるメソッドはreturnでセミコロン必要
    public int get() {
@@ -68,7 +68,7 @@
 
 セミコロンレスJava 8からはラムダ式を使えば戻り値をもつ処理を定義できるようになりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    if (Stream.<IntBinaryOperator> of((n, m) -> n + m) //二つのintを足して返す関数を定義
              .map(f -> f.applyAsInt(2, 3))            //関数適用
@@ -78,7 +78,7 @@
 
 ですが、自身を再帰呼び出しすることはできません。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンJava……ていうかJava
    IntUnaryOperator sum = n -> n == 0 ? 0 : n + sum(n - 1);
@@ -102,13 +102,13 @@ Zコンビネータ
 というわけでZコンビネータです。
 その定義は次の通りです。
 
-.. code-block:: none
+.. sourcecode:: none
 
    Z = λf. (λx. f (λy. x x y)) (λx. f (λy. x x y))
 
 これをJavaで書くとこんな感じになりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    static F z(Function<F, F> f) {
        Function<G, F> a = x -> f.apply(y -> x.apply(x).apply(y));
@@ -122,7 +122,7 @@ Zコンビネータ
 
 このzメソッドを用いてフィボナッチ数を求める処理を再帰で書いたのが次になります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Function<F, F> g = f -> n -> n <= 1 ? n : f.apply(n - 2) + f.apply(n - 1);
                                            //~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~ この辺が再帰

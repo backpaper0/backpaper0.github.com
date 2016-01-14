@@ -8,7 +8,7 @@
 
 再帰による ``1 + 2 + ... + n`` を見てみましょう。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessRecursion {
 
@@ -39,7 +39,7 @@
 `「Javaによる関数型プログラミング」 <http://www.oreilly.co.jp/books/9784873117041/>`_
 の7章を参考にしました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import java.util.Optional;
    import java.util.stream.Stream;
@@ -107,7 +107,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 値を返すメソッドの定義が出来ないセミコロンレスJavaですが、
 ラムダ式を使う事でセミコロンレスに関数を定義する事が可能です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //ふたつのintを足して返す関数を定義して2, 3に適用する
    if (java.util.stream.Stream
@@ -129,13 +129,13 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 ``TailCall`` と ``Optional<Integer>`` の ``Pair`` を返す ``Supplier`` とすることで
 ``TailCall`` を関数型インターフェースにできました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    interface TailCall extends Supplier<Pair<TailCall, Optional<Integer>>>{}
 
 これにより ``done(Integer)`` が返す値を匿名クラスではなくラムダ式で書けるようになりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    static TailCall done(Integer result) {
        return () -> new Pair<>(null, Optional.of(result));
@@ -143,7 +143,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 
 また ``call(TailCall)`` は次のように変更します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    static TailCall call(Supplier<TailCall> t) {
        return () -> new Pair<>(t.get(), Optional.empty());
@@ -151,7 +151,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 
 こうすることで関数 ``sum`` は次のように書けます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    F sum = (f, p, r) -> p < 1 ? done(r) : call(() -> f.apply(f, p - 1, r + p));
 
@@ -161,7 +161,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 を返すようにしたので、
 ``Pair<TailCall, Optional<Integer>>`` の ``Stream`` を構築するようにします。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Stream.iterate(new Pair<>(t, Optional.<Integer> empty()),
                   p -> p.getKey().get())
@@ -173,7 +173,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 
 ここまでのコード全体を次に記載します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import java.util.Optional;
    import java.util.function.Supplier;
@@ -223,7 +223,7 @@ Java 8時代におけるセミコロンレスJavaの鍵はラムダ式だと思�
 
 というわけでセミコロンレスJavaで末尾再帰最適化を行ったコードが次になります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessTailCallOptimization {
    

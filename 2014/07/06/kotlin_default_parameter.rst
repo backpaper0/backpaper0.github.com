@@ -6,7 +6,7 @@ Kotlinのデフォルト引数を調べた
 Kotlinはこんな感じでデフォルト引数が使えます。
 
 
-.. code-block:: kotlin
+.. sourcecode:: kotlin
 
    class Calc {
      fun add(x: Int = 1, y: Int = 2): Int = x + y
@@ -19,7 +19,7 @@ addの引数にデフォルト値を設定しているのでadd3やadd4で引数
 
 で、これをjavapしました。
 
-.. code-block:: none
+.. sourcecode:: none
 
      public final int add(int, int);
        descriptor: (II)I
@@ -147,7 +147,7 @@ addの引数にデフォルト値を設定しているのでadd3やadd4で引数
 判断の方法ですが、例えば第4引数と1との論理積が0の場合は第1引数にデフォルト値を、第4引数と2との論理積が0の場合は第2引数にデフォルト値を使用する、といった具合です。
 次に示す箇所がそれに当たります。
 
-.. code-block:: none
+.. sourcecode:: none
 
             1: iload_3       
             2: iconst_1      
@@ -163,7 +163,7 @@ intは32ビットなので33以上の引数にはどう対応してるのだろ�
 
 javapの抜粋を掲載しますがインデックス416以降がそれに当たります。
 
-.. code-block:: none
+.. sourcecode:: none
 
        390: iload         34
        392: ldc           #77                 // int 1073741824

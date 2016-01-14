@@ -17,7 +17,7 @@ Jersey 2.15でCDIとの統合機能が変更されたようです。
 
 メインクラスはこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package example;
    
@@ -52,7 +52,7 @@ Jersey 2.15でCDIとの統合機能が変更されたようです。
 
 pom.xmlのdependencyはこんな感じ。
 
-.. code-block:: xml
+.. sourcecode:: xml
  
    <dependency>
      <groupId>org.glassfish.jersey.ext.cdi</groupId>

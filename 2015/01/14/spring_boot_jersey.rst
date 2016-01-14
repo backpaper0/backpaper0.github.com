@@ -29,7 +29,7 @@ tag作りました。
 
 一通りコードを書いて、IDEから動かしたら起動時に例外が出ました。
 
-.. code-block:: none
+.. sourcecode:: none
 
    java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Tomcat].StandardHost[localhost].StandardContext[]]
        at java.util.concurrent.FutureTask.report(FutureTask.java:122)
@@ -62,13 +62,13 @@ tag作りました。
 maven-dependency-plugin の treeゴールを使えば依存関係を一覧できます。
 ``-l`` オプションでログをファイルに書き出してエディタで検索するのが楽だと思います。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    mvn -l log.txt dependency:tree -Dscope=test
 
 Mavenを実行すると次のようなログが書き出されました。
 
-.. code-block:: none
+.. sourcecode:: none
    :emphasize-lines: 69,70
 
    [INFO] Scanning for projects...

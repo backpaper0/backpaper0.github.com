@@ -12,7 +12,7 @@ Gitでブランチを統合する方法
 
 .. image:: /images/git_rebase_merge_2.*
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    git checkout master
    git merge other -m "Merge branch 'other'"
@@ -25,7 +25,7 @@ Gitでブランチを統合する方法
 
 .. image:: /images/git_rebase_merge_3.*
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    git checkout master
    git rebase master other
@@ -40,7 +40,7 @@ Gitでブランチを統合する方法
 
 .. image:: /images/git_rebase_merge_4.*
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    git checkout master
    git rebase master other
@@ -60,7 +60,7 @@ Gitでブランチを統合する方法
 
 最初に提示したコミットを作るスクリプト。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    #!/bin/sh
    rm -fr .git *.txt .gitignore

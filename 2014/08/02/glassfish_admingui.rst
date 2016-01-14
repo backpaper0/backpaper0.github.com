@@ -40,7 +40,7 @@ JVisualVM便利。
 その結果、次に記載するスレッドが怪しそうでした。
 ソケットからのデータ読み込み中で止まってる感じがします。
 
-.. code-block:: none
+.. sourcecode:: none
 
    "admin-thread-pool-4848(3)" daemon prio=6 tid=0x000000000a861800 nid=0xb08 runnable [0x000000001275c000]
       java.lang.Thread.State: RUNNABLE
@@ -123,7 +123,7 @@ JerseyクライアントでHTTPリクエストを行っているようです。
 
 一旦ドメインを停止してデバッグモードで起動し直します。
 
-.. code-block:: none
+.. sourcecode:: none
 
    asadmin start-domain --debug domain1
 
@@ -133,7 +133,7 @@ Eclipseのデバッグの設定から ``Remote Java Application`` を選んで�
 デバッグ用に適当にプロジェクトを作りました。
 ``dependency`` は適当に使ってそうなやつを突っ込んでおきました。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependencies>
      <dependency>
@@ -165,7 +165,7 @@ HTTPリクエストがプロキシ経由になっているのがマズいよう�
 
 ``localhost`` をプロキシを通過する対象から外してみました。
 
-.. code-block:: none
+.. sourcecode:: none
 
    asadmin create-jvm-options -Dhttp.nonProxyHosts=localhost
 

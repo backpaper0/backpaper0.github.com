@@ -6,7 +6,7 @@
 拡張forループ
 ----------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    int[] xs = null;
    for (int x : xs) {
@@ -17,7 +17,7 @@
 アンボクシング
 --------------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    Integer x = null;
    int y = x;
@@ -29,7 +29,7 @@
 throw
 -----------
 
-.. code-block:: java
+.. sourcecode:: java
 
    UnsupportedOperationException e = null;
    throw e;
@@ -39,7 +39,7 @@ throw
 String switch
 ----------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    String x = null;
    switch (x) {
@@ -50,7 +50,7 @@ String switch
 try with resources
 --------------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    try (AutoCloseable x = null) {
    }
@@ -62,13 +62,13 @@ try with resourcesで ``AutoCloseable`` が ``null`` なら ``close`` すると�
 コンストラクタ
 ----------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    new Hoge(a -> a.x.length());
 
 何の変哲も無いコンストラクタですが、ぬるぽっ！になるケースがあります。
 
-.. code-block:: java
+.. sourcecode:: java
 
     class Hoge {
 
@@ -86,7 +86,7 @@ try with resourcesで ``AutoCloseable`` が ``null`` なら ``close`` すると�
 メソッド実行
 ----------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    Hoge x = null;
    x.foobar();
@@ -95,7 +95,7 @@ try with resourcesで ``AutoCloseable`` が ``null`` なら ``close`` すると�
 
 これ。
 
-.. code-block:: java
+.. sourcecode:: java
 
     class Hoge {
 

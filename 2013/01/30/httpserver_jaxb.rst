@@ -11,7 +11,7 @@ HttpServerとJAXBでAPIを組込む
 
 ほい、サンプルコード。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import com.sun.net.httpserver.HttpContext;
    import com.sun.net.httpserver.HttpExchange;
@@ -94,7 +94,7 @@ Java SEでもHTTP鯖立てるの簡単ですね。
 ログはPOJOで表現していますが、JAXBでXMLに変換してレスポンスに書き出しています。
 このハンドラは次のようなXMLを返します。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
    <log>

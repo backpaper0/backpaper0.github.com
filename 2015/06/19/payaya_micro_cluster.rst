@@ -10,7 +10,7 @@ MacBook ProでPayara Microのクラスタリングを試そうとして躓いた
 
 Payara Microを2つ立ち上げた際の2つめのPayara Microのログの抜粋(クラスタ関連)がこれ。
 
-.. code-block:: none
+.. sourcecode:: none
 
    [2015-06-19T04:03:01.749+0900] [Payara 4.1] [INFO] [] [com.hazelcast.cluster.impl.MulticastJoiner] [tid: _ThreadID=1 _ThreadName=main] [timeMillis: 1434654181749] [levelValue: 800] [[
      [192.168.99.1]:5901 [dev] [3.4.2]
@@ -41,7 +41,7 @@ Payara Microを2つ立ち上げた際の2つめのPayara Microのログの抜粋
 
 というわけで次のようにすればいけた。
 
-.. code-block:: none
+.. sourcecode:: none
 
    java -Djava.net.preferIPv4Stack=true -jar payara-micro-4.1.152.1.jar --deploy clusterjsp.war --port 8000
 
@@ -49,7 +49,7 @@ Payara Microを2つ立ち上げた際の2つめのPayara Microのログの抜粋
 組めるぞおおおおおおお！
 ( ﾟ∀ﾟ)ｱﾊﾊ八八ﾉヽﾉヽﾉヽﾉ ＼ / ＼/ ＼
 
-.. code-block:: none
+.. sourcecode:: none
 
    [2015-06-19T04:11:18.909+0900] [Payara 4.1] [INFO] [] [com.hazelcast.cluster.ClusterService] [tid: _ThreadID=45 _ThreadName=hz.glassfish-web.server.generic-operation.thread-1] [timeMillis: 1434654678909] [levelValue: 800] [[
      [192.168.99.1]:5900 [dev] [3.4.2]

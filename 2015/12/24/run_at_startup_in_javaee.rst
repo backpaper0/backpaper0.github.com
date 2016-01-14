@@ -23,7 +23,7 @@ Java EEアプリケーションで起動時になにかしらの処理をする�
 
 具体的にはこんなコードです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import javax.enterprise.context.ApplicationScoped;
    import javax.enterprise.context.Initialized;

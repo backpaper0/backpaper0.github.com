@@ -4,7 +4,7 @@ Java8でBDDっぽくテストを書けるかもしれないアイデア
 JasmineでJavaScriptのテスト書いたりJava8のラムダに思いを馳せていたらなんとなく思いつきました。
 ラムダにインスタンスイニシャライザを組み合わせたらこんな感じでテストが書けそうです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    
@@ -33,7 +33,7 @@ SpecRunnerはSpecsに集められたテストを実行します。
 
 Specsはこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    
@@ -88,7 +88,7 @@ Specsはこんな感じ。
 
 SpecRunnerはこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    

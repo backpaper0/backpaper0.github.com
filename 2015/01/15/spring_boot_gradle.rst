@@ -16,13 +16,13 @@ tagは https://github.com/backpaper0/spring_boot_sample/releases/tag/gradle で�
 
 まず、おもむろにgradle initしました。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    gradle init
 
 すでにpom.xmlがあるので依存関係とか色々よろしくやってくれたbuild.gradleが出力されました。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    apply plugin: 'java'
    apply plugin: 'maven'
@@ -60,7 +60,7 @@ tagは https://github.com/backpaper0/spring_boot_sample/releases/tag/gradle で�
 `10.1.2 Gradle installation <http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#getting-started-gradle-installation>`_
 を参考にしてちょこちょこっと編集しました。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    buildscript {
      repositories {

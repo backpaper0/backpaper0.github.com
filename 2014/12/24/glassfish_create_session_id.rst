@@ -15,7 +15,7 @@ GlassFishでのHttpSession実装クラスは ``org.apache.catalina.session.Stand
 
 コードを引用します。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      //this method can take in the session object
      //and insure better uniqueness guarantees

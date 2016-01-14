@@ -3,7 +3,7 @@ GlassFish v3.1.2.2でServerヘッダとX-Powered-Byヘッダを返さないよ�
 
 まずはServerヘッダ。
 
-.. code-block:: none
+.. sourcecode:: none
 
    asadmin create-jvm-option -Dproduct.name=
 
@@ -11,7 +11,7 @@ JVMオプションなので設定の反映にはGlassFishを再起動する必�
 
 次、X-Powered-Byヘッダ。
 
-.. code-block:: none
+.. sourcecode:: none
 
    asadmin set configs.config.server-config.network-config.protocols.protocol.http-listener-1.http.xpowered-by=false
 
@@ -21,7 +21,7 @@ JVMオプションなので設定の反映にはGlassFishを再起動する必�
 default-web.xmlでJspServletを設定しているところを見つけます。
 でフォルトではxpoweredByがtrueに設定されているのでこれをfalseにします。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <servlet>
      <servlet-name>jsp</servlet-name>

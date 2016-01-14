@@ -23,7 +23,7 @@ JAX-RSにいくつかあるリクエストパラメータの受け取りかた�
 というわけでリベンジしました。
 次のような感じで書けます。
 
-.. code-block:: kotlin
+.. sourcecode:: kotlin
 
    package app
    

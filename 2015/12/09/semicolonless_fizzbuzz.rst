@@ -9,7 +9,7 @@
 
 セミコロンレスJava 8でFizzBuzzを書いてみましょう。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    
@@ -34,7 +34,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 よく見ると ``[`` と ``]`` は ``main`` メソッドの引数で1回ずつしか使っていません。
 可変長引数にすると消せますね。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    
@@ -59,7 +59,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 例えば次のコードは、
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    int i = ...
@@ -67,7 +67,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 こう書けます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    int i = ...
@@ -75,7 +75,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 ``:`` と ``?`` を消せました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    
@@ -101,7 +101,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 例えば次のコードは、
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    int i = ...
@@ -109,7 +109,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 こう書けます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    BigInteger i = ...
@@ -117,7 +117,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 ``%`` と ``=`` を消せました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    
@@ -150,14 +150,14 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 例えば次のコードは、
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    String s = "hello";
 
 こう書けます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    String s = new StringBuilder().append((char) 0x68)
@@ -169,7 +169,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 ``"`` を消せました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    
@@ -216,7 +216,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 仕方がないので ``AtomicInteger.incrementAndGet`` と ``IntStream.generate`` を組み合わせてストリームを構築して、
 ``IntStream.limit`` で上限を設定すれば1〜100の ``IntStream`` が手に入ります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
 
@@ -229,7 +229,7 @@ Stream APIとラムダ式のおかげでかなり簡単に書けました。
 
 ``,`` が消えて最終的にこうなりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    
@@ -288,7 +288,7 @@ new演算子を使っているのは次の3つのクラスです。
 まず ``BigInteger`` ですが、
 ``BigInteger.valueOf`` という便利なファクトリーメソッドがありました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
 
@@ -301,7 +301,7 @@ new演算子を使っているのは次の3つのクラスです。
 次に ``StringBuilder`` ですが、
 ``String.valueOf`` と ``String.concat`` を併用すれば良い事に気が付きました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
 
@@ -336,7 +336,7 @@ new演算子を使っているのは次の3つのクラスです。
 
 といった事に気をつけて次のようなコードにしました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
 
@@ -348,7 +348,7 @@ new演算子を使っているのは次の3つのクラスです。
 
 ちなみに、私が考えついたのは次のようなコードでした。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを書いて良い普通のJava
    Stream.of((ArrayList) Collectors.toList().supplier().get())
@@ -371,7 +371,7 @@ new演算子を使っているのは次の3つのクラスです。
 
 というわけで、セミコロンなどレスJavaで書いたFizzBuzzは次のようになりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFizzBuzz {
    

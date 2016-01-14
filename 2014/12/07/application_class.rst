@@ -7,7 +7,7 @@
 
 JavaFXアプリケーションのメインクラスは次のように書きますよね。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import javafx.application.Application;
    import javafx.stage.Stage;
@@ -31,7 +31,7 @@ Classを渡してるわけでもないのにインスタンス化されてstart�
 で、だいたい予想はつきましたが、Application.javaを読んでみました。
 その部分を引用します。
 
-  .. code-block:: java
+  .. sourcecode:: java
   
      // Figure out the right class to call
      StackTraceElement[] cause = Thread.currentThread().getStackTrace();

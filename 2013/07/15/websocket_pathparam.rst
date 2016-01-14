@@ -3,7 +3,7 @@ Java API for WebSocketの@PathParamを試す
 
 `@PathParam`_ というアノテーションでパスの一部をメソッドの引数で受け取ることができるようなので試してみました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package chat;
    

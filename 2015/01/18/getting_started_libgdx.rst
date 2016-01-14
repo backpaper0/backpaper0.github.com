@@ -17,7 +17,7 @@ libGDXはJavaのゲームフレームワークで、デスクトップ・Android
 
 ダウンロードできたらダブルクリック、もしくは次のコマンドで実行してください。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    java -jar gdx-setup.jar
    
@@ -57,7 +57,7 @@ libGDXはJavaのゲームフレームワークで、デスクトップ・Android
 
 次のようなログが出ると完了です。
 
-.. code-block:: none
+.. sourcecode:: none
 
    BUILD SUCCESSFUL
    
@@ -80,7 +80,7 @@ libGDXはJavaのゲームフレームワークで、デスクトップ・Android
 
 セットアップツールが .gitignore も出力してくれているのでややこしいことは何も考えずにバージョン管理を始められます。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    git init
    git add .
@@ -95,7 +95,7 @@ Eclipseへのインポート
 
 まずGradleでコマンドを実行します。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    gradlew eclipse
 
@@ -108,13 +108,13 @@ Eclipseへのインポート
 
    プロジェクトのパスをコピーするときはMacなら次のコマンドを使うとクリップボードに格納されて便利です。
 
-   .. code-block:: sh
+   .. sourcecode:: sh
 
       pwd|pbcopy
 
    Windowsなら次のコマンドで同じ事ができます。
 
-   .. code-block:: bat
+   .. sourcecode:: bat
 
       cd|clip
 

@@ -29,7 +29,7 @@ Java API for JSON Processingもリソースクラスの引数にJsonObjectを利
 
 JAX-RSのリソースメソッドはレスポンスにエンティティボディを含むものであれば通常は次のようなコードになります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -45,7 +45,7 @@ JAX-RSのリソースメソッドはレスポンスにエンティティボデ�
 ``@Suspended`` と ``AsyncResponse`` はクライアントとの接続をsuspendしておき、 ``AsyncResponse.resume`` に値を渡すことでresumeするためのものですが、
 これらを利用することで次のようなコードになりました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -72,7 +72,7 @@ JAX-RSのリソースメソッドはレスポンスにエンティティボデ�
 それはともかく、 ``EntityManager`` を取ってきましょう。
 普通は次のコードのようにフィールドインジェクションすると思います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @PersistenceContext(unitName = "SampleUnit")
    private EntityManager em;
@@ -83,7 +83,7 @@ JAX-RSのリソースメソッドはレスポンスにエンティティボデ�
 JSR 338 JPA 2.1仕様の「7.2.1 Obtaining an Entity Manager in the Java EE Environment」を読むと、
 アノテーションでJNDI名を定義してlookupできるっぽいのでこれを利用しました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @PersistenceContext(name = "SampleEM", unitName = "SampleUnit")
    public class SampleResource {
@@ -96,7 +96,7 @@ JSR 338 JPA 2.1仕様の「7.2.1 Obtaining an Entity Manager in the Java EE Envi
 この例だと変数 ``em`` に代入していますが、セミコロンレスJavaでは変数宣言も出来ません。
 なので次のように ``Stream`` を使うのが良いです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    if (Stream.of((EntityManager) InitialContext
                      .doLookup("java:comp/env/SampleEM"))

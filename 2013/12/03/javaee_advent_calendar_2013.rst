@@ -23,7 +23,7 @@ BeanValidationではフィールドやgetterに@NotNullとか@Sizeとかアノ�
 まず、正攻法と同じく独自のアノテーションとConstraintValidatorを導入します。
 アノテーションはこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
 
    package net.hogedriven.backpaper0.javaeeadventcalendar2013;
@@ -64,7 +64,7 @@ BeanValidationではフィールドやgetterに@NotNullとか@Sizeとかアノ�
 
 続いてConstraintValidatorはこんな感じです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package net.hogedriven.backpaper0.javaeeadventcalendar2013;
    
@@ -103,7 +103,7 @@ isValidメソッドでは具体的なバリデーションは行わずWithValida
 
 WithValidation実装クラスは例えばこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package net.hogedriven.backpaper0.javaeeadventcalendar2013;
    
@@ -182,7 +182,7 @@ BeanValidationはフィールドかgetterにアノテーションを付けてバ
 
 まずはTupleというクラスを導入。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package net.hogedriven.backpaper0.javaeeadventcalendar2013;
 
@@ -200,7 +200,7 @@ BeanValidationはフィールドかgetterにアノテーションを付けてバ
 
 次にConstraintValidator。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package net.hogedriven.backpaper0.javaeeadventcalendar2013;
    
@@ -228,7 +228,7 @@ BeanValidationはフィールドかgetterにアノテーションを付けてバ
 
 最後にアノテーション。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package net.hogedriven.backpaper0.javaeeadventcalendar2013;
    
@@ -268,7 +268,7 @@ BeanValidationはフィールドかgetterにアノテーションを付けてバ
 
 使い方は次のような感じです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    private String first;
 

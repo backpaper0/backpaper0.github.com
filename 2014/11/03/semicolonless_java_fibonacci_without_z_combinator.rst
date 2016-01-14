@@ -4,7 +4,7 @@
 :doc:`/2014/11/02/semicolonless_java_fibonacci` でZコンビネータ使って再帰だ！(ドヤ)
 とか書きましたがそんなものは必要なかった。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class SemicolonlessFibonacci {
    

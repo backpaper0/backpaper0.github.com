@@ -7,7 +7,7 @@ Jerseyはサーブレット経由でなく `com.sun.net.httpserver.HttpServer <h
 
 例えば ``com.sun.net.httpserver.HttpServer`` を使用するやつをdependenciesに突っ込んで、
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependencies>
      <dependency>
@@ -30,7 +30,7 @@ Jerseyはサーブレット経由でなく `com.sun.net.httpserver.HttpServer <h
 
 mavne-shade-pluginを突っ込んで、
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <plugin>
      <groupId>org.apache.maven.plugins</groupId>
@@ -58,7 +58,7 @@ mavne-shade-pluginを突っ込んで、
 
 JAX-RSなコードを書いて、
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    
@@ -81,7 +81,7 @@ JAX-RSなコードを書いて、
 
 メインクラス書いて、
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    

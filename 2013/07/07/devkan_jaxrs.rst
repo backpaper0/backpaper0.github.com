@@ -10,7 +10,7 @@ DevLOVE関西「開発スターターキット」におけるJAX-RSの簡単な�
 
 まずはDevKanApplication.javaです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @ApplicationPath("/services")
    public class DevKanApplication extends Application {
@@ -23,7 +23,7 @@ Applicationを継承して@ApplicationPathで注釈していますが、この�
 
 次いでCalculator.javaです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("/calc")
    @Produces(MediaType.TEXT_PLAIN)
@@ -41,13 +41,13 @@ Applicationを継承して@ApplicationPathで注釈していますが、この�
 
 リクエストはこんな感じ。
 
-.. code-block:: none
+.. sourcecode:: none
 
    GET /devkan-calc/services/calc/add?a=2&b=3 HTTP/1.1
 
 レスポンスはこんな感じ。
 
-.. code-block:: none
+.. sourcecode:: none
 
    HTTP/1.1 200 OK
    Content-Type: text/plain

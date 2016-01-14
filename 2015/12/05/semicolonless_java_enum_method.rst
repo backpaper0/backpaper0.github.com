@@ -10,7 +10,7 @@
 
 Java言語ではenumにメソッドを生やす事ができます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //これはセミコロンを付けても良いありふれた普通のJavaコード
    public enum Hoge {
@@ -37,7 +37,7 @@ Java言語ではenumにメソッドを生やす事ができます。
 
 コード例を示します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public enum Hoge implements Fuga {
       FOO, BAR, BAZ

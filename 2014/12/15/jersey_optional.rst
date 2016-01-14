@@ -22,7 +22,7 @@ ParamConverterってなんやねん！って方は :doc:`/2013/07/17/jaxrs_param
 リソースクラスをこちらにも掲載します。
 ちょー簡単な例ですが、こんな感じでリソースメソッドの引数にOptionalを使えるようになります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package example;
    
@@ -57,7 +57,7 @@ nullなら@DefaultValueで設定された値を返す」という感じの実装
 
 その部分を抜粋します。
 
-  .. code-block:: java
+  .. sourcecode:: java
   
      @Override
      public T extract(MultivaluedMap<String, String> parameters) {
@@ -81,7 +81,7 @@ nullなら@DefaultValueで設定された値を返す」という感じの実装
 
 しかしこのextractメソッドはJersey 2.14で次のように修正されました。
 
-  .. code-block:: java
+  .. sourcecode:: java
   
      @Override
      public T extract(MultivaluedMap<String, String> parameters) {

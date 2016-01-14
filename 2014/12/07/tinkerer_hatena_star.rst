@@ -12,7 +12,7 @@ Tinkererにはてなスターを設置した
 ``{%- block extrahead -%}`` と ``{%- endblock -%}``
 に囲まれたところ)に次のJavaScriptコードを書きます。
 
-.. code-block:: html
+.. sourcecode:: html
 
    <script type="text/javascript">
       Hatena.Star.Token = <自分のトークン>;
@@ -32,7 +32,7 @@ Tinkererにはてなスターを設置した
 最後に実際にはてなスターを設置する場所となる要素を追加します。
 私はエントリのいっちゃん下に置きたかったのでbodyブロックの最後の方に次のspan要素を書きました。
 
-.. code-block:: html
+.. sourcecode:: html
 
    <span class="hatenastar"> </span>
 

@@ -19,7 +19,7 @@ Reader/Writer/InputStream/OutputStream
 テキストファイルを読み込む
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: java
+.. sourcecode:: java
 
    Path path = Paths.get("path/to/file");
    try (BufferedReader in = Files.newBufferedReader(path)) {
@@ -30,7 +30,7 @@ Reader/Writer/InputStream/OutputStream
 
 UTF-8以外のファイルを読み込む場合は第二引数に ``Charset`` を渡します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    try (BufferedReader in = Files.newBufferedReader(path, Charset.forName("Windows-31J"))) {
        String line;
@@ -42,7 +42,7 @@ UTF-8以外のファイルを読み込む場合は第二引数に ``Charset`` �
 バイナリファイルを読み込む
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: java
+.. sourcecode:: java
 
    try (InputStream in = new BufferedInputStream(Files.newInputStream(path))) {
        byte[] b = new byte[1000];
@@ -58,7 +58,7 @@ UTF-8以外のファイルを読み込む場合は第二引数に ``Charset`` �
 テキストファイルを書き出す
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: java
+.. sourcecode:: java
 
    try (BufferedWriter out = Files.newBufferedWriter(path)) {
        //書き出し処理
@@ -67,7 +67,7 @@ UTF-8以外のファイルを読み込む場合は第二引数に ``Charset`` �
 バイナリファイルを書き出す
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: java
+.. sourcecode:: java
 
    try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(path))) {
        //書き出し処理
@@ -82,7 +82,7 @@ UTF-8以外のファイルを読み込む場合は第二引数に ``Charset`` �
 わざわざファイルに書き出すんじゃなくてオンメモリで処理して ``String`` で結果を取りたいんや！
 というような場合には ``StringWriter`` を使います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    StringWriter out = new StringWriter();
    library.writeTo(out);
@@ -100,7 +100,7 @@ InputStreamをReaderへ/OutputStreamをWriterへ変換する
 
 それぞれ ``InputStreamReader`` と ``OutputStreamWriter`` を使って変換できます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    InputStream in = ...
    Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
@@ -112,7 +112,7 @@ InputStreamをReaderへ/OutputStreamをWriterへ変換する
 デフォルトエンコーディングとはシステムプロパティ ``file.encoding`` で取得できるものです。
 変更したい場合は次のようにJava起動時にオプションを設定します。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    java -Dfile.encoding=UTF-8 com.example.MainClass
 
@@ -121,7 +121,7 @@ ZIPファイルを読み込む/書き出す
 
 ZIPファイルの読み書きには ``ZipInputStream`` と ``ZipOutputStream`` が使えます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    InputStream in = ...
    try(ZipInputStream zin = new ZipInputStream(in, StandardCharsets.UTF_8)) {
@@ -135,7 +135,7 @@ ZIPファイルの読み書きには ``ZipInputStream`` と ``ZipOutputStream`` 
        }
    }
 
-.. code-block:: java
+.. sourcecode:: java
 
    OutputStream out = ...
    try(ZipOutputStream zout = new ZipOutputStream(out, StandardCharsets.UTF_8)) {
@@ -151,7 +151,7 @@ ZIPファイルの読み書きには ``ZipInputStream`` と ``ZipOutputStream`` 
 
 ``Files`` を使います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Path src = ...
    Path dest = ...
@@ -173,7 +173,7 @@ Channel
 テキストファイルの読み込みには ``Files.newBufferedReader`` を使うと書きましたが
 Java 6までは ``FileReader`` を使って次のようにファイル読み込みをしていました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    File file = new File("path/to/file");
    Reader in = new FileReader(file);
@@ -196,7 +196,7 @@ Java 6までは ``FileReader`` を使って次のようにファイル読み込�
 
 という方法をとっていました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    File file = new File("path/to/file");
    Reader in = new InputStreamReader(new FileInputStream(file), Charset.forName("iso-2022-jp"));

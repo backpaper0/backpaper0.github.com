@@ -10,7 +10,7 @@ Doma 2.2.0からは ``Config`` に ``getEntityListenerProvider`` というメソ
 メソッドを持っています。
 ``EntityListenerProvider.get`` メソッドのデフォルト実装は次のようになっています。
 
-.. code-block:: java
+.. sourcecode:: java
 
    default <ENTITY, LISTENER extends EntityListener<ENTITY>> LISTENER get(
            Class<LISTENER> listenerClass, Supplier<LISTENER> listenerSupplier) {
@@ -27,7 +27,7 @@ Doma 2.2.0からは ``Config`` に ``getEntityListenerProvider`` というメソ
 まずは ``EntityListenerProvider`` 実装クラス。
 Guiceの ``Injector`` をインジェクションしてそこから ``EntityListener`` のインスタンスを取得しています。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package sample;
    
@@ -55,7 +55,7 @@ Guiceの ``Injector`` をインジェクションしてそこから ``EntityList
 次に ``Config`` 実装クラス。
 ``EntityListenerProvider`` をインジェクションしてそのまま返しているだけです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package sample;
    

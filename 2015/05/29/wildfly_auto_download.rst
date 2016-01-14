@@ -12,7 +12,7 @@ Gradleにダウンロードしてもらうっていう話です。
 
 まずdependenciesにWildflyのアーカイブを追加します。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    dependencies {
        archives "org.wildfly:wildfly-dist:$wildflyVersion@zip"
@@ -20,7 +20,7 @@ Gradleにダウンロードしてもらうっていう話です。
 
 次にアーカイブをunzipするタスクを書きます。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    task readyWildfly(type: Copy) {
        def wildflyZip = configurations.archives.find { it.name ==~ /wildfly.*/ }
@@ -39,7 +39,7 @@ Gradleにダウンロードしてもらうっていう話です。
 
 最後にテストを実行する前にreadyWildflyタスクを実行するようにします。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    test.dependsOn readyWildfly
 
@@ -47,7 +47,7 @@ Gradleにダウンロードしてもらうっていう話です。
 
 ログはこんな感じ。
 
-.. code-block:: none
+.. sourcecode:: none
 
    :compileJava
    :processResources UP-TO-DATE
@@ -73,7 +73,7 @@ testの前にreadyWildflyタスクが実行されていますね。
 
 ではもう一度 ``gradlew build`` してみましょう。
 
-.. code-block:: none
+.. sourcecode:: none
 
    :compileJava UP-TO-DATE
    :processResources UP-TO-DATE
@@ -101,7 +101,7 @@ readyWildflyタスクがスキップされま……されてない！？
 
 も、もう一度実行だ！
 
-.. code-block:: none
+.. sourcecode:: none
 
    :compileJava UP-TO-DATE
    :processResources UP-TO-DATE

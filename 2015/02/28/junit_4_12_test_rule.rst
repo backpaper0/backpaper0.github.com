@@ -7,7 +7,7 @@ DisableOnDebug
 ``DisableOnDebug`` 他の ``TestRule`` をラップして、
 デバッグ実行されているときのみラップした ``TestRule`` を適用します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import org.junit.Rule;
    import org.junit.Test;
@@ -40,7 +40,7 @@ Stopwatch
 
 ``Stopwatch`` はテスト実行にかかった時間を ``System.nanoTime`` メソッドで計測します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import java.util.logging.Logger;
    

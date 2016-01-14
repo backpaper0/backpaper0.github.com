@@ -36,7 +36,7 @@ oauth_verifier
 というリクエストパラメータを受け取っている所に使われています。
 これをTwitterControllerのdoTweetメソッドと同じやり方で受け取るように変更します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @RequestMapping("accessToken")
    public String accessToken(Model model,
@@ -51,7 +51,7 @@ HttpSession
 
 まずこれがトークンを格納するセッションスコープのクラス。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package jp.co.bizreach.spring_boot_sample;
    
@@ -93,7 +93,7 @@ HttpSession
 
 TwitterAuthController と TwitterController には次のようにフィールドにインジェクションします。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Autowired
    private TwitterAuth auth;
@@ -116,7 +116,7 @@ pom.xmlを編集してdependencyを追加したように見えます。
 
 適当なディレクトリでmvn archetype:generateを実行します。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    mvn archetype:generate
 
@@ -133,7 +133,7 @@ package
 を尋ねられます。
 適宜入力してそのまま進むと次のようなログが出て空のプロジェクトが作成されます。
 
-.. code-block:: none
+.. sourcecode:: none
 
    [INFO] ----------------------------------------------------------------------------
    [INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.1
@@ -171,7 +171,7 @@ AppTest.java
 
 mvn archetype:generateした直後の状態は次のような感じです。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -206,7 +206,7 @@ mvn archetype:generateした直後の状態は次のような感じです。
 それとmaven-compiler-pluginの設定を追加してJava 8でビルドされるようにしました。
 んでもって、spring-boot-maven-pluginの設定を追加してスタンドアロンJARを作れるようにしました。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

@@ -39,7 +39,7 @@ Mavenの場合
 
 次のdependencyManagement要素を追加してください。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependencyManagement>
      <dependencies>
@@ -64,7 +64,7 @@ Mavenの場合
 どんなコンテナが使えるかは http://repo1.maven.org/maven2/org/glassfish/jersey/containers/ を参照ください。
 最後にJUnitでサクッと走らせてテストするため ``jersey-test-framework-provider-jdk-http`` を追加します。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependencies>
      <dependency>
@@ -93,7 +93,7 @@ Gradleの場合
 
 こんな感じ？
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    dependencies {
        compile 'org.glassfish.jersey.core:jersey-server:2.13'
@@ -108,7 +108,7 @@ Gradleの場合
 
 ``src/main/java/app/Calc.java`` を作ります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    
@@ -132,7 +132,7 @@ Gradleの場合
 で、JUnitテストです。
 ``src/test/java/app/CalcTest.java`` を作ります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    
@@ -169,13 +169,13 @@ test-frameworkを使うととても簡単にJUnitテストを書ける事が分�
 
 IDEから実行するかMavenで。
 
-.. code-block:: sh
+.. sourcecode:: sh
 
    mvn test
 
 簡単ですね！
 
-.. code-block:: none
+.. sourcecode:: none
 
    -------------------------------------------------------
     T E S T S
@@ -197,7 +197,7 @@ JUnitテストを走らせている事からもお分かり頂けると思いま
 
 こんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    package app;
    
@@ -233,7 +233,7 @@ Tomcatにデプロイする場合は ``jersey-container-jdk-http`` を消して�
 ``jersey-container-servlet`` を追加してWARファイルを作りましょう。
 こんな感じです。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependencies>
      <dependency>

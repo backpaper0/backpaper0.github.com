@@ -3,7 +3,7 @@
 
 ラムダ式は ``Serializable`` にできます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //キャストしたり
    Supplier<String> s = (Supplier<String> & Serializable) () -> "x";
@@ -13,7 +13,7 @@
 
 で、シリアライズできるぞー、と思ってこんなコード書いて、
 
-.. code-block:: java
+.. sourcecode:: java
 
    import java.io.ByteArrayOutputStream;
    import java.io.IOException;
@@ -42,7 +42,7 @@
 
 実行すると、
 
-.. code-block:: none
+.. sourcecode:: none
 
    Exception in thread "main" java.io.NotSerializableException: Sample
        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
@@ -60,7 +60,7 @@
 これはラムダ式で ``Sample`` クラスの ``toString`` メソッドを呼んでいるため
 ``Sample`` がキャプチャされますが、 ``Sample`` はSerializableでないため例外が出ます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Supplier<String> get() {
        return (Supplier<String> & Serializable) () -> toString();
@@ -75,7 +75,7 @@
 
 こんな感じで ``SerializedLambda`` とキャプチャしたインスタンスを取ってこれました。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Supplier<String> s = new Sample().get();
    

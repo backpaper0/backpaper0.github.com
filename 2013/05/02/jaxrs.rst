@@ -29,7 +29,7 @@ Maven
 
 Mavenでアレするなら次のようなdependencyを書けば良いです。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependency>
      <groupId>com.sun.jersey</groupId>
@@ -55,7 +55,7 @@ artifactId の末尾の -http を -grizzly にするとGrizzly(GlassFishのHTTP�
 
 クエリパラメータで名前を渡すとHello, xxx!が返るWeb APIを書きましょう。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import javax.ws.rs.GET;
    import javax.ws.rs.Path;
@@ -73,7 +73,7 @@ artifactId の末尾の -http を -grizzly にするとGrizzly(GlassFishのHTTP�
 
 これは次のようなHTTPリクエストを処理することができます。
 
-.. code-block:: http
+.. sourcecode:: http
 
    GET /rest/hello?name=world HTTP/1.1
 
@@ -84,7 +84,7 @@ artifactId の末尾の -http を -grizzly にするとGrizzly(GlassFishのHTTP�
 こいつをとりあえずサクッと動かすならjersey-test-frameworkを使うのがらくちんです。
 JUnitでぶん回すことができます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import com.sun.jersey.test.framework.AppDescriptor;
    import com.sun.jersey.test.framework.JerseyTest;
@@ -115,7 +115,7 @@ JUnitでぶん回すことができます。
 
 `GlassFish <https://glassfish.java.net/>`_ などのJava EEアプリケーションサーバで動かすにはApplicationサブクラスを作ります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import javax.ws.rs.ApplicationPath;
    import javax.ws.rs.core.Application;
@@ -138,7 +138,7 @@ web.xmlを書かなくてもServletContainerInitializerを利用して動的に�
 @Pathにはこのリソースクラスで処理するパスを指定します。
 リソースクラスはpublicなコンストラクタが必要です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("hello")
    public class HelloResource { ... }
@@ -148,7 +148,7 @@ web.xmlを書かなくてもServletContainerInitializerを利用して動的に�
 同じように@Producesで送り返すレスポンスボディのContent-Typeを指定できます。
 また引数に@QueryParamや@HeaderParamを注釈することでクエリパラメータやリクエストヘッダをマッピングすることができます。
 
-.. code-block:: java
+.. sourcecode:: java
 
   @GET
   @Consumes("text/plain")
@@ -160,7 +160,7 @@ web.xmlを書かなくてもServletContainerInitializerを利用して動的に�
 
 なお、@QueryParamなどでマッピング出来るのはリソースメソッドの引数だけじゃなくコンストラクタの引数や
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("hello")
    public class HelloResource {
@@ -176,7 +176,7 @@ web.xmlを書かなくてもServletContainerInitializerを利用して動的に�
 
 フィールド、
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("hello")
    public class HelloResource {
@@ -188,7 +188,7 @@ web.xmlを書かなくてもServletContainerInitializerを利用して動的に�
 
 setterなども使用できます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("hello")
    public class HelloResource {
@@ -215,7 +215,7 @@ setterなども使用できます。
 * クエリパラメータをマッピング
 * /hoge?\ **name**\ =\ **value**
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    public String sayHello(
@@ -228,7 +228,7 @@ setterなども使用できます。
 * フォームのPOSTリクエストで送信するパラメータをマッピング
 * <input type="text" name="\ **name**\ ">
 
-.. code-block:: java
+.. sourcecode:: java
 
    @POST
    public String sayHello(
@@ -241,7 +241,7 @@ setterなども使用できます。
 * パスの一部をマッピング
 * /hoge/\ **value**
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Path("{name}")
@@ -251,7 +251,7 @@ setterなども使用できます。
 
 コロンで区切って正規表現を書く事もできます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Path("{id:[0-9]{1,10}}")
@@ -266,7 +266,7 @@ setterなども使用できます。
 * セミコロンで区切った形式
 * /hoge;foo=1;bar=2
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -280,7 +280,7 @@ setterなども使用できます。
 
 * Cookieをマッピング
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -293,7 +293,7 @@ setterなども使用できます。
 
 * リクエストヘッダをマッピング
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -308,7 +308,7 @@ setterなども使用できます。
 Jerseyなら@InjectParamを使うことでパラメータをPOJOにまとめることができます。
 ただし、JAX-RSの仕様じゃなくてJerseyの実装依存の機能ですので、そこんとこ注意です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -334,7 +334,7 @@ Jerseyなら@InjectParamを使うことでパラメータをPOJOにまとめる�
 パラメータを受け取れるクラスは、valueOfまたはfromStringという名前の静的ファクトリメソッドを定義する必要があります。
 引数はStringです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public class Fullname {
 
@@ -348,7 +348,7 @@ Jerseyなら@InjectParamを使うことでパラメータをPOJOにまとめる�
 
 リソースメソッドではStringでパラメータを受けるときと同じ感覚で使えます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/plain")
@@ -363,7 +363,7 @@ XMLで通信する
 
 例えばこのようなXMLを、
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <hogeBean>
      <foo>hello</foo>
@@ -373,7 +373,7 @@ XMLで通信する
 このようなクラスで受け取ることが可能です。
 @XmlRootElementはJAXBのAPIです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @XmlRootElement
    public class HogeBean {
@@ -386,7 +386,7 @@ XMLで通信する
 リソースメソッドはこのようになります。
 @ConsumesでXMLを受け取る事を明示しています。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @POST
    @Consumes("application/xml")
@@ -397,7 +397,7 @@ XMLで通信する
 その場合、リソースメソッドは次のようになります。
 今度は@ProducesでXMLを返すことを明示しています。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("application/xml")
@@ -407,7 +407,7 @@ XMLで通信する
 前述の通りXMLとクラスの相互変換を行う部分はJAX-RSではなくJAXBの仕様です。
 JAXBはJava SEに入っているので動作確認は手軽にできます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    HogeBean obj = ...
    StringWriter out = new StringWriter();
@@ -425,7 +425,7 @@ JSONで通信する
 
 前述のようにJAXBでXML通信している場合、Jerseyなら@Consumesや@Producesでのメディアタイプの指定をapplication/jsonに変更するだけでJSONで通信することが可能です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @POST
    //@Consumes("application/xml")
@@ -437,7 +437,7 @@ JSONで通信する
 
 元々はXMLで通信していましたが、たったこれだけで次のようなJSONで通信するようになります。
 
-.. code-block:: json
+.. sourcecode:: json
 
    { "foo" : "hello",
      "bar" : "world" }
@@ -447,7 +447,7 @@ JSON通信での問題点
 
 リストを含む次のようなクラスの、
 
-.. code-block:: java
+.. sourcecode:: java
 
    @XmlRootElement
    public class Hoge {
@@ -457,14 +457,14 @@ JSON通信での問題点
 
 インスタンスを作成して、
 
-.. code-block:: java
+.. sourcecode:: java
 
    Hoge obj = new Hoge();
    obj.foobar = Arrays.asList("a", "b", "c");
 
 XML通信すると次のようなXMLになります。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <hoge>
      <foobar>a</foobar>
@@ -476,7 +476,7 @@ foobar要素がリストの要素分、フラットに並んでいますね。
 
 これがJSON通信の場合だと次のようなJSONになります。
 
-.. code-block:: json
+.. sourcecode:: json
 
    { "foobar" : [ "a", "b", "c" ] }
 
@@ -484,14 +484,14 @@ XMLではフラットに並んでいたfoobar要素が空気を読んでリス�
 
 で、次はこんな感じのインスタンスを、
 
-.. code-block:: java
+.. sourcecode:: java
 
    Hoge obj = new Hoge();
    obj.foobar = Arrays.asList("x");
 
 JSON通信すると次のようなJSONになります。
 
-.. code-block:: java
+.. sourcecode:: java
 
    { "foobar" : "x" }
 
@@ -500,7 +500,7 @@ JSON通信すると次のようなJSONになります。
 
 foobar要素が一つのXMLを想像するとなんとなく納得できます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    <hoge>
      <foobar>x</foobar>
@@ -521,7 +521,7 @@ JacksonでJSON通信する
 
 Jacksonを使うとfoobar要素がひとつしかない場合でも次のようなJSONに変換されます。
 
-.. code-block:: json
+.. sourcecode:: json
 
    { "foobar" : [ "x" ] }
 
@@ -536,7 +536,7 @@ JerseyでJacksonを使うには初期パラメータ com.sun.jersey.api.json.POJ
 
 jersey-test-frameworkを使ったりJDKのHttpServerで動かす場合はResourceConfigというクラスで設定すると良いです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    ResourceConfig rc = ...
    rc.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, true);
@@ -545,7 +545,7 @@ jersey-test-frameworkを使ったりJDKのHttpServerで動かす場合はResourc
 
 サーブレット経由で動かすならweb.xmlで設定することも可能です。
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <servlet>
      <servlet-name>Jersey</servlet-name>
@@ -564,7 +564,7 @@ XMLでもJSONでも通信する
 これまでXMLかJSONのどちらか片方で通信する設定方法を紹介しましたが、ひとつのメソッドでXMLでもJSONでも通信することも可能です。
 設定は単純で@Consumesや@Producesに複数のメディアタイプを書けば良いです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @POST
    @Consumes({ "application/json", "application/xml" })
@@ -583,7 +583,7 @@ MessageBodyReaderやMessageBodyWriterを実装すればエンティティボデ�
 
 例えば、String[][]をCSVで出力するMessageBodyWriterを実装してみます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Provider
    @Produces("text/csv")
@@ -630,7 +630,7 @@ getSizeメソッドは書き出すエンティティボディのバイトサイ�
 
 このCsvWriterに対応するレスポンスを返すリソースメソッドはこんな感じです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Produces("text/csv")
@@ -644,7 +644,7 @@ WebApplicationException
 
 場合によってはリソースメソッドで処理中に「やっぱり404返したいわー」などというときもあると思いますが、WebApplicationExceptionを投げるのが楽ちんです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @GET
    @Path("{isbn}")
@@ -663,7 +663,7 @@ ExceptionMapper
 
 例えばJPAの楽観排他機能で更新したいエンティティが既に別のひとに更新されていた場合、OptimisticLockExceptionが投げられますが、これを受け取って処理をするExceptionMapperを書いてみます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Provider
    public class OptimisticLockExceptionMapper implements ExceptionMapper<OptimisticLockException> {
@@ -682,7 +682,7 @@ RollbackExceptionはOptimisticLockExceptionと継承関係は無いのでOptimis
 
 そんな場合はProvidersを使います。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public static class RollbackExceptionMapper implements ExceptionMapper<RollbackException> {
 
@@ -712,7 +712,7 @@ EJBでDI
 リソースクラスをStateless Session Beanにします。
 @EJBでSession Beanを、@PersistenceContextでEntityManagerなどをインジェクションできます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("hello")
    @Stateless
@@ -737,7 +737,7 @@ CDIでDI
 WEB-INF/beans.xmlを作成します。
 空のファイルでもOKです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Path("hello")
    @RequestScoped
@@ -763,7 +763,7 @@ EJBとCDIを併用する
 
 というわけでEJBとCDIを併用します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Stateless
    @Path("hello")
@@ -798,7 +798,7 @@ Arquillian
 ArquillianはJBossが提供しているJava EE向けの結合テストフレームワークです。
 以下の例のようにテストコードを書く事が可能です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @RunWith(Arquillian.class)
    public class CalcTest {
@@ -837,7 +837,7 @@ JAX-RS 2.0からは以下のような機能が追加されます。
 
 リクエスト・レスポンスそれぞれに対応するフィルターを書けます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Provider
    public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
@@ -859,7 +859,7 @@ JAX-RS 2.0からは以下のような機能が追加されます。
 
 エンティティボディを読み書きするところに横入りしてごにょごにょできます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Provider
    public class StarInterceptor implements ReaderInterceptor, WriterInterceptor {
@@ -885,7 +885,7 @@ JAX-RS 2.0からは以下のような機能が追加されます。
 
 CDIも似たような感じですが、フィルター（インターセプター）にアノテーションを付けておくと同じアノテーションが付いているリソースクラス・リソースメソッドにそのフィルター（インターセプター）を噛ませることが出来るようです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @NameBinding
    @Retention(RetentionPolicy.RUNTIME)
@@ -901,7 +901,7 @@ CDIも似たような感じですが、フィルター（インターセプタ�
 
 リソースメソッドはこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @POST
    @Logged
@@ -914,7 +914,7 @@ CDIも似たような感じですが、フィルター（インターセプタ�
 Servlet 3.xにも非同期処理が入りましたが、JAX-RSにもやってきました。
 以下のサンプルはJSR 339に乗っていたものです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    private static final BlockingQueue<AsyncResponse> suspended =
        new ArrayBlockingQueue<AsyncResponse>(5);
@@ -940,7 +940,7 @@ Servlet 3.xにも非同期処理が入りましたが、JAX-RSにもやってき
 
 というわけで、JAX-RS 2.0のリリースはまだですが、いち早く試したい場合はJersey 2.xを使ってみましょう！
 
-.. code-block:: xml
+.. sourcecode:: xml
 
    <dependencies>
      <dependency>

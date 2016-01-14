@@ -15,7 +15,7 @@ build.gradle
 まずGrgitを使う準備。
 Gradleは普通にGroovyコードを書けて便利。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    import org.ajoberstar.grgit.Grgit
    
@@ -34,7 +34,7 @@ Gradleは普通にGroovyコードを書けて便利。
 次にハッシュをファイルに書き出すタスクの定義とwarタスクとの依存関係の設定。
 今回はwarファイル内の `WEB-INF/classes/head` にファイルがパッケージングされるようにしました。
 
-.. code-block:: groovy
+.. sourcecode:: groovy
 
    task writeHeadCommitHash << {
        def file = new File(buildDir, 'git/head')
@@ -49,7 +49,7 @@ Gradleは普通にGroovyコードを書けて便利。
 JAX-RSのリソースクラス
 --------------------------------------------------------------------------------
 
-.. code-block:: java
+.. sourcecode:: java
 
    package javayou;
    

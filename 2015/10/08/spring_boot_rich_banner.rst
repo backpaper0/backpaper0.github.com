@@ -16,7 +16,7 @@ Spring Bootでカラフルなバナーを表示してみた
 
 背景色を変えるには
 
-.. code-block:: none
+.. sourcecode:: none
 
    ESC + '[48;05;' + 色のインデックス + 'm'
 
@@ -24,13 +24,13 @@ Spring Bootでカラフルなバナーを表示してみた
 
 次のGroovyコマンドを試してみてください。
 
-.. code-block:: none
+.. sourcecode:: none
 
    groovy -e "System.out.write(0x1b);println('[48;05;20mHello, World!')"
 
 背景色を元に戻すには
 
-.. code-block:: none
+.. sourcecode:: none
 
    ESC + '[0m'
 
@@ -41,7 +41,7 @@ Spring Bootでカラフルなバナーを表示してみた
 
 2つの色がどの程度近いかはカラーコードを三次元の座標に見立てて2つの色間の距離を求めて一番近いものを選んでいます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    int r = ((rgb1 >> 16) & 0xff) - ((rgb2 >> 16) & 0xff);
    int g = ((rgb1 >> 8) & 0xff) - ((rgb2 >> 8) & 0xff);

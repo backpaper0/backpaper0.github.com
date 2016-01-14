@@ -12,7 +12,7 @@ BeanValidationを行うという流れを想定しています。
 
 件の相関バリデーションはたぶんこんな感じです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public int from;
 
@@ -36,7 +36,7 @@ BeanValidationを行うという流れを想定しています。
 ``from < to`` を検証するアノテーションとカスタムバリデータを作りましょう。
 そしてそれを付けるメソッドはbooleanではなくタプル(のような何か)を返します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public int from;
 
@@ -61,7 +61,7 @@ BeanValidationを行うという流れを想定しています。
 
 例えば、次のようなコードがあったとします。
 
-.. code-block:: java
+.. sourcecode:: java
 
    @Isbn
    public String isbn1;
@@ -74,7 +74,7 @@ BeanValidationを行うという流れを想定しています。
 
 本来あるべき姿はこんな感じ。
 
-.. code-block:: java
+.. sourcecode:: java
 
    public Isbn isbn1;
 
@@ -95,7 +95,7 @@ BeanValidationを行うという流れを想定しています。
 Optionalでないものは必須！という感じです。
 たぶんそれが良いと思う。
 
-.. code-block:: java
+.. sourcecode:: java
 
    //必須
    public Isbn isbn1;
@@ -108,7 +108,7 @@ Optionalでないものは必須！という感じです。
 それから相関バリデーションですが、最初の例であればRangeといった型を作ってそこにfromとtoを
 詰め込めばfromとtoの大小関係を型で表す事ができます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    new Range(from, to);
 

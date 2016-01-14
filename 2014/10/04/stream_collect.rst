@@ -78,13 +78,13 @@ Streamのcollectメソッドを学ぶ
 
   引数なしで ``StringBuilder`` のインスタンスを返します。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      () -> new StringBuilder()
 
   またはコンストラクタ参照でも良いです。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      StringBuilder::new
 
@@ -94,13 +94,13 @@ Streamのcollectメソッドを学ぶ
   ``append`` します。
   戻り値は ``void`` です。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      (sb, c) -> sb.append(c)
 
   またはメソッド参照でも良いです。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      StringBuilder::append
 
@@ -109,13 +109,13 @@ Streamのcollectメソッドを学ぶ
   ふたつの ``StringBuilder`` を受け取ってひとつの
   ``StringBuilder`` にマージして返します。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      (sb1, sb2) -> sb1.append(sb2);
 
   またはメソッド参照でも良いです。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      StringBuilder::append
 
@@ -123,13 +123,13 @@ Streamのcollectメソッドを学ぶ
 
   ``StringBuilder`` を受け取って ``String`` へ変換して返します。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      sb -> sb.toString()
 
   またはメソッド参照でも良いです。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      StringBuilder::toString
 
@@ -137,7 +137,7 @@ Streamのcollectメソッドを学ぶ
 愚直に ``Collector`` インターフェースを実装したクラスを作っても良いのですが
 ``Collector`` の `ofメソッド`_ を利用するのが楽です。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Collector<Character, StringBuilder, String> characterJoiner =
            Collector.of(() -> new StringBuilder(),     //supplier
@@ -154,7 +154,7 @@ Streamのcollectメソッドを学ぶ
 
 この ``Collector`` を使って文字を連結してみます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    String s = Stream.of('h', 'e', 'l', 'l', 'o').collect(characterJoiner);
    System.out.println(s); //hello
@@ -171,7 +171,7 @@ Streamのcollectメソッドを学ぶ
 
   つまり次のような処理を行っても不整合が起こらなければ、この特性を持っていると言えます。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      A acc = supplier.get(); //中間コンテナ
 
@@ -184,7 +184,7 @@ Streamのcollectメソッドを学ぶ
 
   つまり ``finisher`` が次のような実装になる場合、この特性を持っていると言えます。
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      Function<A, R> finisher = a -> (R) a;
 
@@ -197,7 +197,7 @@ Streamのcollectメソッドを学ぶ
 
 ``Collector`` インスタンスを生成する際に特性を与えたい場合は ``of`` メソッドの第5引数(可変長引数です)を使用します。
 
-.. code-block:: java
+.. sourcecode:: java
 
    Collector<T, A, R> collector =
            Collector.of(supplier, accumulator, combiner, finisher,
@@ -242,7 +242,7 @@ Streamのcollectメソッドを学ぶ
 
   こんなやつです。
 
-  .. code-block:: scala
+  .. sourcecode:: scala
 
      //これはScalaコード
      val xs = 1 to 5 toList

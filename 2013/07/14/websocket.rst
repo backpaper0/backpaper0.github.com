@@ -14,7 +14,7 @@ GlassFish v4などを利用すればWebSocketで遊べます。
 サーバ側のエンドポイントを作成します。
 POJOにアノテーションを付ける感じです。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import javax.websocket.OnClose;
    import javax.websocket.OnMessage;
@@ -49,7 +49,7 @@ POJOにアノテーションを付ける感じです。
 
 では次にこれをJava SEで動かすためのコードを書きます。
 
-.. code-block:: java
+.. sourcecode:: java
 
    import java.io.IOException;
    import javax.websocket.DeploymentException;

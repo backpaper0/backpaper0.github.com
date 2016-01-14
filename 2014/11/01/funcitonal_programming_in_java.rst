@@ -34,7 +34,7 @@
 * 89ページの例4-17。
   コードを引用します。
 
-    .. code-block:: java
+    .. sourcecode:: java
 
        try {
          final URL url = 
@@ -52,7 +52,7 @@
   これ、readerがcloseされていません。 
   readerをtry-with-resourcesで囲むべきと思います。
 
-  .. code-block:: java
+  .. sourcecode:: java
      :emphasize-lines: 5,6,10
 
      try {
@@ -75,7 +75,7 @@
   面白いアプローチですが最終的に出来上がったコードは少々分かりにくかったし、synchronizedを使っていたのでConcurrency Utilitiesでもうちょっと良い感じに書けるんじゃ？
   と思い色々考えた挙げ句、次のようなコードを書いてみましたがたいして分かりやすくなりませんでした_(:3｣∠)_
 
-  .. code-block:: java
+  .. sourcecode:: java
 
      import java.util.concurrent.ExecutionException;
      import java.util.concurrent.FutureTask;
