@@ -9,6 +9,7 @@
 * `KotlinでDoma </ghosts/kotlin-doma.html>`_
 * `JAX-RS入門および実践 </ghosts/jaxrs-getting-started-and-practice.html>`_
 * `Java EE 8を先取る </ghosts/jersey-sse-ozark.html>`_
+* `Doma実践 </ghosts/doma-practice.html>`_
 
 .. author:: default
 .. categories:: none
