@@ -4,6 +4,8 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/03/24/tokyo
+   2016/03/24/elastichandson
    2015/12/24/run_at_startup_in_javaee
    2015/12/13/semicolonless_javaee
    2015/12/09/semicolonless_fizzbuzz
