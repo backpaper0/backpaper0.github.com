@@ -74,7 +74,7 @@ javapしてみた結果は次の通り。
 * `Byte.valueOf(byte)のコード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Byte.java#l101>`_ と
   `Byteのキャッシュ構築コード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Byte.java#l77>`_
 * `Short.valueOf(short)のコード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Short.java#l230>`_ と
-  `Shortのキャッシュ構築コード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Short.java#l203>`-
+  `Shortのキャッシュ構築コード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Short.java#l203>`_
 * `Long.valueOf(long)のコード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Long.java#l835>`_ と
   `Longのキャッシュ構築コード <http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Long.java#l806>`_
 
