@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/05/08/boxsing_and_cache
    2016/03/24/tokyo
    2016/03/24/elastichandson
    2015/12/24/run_at_startup_in_javaee
