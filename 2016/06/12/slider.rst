@@ -66,7 +66,7 @@
 
 .. code-block:: sh
 
-   java -jar build/libs/slider.jar`` してください。
+   java -jar build/libs/slider.jar
 
 なお、サーバーにはUndertowを使っています。
 また、mainメソッドの起動にはSpringBootを使っています。
