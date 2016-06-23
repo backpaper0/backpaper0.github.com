@@ -1,2 +1,2 @@
 Tinkerer==1.5
-sphinxjp.themes.tinkeralizarin==0.1.0
+sphinxjp.themes.tinkerbelizehole==0.2.0
