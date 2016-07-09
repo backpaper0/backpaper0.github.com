@@ -10,6 +10,8 @@
 * `JAX-RS入門および実践 </ghosts/jaxrs-getting-started-and-practice.html>`_
 * `Java EE 8を先取る </ghosts/jersey-sse-ozark.html>`_
 * `Doma実践 </ghosts/doma-practice.html>`_
+* `Domaの紹介 </ghosts/doma-intro.html>`_
+* `ドメインクラスの話 </ghosts/doma-domainclass.html>`_
 
 .. author:: default
 .. categories:: none
