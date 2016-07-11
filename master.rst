@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/07/12/doma_tokyo
    2016/06/12/slider
    2016/05/08/boxsing_and_cache
    2016/03/24/tokyo
