@@ -49,6 +49,7 @@ Doma開発のスタンス、我々ユーザーとの向き合い方に感動し�
 * `【7/9(土)】Doma勉強会 in 東京でLTしてきました #doma_tokyo - Javaプログラマーのはしくれダイアリー <http://yyyank.blogspot.jp/2016/07/79doma-in-lt-domatokyo_96.html>`_
 * `【7/9(土)】Doma勉強会 in 東京 - Togetterまとめ <http://togetter.com/li/997896>`_
 * `Doma勉強会 in 東京に行ってきました　#doma_tokyo #eventdots  - Chonaso's Commentary <http://chonaso.hatenablog.com/entry/20160712/1468252323>`_
+* `【7/9(土)】Doma勉強会 in 東京 に参加してきた - てんてんのぶろぐ <http://tenten0213.hatenablog.com/entry/2016/07/12/204730>`_
 
 TLへのリアクション
 --------------------------------------------------
