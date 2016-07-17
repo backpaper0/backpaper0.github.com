@@ -59,7 +59,7 @@ TLへのリアクション
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">どこかにテンプレート的なものがあるらしい? &gt; build.gradle <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a></p>&mdash; 寝起き (@nashcft) <a href="https://twitter.com/nashcft/status/751644660729204737">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 これです！
 
@@ -69,7 +69,7 @@ TLへのリアクション
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">Dialectって主にページネーションの方言を吸収するのか。offsetやらlimitやら。 <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; 多田真敏(MasatoshiTada) (@suke_masa) <a href="https://twitter.com/suke_masa/status/751644728270004225">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 通常のSELECT文をページネーションするクエリや、
 悲観排他するクエリに変換する際にRDBMSの方言を吸収するためのものですね。
@@ -80,7 +80,7 @@ TLへのリアクション
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ページネーションとかはSelectOptionsとかの話かな<a href="https://t.co/PETWtejqLi">https://t.co/PETWtejqLi</a><a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; やんく (@yy_yank) <a href="https://twitter.com/yy_yank/status/751645008592146432">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 そうです。
 Domaは `SelectOptions` で `offset` と `limit` を指定する事ができます。
@@ -91,7 +91,7 @@ Domaは `SelectOptions` で `offset` と `limit` を指定する事ができま�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> NetBeansでは...らしい。（私はMavenでビルド定義して使ってる）</p>&mdash; Den (@den2sn) <a href="https://twitter.com/den2sn/status/751645057439019010">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 これは私の誤りのようです。
 Mavenプロジェクトなのか、Gradleプロジェクトなのか、そういった違いにもよるのかも知れませんが、少なくともMavenプロジェクトだと何も不都合なく使えるようです。
@@ -100,14 +100,14 @@ NetBeans、ごめんなさい。
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">アクセサいらんのか<a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; やんく (@yy_yank) <a href="https://twitter.com/yy_yank/status/751645347265409024">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 Domaはエンティティのフィールドを直接見に行くのでアクセサメソッドは不要です。
 
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">エンティティリスナーでcreate_user、create_dateを設定したいという場合には非常に便利そう。<br>共通項目クラスとかを用意する必要はありそうだけど。 <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; Junki Yamada（シュンツ） (@glory_of) <a href="https://twitter.com/glory_of/status/751646228098584578">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 仰る通り、共通項目だけを持つ基底クラスとなるエンティティを作る必要があります。
 基底クラスがあればエンティティリスナーは1つで良いので、楽といえば楽です。
@@ -118,7 +118,7 @@ Domaはエンティティのフィールドを直接見に行くのでアクセ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">Stream にした場合はページングはやってくれるのかな？ <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a></p>&mdash; いとうちひろ(Chihiro Ito) (@chiroito) <a href="https://twitter.com/chiroito/status/751647049364287489">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 ページネーションは `SelectOptions` の `offset` と `limit` で指定します。
 `Stream` 検索はあくまでも `ResultSet.next` してエンティティにマッピングする処理を `Stream` で表現しているだけです。
@@ -126,7 +126,7 @@ Domaはエンティティのフィールドを直接見に行くのでアクセ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">Streamを返す版はリソース忘れが無いようにそのままだとコンパイル時に警告を出してくれます。close処理を書いたら心を込めてアノテーションつけると警告を外せます。 <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a></p>&mdash; がくぞ (@gakuzzzz) <a href="https://twitter.com/gakuzzzz/status/751648364362510336">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 `Stream` を返すためではなく、他の事に心を込めような！！！
 
@@ -138,7 +138,7 @@ Domaはエンティティのフィールドを直接見に行くのでアクセ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">RomaをSpringで使う場合、Spring Bootしか選択肢ないのかな？<br>Boot以外では使えたりしないかな？<a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; Takafumi Iju (@ijufumi_0810) <a href="https://twitter.com/ijufumi_0810/status/751650514954137600">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 Spring BootではないSpringでも使えます。
 実装には `doma-spring-boot-autoconfigure <https://github.com/domaframework/doma-spring-boot/tree/master/doma-spring-boot-autoconfigure>`_
@@ -149,7 +149,7 @@ Domaが必要とするのは `DataSource` だけですので、SpringでもJava 
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ローカルトランザクション、Java SE環境で使えるのか<a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; やんく (@yy_yank) <a href="https://twitter.com/yy_yank/status/751650821838823424">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 使えます。
 やってる事は単純で `Connection.setAutoCommit` と `Connection.commit` と `Connection.rollback` を組み合わせてトランザクションを行っているだけです。
@@ -160,7 +160,7 @@ Domaが必要とするのは `DataSource` だけですので、SpringでもJava 
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">今って[at]Transactionalアノテーションサポートしてる？ <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a></p>&mdash; Ktz (@ktz_alias) <a href="https://twitter.com/ktz_alias/status/751651022318112768">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 `@Transactional` はJava EEやSpringといったコンテナの機能で、Domaはサポートしていません。
 Domaの範囲からは逸脱すると私は考えます。
@@ -173,14 +173,14 @@ Domaのローカルトランザクションと組み合わせて宣言的トラ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">こんな感じで検索すればSQLも引っ掛けられる（STS） <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a> <a href="https://t.co/r2US1mwupJ">pic.twitter.com/r2US1mwupJ</a></p>&mdash; Junki Yamada（シュンツ） (@glory_of) <a href="https://twitter.com/glory_of/status/751655497397264384">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 シュンツさん、ありがとうございます！！！
 
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">「エンティティをDAO内で定義したい」は比較的実装しやすいかもしれません。すでにドメインクラスはネストし<br>て定義できるようになっていますし。 <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; toshihiro nakamura (@nakamura_to) <a href="https://twitter.com/nakamura_to/status/751655785600393216">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 ソッコーで実装されててわろた。
 
@@ -189,7 +189,7 @@ Domaのローカルトランザクションと組み合わせて宣言的トラ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">「主キー検索クエリは自動で組み立てたい」は実装自体は簡単。ポリシーとして整合性を保てるか？アノテーションの書き方をどうするか？などが問題になりそうです。<a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; toshihiro nakamura (@nakamura_to) <a href="https://twitter.com/nakamura_to/status/751656499378737152">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 ですね、よくわかります。
 (なのでわがまま言うつもりはありません)
@@ -197,14 +197,14 @@ Domaのローカルトランザクションと組み合わせて宣言的トラ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">社員ID,名前、住所、役職とか、これをstringではなく、ドメインクラスにしていくと、クラス数爆発しそう。線引きはどうするんだろ。 <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; まめぴか＠ (@mame_pika) <a href="https://twitter.com/mame_pika/status/751659291459719168">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 確かに、ドメインクラスを推進するとクラス数は多くなりますが、型の恩恵を受けられるメリットの方が大きいと私は判断しています。
 
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ドメインクラスのgetValueをアプリケーションで呼ばない場合、プレゼンテーション層に値を渡す場合はどうすればいいんだろ？<br>toStringでvalueを返せば良いのかな？<a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a> <a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; Takafumi Iju (@ijufumi_0810) <a href="https://twitter.com/ijufumi_0810/status/751664414336569344">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 フレームワークや共通部品のような抽象的な層なら `getValue` へのアクセスを許可します。
 テンプレートにドメインクラスを渡す場合はコンバータを書きます(例えばJAXBの `XmlAdapter <https://docs.oracle.com/javase/jp/8/docs/api/javax/xml/bind/annotation/adapters/XmlAdapter.html>`_ )。
@@ -213,7 +213,7 @@ Domaのローカルトランザクションと組み合わせて宣言的トラ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">domaのコミュニティ素敵だなあ <a href="https://twitter.com/hashtag/doma_tokyo?src=hash">#doma_tokyo</a></p>&mdash; 寝起き (@nashcft) <a href="https://twitter.com/nashcft/status/751685884760592384">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 ありがとうございます。
 本当に嬉しいお言葉です。
@@ -244,7 +244,7 @@ Domaのローカルトランザクションと組み合わせて宣言的トラ�
 .. raw:: html
 
     <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">dots. のイベントスペース、おしゃで綺麗で木の床があって受付にお姉さんがいてかなり良い！！！！！<a href="https://twitter.com/hashtag/eventdots?src=hash">#eventdots</a></p>&mdash; さらちむ (@syobochim) <a href="https://twitter.com/syobochim/status/751688326105542656">2016年7月9日</a></blockquote>
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script>
 
 ほんまそれ。
 
