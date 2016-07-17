@@ -1,18 +1,29 @@
 これはなに？
-==============
+========================================
 
-`@backpaper0`_ がJavaを中心にいろいろと書くます。
+うらがみがJavaを中心にいろいろと書いているブログ。
 
-.. image:: /images/backpaper0.*
+SNS
+----------------------------------------
+
+* https://github.com/backpaper0
+* https://twitter.com/backpaper0
+
+Icons
+----------------------------------------
+
+.. image:: /images/backpaper0-1.*
+
+.. image:: /images/backpaper0-2.*
+
+.. image:: /images/backpaper0-3.*
 
 好きなこと・もの、興味のあること
---------------------------------
+----------------------------------------
 
 * JAX-RS
 * Doma
 * GlassFish/Payara
 * java.util.concurrent.*
 * libGDX
-
-.. _`@backpaper0`: https://twitter.com/backpaper0
 
