@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/09/11/githubwww
    2016/09/06/private_method
    2016/07/12/doma_tokyo
    2016/06/12/slider
