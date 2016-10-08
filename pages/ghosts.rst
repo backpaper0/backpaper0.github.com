@@ -12,6 +12,7 @@
 * `Doma実践 </ghosts/doma-practice.html>`_
 * `Domaの紹介 </ghosts/doma-intro.html>`_
 * `ドメインクラスの話 </ghosts/doma-domainclass.html>`_
+* `詳解:: </ghosts/colon-colon/>`_
 
 .. author:: default
 .. categories:: none
