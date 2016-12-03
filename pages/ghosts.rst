@@ -13,6 +13,7 @@
 * `Domaの紹介 </ghosts/doma-intro.html>`_
 * `ドメインクラスの話 </ghosts/doma-domainclass.html>`_
 * `詳解:: </ghosts/colon-colon/>`_
+* `Selenideを試行錯誤しながら実践するブラウザ自動テスト </ghosts/try-selenide/>`_
 
 .. author:: default
 .. categories:: none
