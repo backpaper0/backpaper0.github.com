@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/12/31/good_bye_2016
    2016/12/01/wife_peropero
    2016/10/09/scala_ks
    2016/10/01/unreachable_statements
