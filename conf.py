@@ -11,13 +11,13 @@ import tinkerer.paths
 project = u'裏紙'                   
 
 # Change this to the tagline of your blog
-tagline = u'⛄️'
+tagline = u'🐔'
 
 # Change this to your name
 author = u'うらがみ'
 
 # Change this to your copyright string
-copyright = u'2013-2016, ' + author         
+copyright = u'2013-2017, ' + author         
 
 # Change this to your blog root URL (required for RSS feed)
 website = 'http://backpaper0.github.io/'                              
