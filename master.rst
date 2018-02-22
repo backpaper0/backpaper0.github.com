@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2018/02/22/spring_proxy
    2017/04/17/acrobook
    2016/12/31/good_bye_2016
    2016/12/01/wife_peropero
