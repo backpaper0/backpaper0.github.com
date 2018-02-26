@@ -14,6 +14,10 @@
 * `ドメインクラスの話 </ghosts/doma-domainclass.html>`_
 * `詳解:: </ghosts/colon-colon/>`_
 * `Selenideを試行錯誤しながら実践するブラウザ自動テスト </ghosts/try-selenide/>`_
+* `GroovyでFizzBuzzやってみた </ghosts/groovy-de-fizzbuzz/>`_
+* `Selenideを使ったテストで工夫していることとこれからやりたいこと </ghosts/selenide-kari/>`_
+* `SpringでOAuth 2.0 OpenID Connect 1.0を使う </spring-fest-2017/>`_
+* `Domaソースコードリーディングの勘所(仮) </ghosts/doma-src-reading/>`_
 
 .. author:: default
 .. categories:: none
