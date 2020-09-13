@@ -3,4 +3,4 @@
 /conf.pyc
 /drafts/
 /**/.DS_Store
-
+*.pyc

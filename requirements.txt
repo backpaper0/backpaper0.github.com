@@ -1,2 +1,0 @@
-Tinkerer==1.5
-sphinxjp.themes.tinkerbelizehole==0.2.0
