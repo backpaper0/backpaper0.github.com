@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Spring BootのサンプルをGradle化した、けども…… &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Spring BootのサンプルをJAX-RSにしてみた" href="../14/spring_boot_jersey.html" /><link rel="prev" title="Jersey 2.15のCDI統合を試す" href="../16/jersey2_15_cdi.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>January 15, 2015</span>
+        </div>
+    <div class="section" id="spring-bootgradle">
+<h1>Spring BootのサンプルをGradle化した、けども……</h1>
+<p>最近Spring Bootで遊んでいます。</p>
+<ul class="simple">
+<li><a class="reference internal" href="../14/spring_boot_jersey.html"><span class="doc">Spring BootのサンプルをJAX-RSにしてみた</span></a></li>
+</ul>
+<p>今回はMavenでビルドされているサンプルをGradle化しました。</p>
+<p>ソースコードは <a class="reference external" href="https://github.com/backpaper0/spring_boot_sample">https://github.com/backpaper0/spring_boot_sample</a> です。</p>
+<p>tagは <a class="reference external" href="https://github.com/backpaper0/spring_boot_sample/releases/tag/gradle">https://github.com/backpaper0/spring_boot_sample/releases/tag/gradle</a> です。</p>
+<div class="section" id="id1">
+<h2>本題</h2>
+<p>まず、おもむろにgradle initしました。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gradle init
+</pre></div>
+</div>
+<p>すでにpom.xmlがあるので依存関係とか色々よろしくやってくれたbuild.gradleが出力されました。</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;maven&#39;</span>
+
+<span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;sample&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0-SNAPSHOT&#39;</span>
+
+<span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;spring-boot-sample&quot;&quot;&quot;</span>
+
+<span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="mf">1.8</span>
+<span class="n">targetCompatibility</span> <span class="o">=</span> <span class="mf">1.8</span>
+
+
+
+<span class="n">repositories</span> <span class="o">{</span>
+
+     <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">&quot;http://repo.maven.apache.org/maven2&quot;</span> <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">&#39;org.twitter4j&#39;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">&#39;twitter4j-core&#39;</span><span class="o">,</span> <span class="nl">version:</span><span class="s1">&#39;4.0.2&#39;</span>
+    <span class="n">compile</span><span class="o">(</span><span class="nl">group:</span> <span class="s1">&#39;org.springframework.boot&#39;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">&#39;spring-boot-starter-jersey&#39;</span><span class="o">,</span> <span class="nl">version:</span><span class="s1">&#39;1.2.1.RELEASE&#39;</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">exclude</span><span class="o">(</span><span class="nl">module:</span> <span class="s1">&#39;spring-webmvc&#39;</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="n">compile</span><span class="o">(</span><span class="nl">group:</span> <span class="s1">&#39;org.glassfish.jersey.ext&#39;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">&#39;jersey-mvc&#39;</span><span class="o">,</span> <span class="nl">version:</span><span class="s1">&#39;2.14&#39;</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">exclude</span><span class="o">(</span><span class="nl">module:</span> <span class="s1">&#39;servlet-api&#39;</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">&#39;org.springframework.boot&#39;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">&#39;spring-boot-starter-thymeleaf&#39;</span><span class="o">,</span> <span class="nl">version:</span><span class="s1">&#39;1.2.1.RELEASE&#39;</span>
+    <span class="n">testCompile</span><span class="o">(</span><span class="nl">group:</span> <span class="s1">&#39;org.springframework.boot&#39;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">&#39;spring-boot-starter-test&#39;</span><span class="o">,</span> <span class="nl">version:</span><span class="s1">&#39;1.2.1.RELEASE&#39;</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">exclude</span><span class="o">(</span><span class="nl">module:</span> <span class="s1">&#39;commons-logging&#39;</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="n">testCompile</span> <span class="nl">group:</span> <span class="s1">&#39;junit&#39;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">&#39;junit&#39;</span><span class="o">,</span> <span class="nl">version:</span><span class="s1">&#39;4.12&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>あとはSpring Bootのリファレンスの
+<a class="reference external" href="http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#getting-started-gradle-installation">10.1.2 Gradle installation</a>
+を参考にしてちょこちょこっと編集しました。</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">buildscript</span> <span class="o">{</span>
+  <span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">jcenter</span><span class="o">()</span>
+    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">&quot;http://repo.spring.io/snapshot&quot;</span> <span class="o">}</span>
+    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">&quot;http://repo.spring.io/milestone&quot;</span> <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="n">dependencies</span> <span class="o">{</span>
+    <span class="c1">//ここで拡張プロパティspringBootVersionは参照できひんの？_(:3｣∠)_</span>
+    <span class="n">classpath</span><span class="o">(</span><span class="s2">&quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE&quot;</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;spring-boot&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;eclipse&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;idea&#39;</span>
+
+<span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;sample&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0-SNAPSHOT&#39;</span>
+
+<span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="mf">1.8</span>
+<span class="n">targetCompatibility</span> <span class="o">=</span> <span class="mf">1.8</span>
+
+<span class="n">ext</span> <span class="o">{</span>
+  <span class="n">springBootVersion</span> <span class="o">=</span> <span class="s1">&#39;1.2.1.RELEASE&#39;</span>
+<span class="o">}</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+  <span class="n">jcenter</span><span class="o">()</span>
+  <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">&quot;http://repo.spring.io/snapshot&quot;</span> <span class="o">}</span>
+  <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">&quot;http://repo.spring.io/milestone&quot;</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+  <span class="n">compile</span> <span class="s1">&#39;org.twitter4j:twitter4j-core:4.0.2&#39;</span>
+  <span class="n">compile</span> <span class="o">(</span><span class="s2">&quot;org.springframework.boot:spring-boot-starter-jersey:$springBootVersion&quot;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">exclude</span><span class="o">(</span><span class="nl">module:</span> <span class="s1">&#39;spring-webmvc&#39;</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="n">compile</span> <span class="o">(</span><span class="s1">&#39;org.glassfish.jersey.ext:jersey-mvc:2.14&#39;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">exclude</span><span class="o">(</span><span class="nl">module:</span> <span class="s1">&#39;servlet-api&#39;</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="n">compile</span> <span class="s2">&quot;org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion&quot;</span>
+  <span class="n">testCompile</span> <span class="o">(</span><span class="s2">&quot;org.springframework.boot:spring-boot-starter-test:$springBootVersion&quot;</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">exclude</span><span class="o">(</span><span class="nl">module:</span> <span class="s1">&#39;commons-logging&#39;</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="n">testCompile</span> <span class="s1">&#39;junit:junit:4.12&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>知りたいこと</h2>
+<p>build.gradleにも書いたけどbuildscriptのブロック内で拡張プロパティspringBootVersionを参照できないのでしょうか？
+（試しに使ってみたらビルド失敗した。。。）</p>
+<p>教えてくださいお願いしますお願いします（他力本願）。</p>
+<div class="section" id="id3">
+<h3>早速解決しました！</h3>
+<blockquote class="twitter-tweet" lang="ja"><p><a href="https://twitter.com/backpaper0">@backpaper0</a> buildscriptブロック内で拡張プロパティが使えない件ですが、buildscriptブロック内で拡張プロパティを定義すれば、全体でその値を使えたと思いますよー</p>&mdash; さときち (@satokittyd) <a href="https://twitter.com/satokittyd/status/555730693188091904">2015, 1月 15</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script><p>ありがとうございます！</p>
+<p><a class="reference external" href="https://github.com/backpaper0/spring_boot_sample/commit/8ba07180a7758000522ebf99007d4c2b629378e2">修正してコミットしました！</a></p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>まとめ</h2>
+<p>Gradle化すげえ簡単だった。</p>
+</div>
+<div class="section" id="id6">
+<h2>あわせて読みたい</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://syobochim.hatenablog.com/entry/2015/01/25/193327">初心者大歓迎! webアプリを作ってみよう!勉強会のレポ起因にブログ書いてもらったからやってみた！！！ - そこに仁義はあるのか(仮)</a></li>
+</ul>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a>, <a href="../../../tags/spring_boot.html">Spring Boot</a>, <a href="../../../tags/gradle.html">Gradle</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../16/jersey2_15_cdi.html">Jersey 2.15のCDI統合を試す</a></li>
+            <li class="right"><a href="../14/spring_boot_jersey.html">Spring BootのサンプルをJAX-RSにしてみた</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

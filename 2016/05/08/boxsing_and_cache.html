@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>ボクシングとキャッシュ &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="東京でみんなと遊んできた" href="../../03/24/tokyo.html" /><link rel="prev" title="関Javaで使ってたスマホでスライドめくるやつ" href="../../06/12/slider.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>May 08, 2016</span>
+        </div>
+    <div class="section" id="id1">
+<h1>ボクシングとキャッシュ</h1>
+<div class="section" id="integer">
+<h2>Integerのキャッシュ</h2>
+<p><span class="docutils literal"><span class="pre">int</span></span> がボクシングされると <span class="docutils literal"><span class="pre">java.lang.Integer</span></span> になりますが、このとき <span class="docutils literal"><span class="pre">Integer.valueOf(int)</span></span> が使われます。
+このことは次のようなボクシングされるコードを書いてコンパイルしてからjavapすればよく分かります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IntBoxingSample</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">boxing</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>javapしてみた結果は次の通り。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Compiled from &quot;IntBoxingSample.java&quot;
+public class IntBoxingSample {
+  public IntBoxingSample();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V
+       4: return
+
+  public java.lang.Integer boxing(int);
+    Code:
+       0: iload_1
+       1: invokestatic  #2                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       4: areturn
+}
+</pre></div>
+</div>
+<p>で、この <span class="docutils literal"><span class="pre">Integer.valueOf(int)</span></span> ですが、 <span class="docutils literal"><span class="pre">-128</span></span> から <span class="docutils literal"><span class="pre">127</span></span> までの範囲はキャッシュされます。</p>
+<p>このことは <a class="reference external" href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.7">言語仕様の5.1.7</a> や
+<a class="reference external" href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Integer.html#valueOf-int-">Integer.valueOf(int)のJavadoc</a> に書かれています。</p>
+<p>でもって、OpenJDKのコードを見た感じ、 <span class="docutils literal"><span class="pre">java.lang.Integer.IntegerCache.high</span></span> というシステムプロパティでキャッシュする範囲を変更できそうです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Integer.java#l829">Integer.valueOf(int)のコード</a></li>
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Integer.java#l785">Integerインスタンスをキャッシュする範囲を決定しているstaticイニシャライザ</a></li>
+</ul>
+<p>というわけで次のようなコードを書いてコンパイルして普通に実行すると <span class="docutils literal"><span class="pre">false</span></span> と表示されますが、 <span class="docutils literal"><span class="pre">-Djava.lang.Integer.IntegerCache.high=1000</span></span> という風にシステムプロパティを設定して実行すると <span class="docutils literal"><span class="pre">true</span></span> と表示されます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sample</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Integer</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="n">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>実行結果は次の通り。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>% java Sample
+<span class="nb">false</span>
+% java -Djava.lang.Integer.IntegerCache.high<span class="o">=</span><span class="m">1000</span> Sample
+<span class="nb">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>他のプリミティブも見てみた</h2>
+<p><span class="docutils literal"><span class="pre">Byte</span></span> 、 <span class="docutils literal"><span class="pre">Short</span></span> 、 <span class="docutils literal"><span class="pre">Long</span></span> は <span class="docutils literal"><span class="pre">Integer</span></span> と同じく <span class="docutils literal"><span class="pre">-128</span></span> から <span class="docutils literal"><span class="pre">127</span></span> までキャッシュされていました。
+ただしキャッシュの範囲は変更できません。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Byte.java#l101">Byte.valueOf(byte)のコード</a> と
+<a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Byte.java#l77">Byteのキャッシュ構築コード</a></li>
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Short.java#l230">Short.valueOf(short)のコード</a> と
+<a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Short.java#l203">Shortのキャッシュ構築コード</a></li>
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Long.java#l835">Long.valueOf(long)のコード</a> と
+<a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Long.java#l806">Longのキャッシュ構築コード</a></li>
+</ul>
+<p>それから <span class="docutils literal"><span class="pre">Character</span></span> は <span class="docutils literal"><span class="pre">0</span></span> から <span class="docutils literal"><span class="pre">127</span></span> までキャッシュされていました。
+ASCII文字コードの <span class="docutils literal"><span class="pre">NUL</span></span> から <span class="docutils literal"><span class="pre">DEL</span></span> ですね。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Character.java#l4569">Character.valueOf(char)のコード</a> と
+<a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Character.java#l4541">Characterのキャッシュ構築コード</a></li>
+</ul>
+<p><span class="docutils literal"><span class="pre">Boolean</span></span> は定数 <span class="docutils literal"><span class="pre">TRUE</span></span> と <span class="docutils literal"><span class="pre">FALSE</span></span> のどちらかを返すようになっています。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Boolean.java#l149">Boolean.valueOf(boolean)のコード</a></li>
+</ul>
+<p>最後に <span class="docutils literal"><span class="pre">Float</span></span> と <span class="docutils literal"><span class="pre">Double</span></span> ですが、どちらもキャッシュせず常にインスタンス化するようになっていました。
+浮動小数点数なので <span class="docutils literal"><span class="pre">-128.0</span></span> から <span class="docutils literal"><span class="pre">127.0</span></span> の間にも膨大な量のインスタンスを生成し得るので、まあ、そりゃキャッシュしないか、という感じ。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Float.java#l432">Float.valueOf(float)のコード</a></li>
+<li><a class="reference external" href="http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/dc4322602480/src/share/classes/java/lang/Double.java#l518">Double.valueOf(double)のコード</a></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>まとめ</h2>
+<p>以上のように普段は意識しないような部分でキャッシュしておりパフォーマンス向上を図っていたりしています。
+こういったJDKの努力に感謝しつつ、今後も意識せずにコーディングしようと思います。</p>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../../06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a></li>
+            <li class="right"><a href="../../03/24/tokyo.html">東京でみんなと遊んできた</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

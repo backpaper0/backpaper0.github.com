@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 23 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page24.html" /><link rel="prev" title="Newer" href="page22.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 07, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/12/07/glassfish_asadmin.html">よく使うasadminのコマンドを紹介する</a></h1>
+<p>これは <a class="reference external" href="http://www.adventar.org/calendars/383">GlassFish Advent Calendar 2014</a> の7日目です。</p>
+<p>小ネタです。
+私がよく使うasadminのコマンドを、引数も書いて実際に使っている感じを出しつつ紹介します。</p>
+<dl class="docutils">
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">list-commands</span></span></dt>
+<dd>どんなコマンドあったっけなー、ってときどき確認します。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">list-domain</span></span></dt>
+<dd>GlassFishはドメインという単位で管理しますが、このコマンドで今あるドメインを確認します。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">delete-domain</span> <span class="pre">domain1</span></span></dt>
+<dd>要らんドメインを消します。
+ドメインは <span class="docutils literal"><span class="pre">glassfish/domains/</span></span> 以下に作成されますが、ここを心を込めて手動で消しても大丈夫っぽいです。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">create-domain</span> <span class="pre">--portbase=9000</span> <span class="pre">domain1</span></span></dt>
+<dd>ドメインを作ります。
+portbaseを指定すればHTTPは9080、管理は9048という風に良い感じにポートを設定してくれます。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">start-domain</span> <span class="pre">domain1</span></span></dt>
+<dd>ドメインを起動します。
+後述するcreate-jdbc-connection-poolコマンドなど一部のコマンドはドメインが起動していないと実行できなかったりします。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">stop-domain</span> <span class="pre">domain1</span></span></dt>
+<dd>起動しているドメインを停止します。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">create-jdbc-connection-pool</span> <span class="pre">--datasourceclassname</span> <span class="pre">org.h2.jdbcx.JdbcDataSource</span> <span class="pre">--restype</span> <span class="pre">javax.sql.DataSource</span> <span class="pre">--property</span> <span class="pre">url=jdbc\\:h2\\:sampleDB:user=sa:password=secret</span> <span class="pre">samplePool</span></span></dt>
+<dd>JDBCコネクションプールを作ります。
+propertyにURLを書く場合、コロンをエスケープしないといけないので気をつけましょー。
+一番最後の引数(この例でいうとsamplePool)がコネクションプールIDです。
+なお、JDBCドライバは <span class="docutils literal"><span class="pre">glassfish/domains/domain1/lib/ext/</span></span> (domain1はドメインの名前なので適宜置き換えてください)に置きます。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">create-jdbc-resource</span> <span class="pre">--connectionpoolid</span> <span class="pre">samplePool</span> <span class="pre">jdbc/sample</span></span></dt>
+<dd>JDBCリソースを作ります。
+アプリケーションからはここで設定したJNDI名(この例でいうとjdbc/sample)で参照します。
+ひとつのJDBCコネクションプールに対して複数のJDBCリソースを作ることもできます。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">create-jvm-options</span> <span class="pre">-Xmx1024m</span></span></dt>
+<dd>JVMオプションを設定します。
+この例では最大メモリサイズを設定しています。
+このコマンドで設定したJVMオプションはドメインを再起動したときに反映されます。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">set-log-levels</span> <span class="pre">org.seasar.doma=CONFIG</span></span></dt>
+<dd>ログレベルを設定します。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">deploy</span> <span class="pre">--contextroot=sample</span> <span class="pre">--name=sample</span> <span class="pre">sample.war</span></span></dt>
+<dd>デプロイします。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">redeploy</span> <span class="pre">--name=sample</span> <span class="pre">sample.war</span></span></dt>
+<dd>再デプロイします。
+デプロイと再デプロイでコマンドを使い分けなきゃダメなのはちょっと面倒です。</dd>
+<dt><span class="docutils literal"><span class="pre">asadmin</span> <span class="pre">undeploy</span> <span class="pre">sample</span></span></dt>
+<dd>アンデプロイします。
+引数にはデプロイ時に設定したnameを指定します。</dd>
+</dl>
+<p>とまあ、よく使うのはこんな所でしょうか。
+自分が思っていたより少なかったですね。</p>
+<p>簡単ですが、以上になります。
+おそまつさまでした。</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/glassfish.html">GlassFish</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 07, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/12/07/application_class.html">どうやってApplicationサブクラスの名前取ってきてんの？</a></h1>
+<p>これは <a class="reference external" href="http://www.adventar.org/calendars/380">JavaFX Advent Calendar 2014</a> の7日目です。</p>
+<p>小ネタです。</p>
+<p>JavaFXアプリケーションのメインクラスは次のように書きますよね。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hoge</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="p">(</span><span class="n">Stage</span> <span class="n">primaryStage</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="c1">//略</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これを初めて見たとき、launchメソッドにApplicationサブクラスのインスタンスや
+Classを渡してるわけでもないのにインスタンス化されてstartメソッドが呼ばれるのが
+キモいなー、と思ったのでした。</p>
+<p>で、だいたい予想はつきましたが、Application.javaを読んでみました。
+その部分を引用します。</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">// Figure out the right class to call</span>
+<span class="n">StackTraceElement</span><span class="o">[]</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">getStackTrace</span><span class="p">();</span>
+
+<span class="kt">boolean</span> <span class="n">foundThisMethod</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">callingClassName</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">StackTraceElement</span> <span class="n">se</span> <span class="p">:</span> <span class="n">cause</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Skip entries until we get to the entry for this class</span>
+    <span class="n">String</span> <span class="n">className</span> <span class="o">=</span> <span class="n">se</span><span class="p">.</span><span class="na">getClassName</span><span class="p">();</span>
+    <span class="n">String</span> <span class="n">methodName</span> <span class="o">=</span> <span class="n">se</span><span class="p">.</span><span class="na">getMethodName</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">foundThisMethod</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">callingClassName</span> <span class="o">=</span> <span class="n">className</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Application</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">className</span><span class="p">)</span>
+            <span class="o">&amp;&amp;</span> <span class="s">"launch"</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">methodName</span><span class="p">))</span> <span class="p">{</span>
+
+        <span class="n">foundThisMethod</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>という感じで、スタックトレースを取得して現在のメソッド(launch)のひとつ前の
+メソッド名(main)とクラス名(Hoge)を取得していました。</p>
+<p>予想通り割とキモい方法でクラス名を取ってきていたことが分かって満足です。</p>
+<p>JavaFXである必要性の薄い内容でしたが、以上になります。
+おそまつさまでした。</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/javafx.html">JavaFX</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page22.html">Newer</a></li>
+            <li class="right"><a href="page24.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

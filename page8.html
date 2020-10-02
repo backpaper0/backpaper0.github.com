@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 8 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page9.html" /><link rel="prev" title="Newer" href="page7.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 13, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/12/13/semicolonless_javaee.html">セミコロンレスJava EEでTODOリストアプリケーション #semicolonlessjava</a></h1>
+<p>これは <a class="reference external" href="http://www.adventar.org/calendars/952">セミコロンレスJava Advent Calendar</a>
+の13日目です。</p>
+<p>今回はセミコロンレスJava EEを使って簡単なTODOリストアプリケーションを作ってみました。</p>
+<p>ソースコードは <a class="reference external" href="https://github.com/backpaper0/semicolonless-javaee-todolist-sample">https://github.com/backpaper0/semicolonless-javaee-todolist-sample</a> です。</p>
+<p>使っているJava EEな技術は、</p>
+<ul class="simple">
+<li>JAX-RS</li>
+<li>JPA</li>
+<li>Java API for JSON Processing</li>
+<li>CDI/JTA</li>
+</ul>
+<p>です。</p>
+<p>このうちCDIとJTAはアノテーションを利用しただけなので特に解説の余地はありません。</p>
+<p>Java API for JSON Processingもリソースクラスの引数にJsonObjectを利用したってだけなので解説するほどのものじゃないですね。</p>
+<p>というわけで、JAX-RSとJPAの利用箇所について解説します。
+なお分かりやすさのためここではセミコロンを書いて良い普通のJava言語でコード例を記載します。</p>
+<div class="section" id="jax-rs">
+<h2>セミコロンレスJAX-RS</h2>
+<p>JAX-RSのリソースメソッドはレスポンスにエンティティボディを含むものであれば通常は次のようなコードになります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">"!"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>しかし <span class="docutils literal"><span class="pre">return</span></span> しようとするとセミコロンを書かざるを得ないのでこのコードは使えません。
+セミコロンレスJavaでは(一部の特殊な状況を除いて) <span class="docutils literal"><span class="pre">return</span></span> するメソッドを実装できません。</p>
+<p>そこで考えたのが <span class="docutils literal"><span class="pre">@Suspended</span></span> と <span class="docutils literal"><span class="pre">AsyncResponse</span></span> を利用する方法です。</p>
+<p><span class="docutils literal"><span class="pre">@Suspended</span></span> と <span class="docutils literal"><span class="pre">AsyncResponse</span></span> はクライアントとの接続をsuspendしておき、 <span class="docutils literal"><span class="pre">AsyncResponse.resume</span></span> に値を渡すことでresumeするためのものですが、
+これらを利用することで次のようなコードになりました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">hello</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">,</span>
+                  <span class="nd">@Suspended</span> <span class="n">AsyncResponse</span> <span class="n">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">resume</span><span class="p">(</span><span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">"!"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">AsyncResponse.resume</span></span> は <span class="docutils literal"><span class="pre">boolean</span></span> を返すのでif文に押し込みやすいですね。</p>
+<p>これでエンティティボディを返すリソースメソッドを定義できました。</p>
+</div>
+<div class="section" id="jpa">
+<h2>セミコロンレスJPA</h2>
+<p>次にJPAです。</p>
+<p>のっけからアレですが、セミコロンレスJPAではフィールドもgetterも定義できないのでエンティティクラスを作れません。
+(JPA詳しくないので、もし作れる方法があれば教えてください)</p>
+<p>なのでネイティブクエリを使いまくるという、それJDBCでええやんけ、的な感じのコードになっております。</p>
+<p>それはともかく、 <span class="docutils literal"><span class="pre">EntityManager</span></span> を取ってきましょう。
+普通は次のコードのようにフィールドインジェクションすると思います。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@PersistenceContext</span><span class="p">(</span><span class="n">unitName</span> <span class="o">=</span> <span class="s">"SampleUnit"</span><span class="p">)</span>
+<span class="kd">private</span> <span class="n">EntityManager</span> <span class="n">em</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>でも前述の通りセミコロンレスJavaではフィールドが定義できません。</p>
+<p>なのでJNDI lookupしましょう。
+JSR 338 JPA 2.1仕様の「7.2.1 Obtaining an Entity Manager in the Java EE Environment」を読むと、
+アノテーションでJNDI名を定義してlookupできるっぽいのでこれを利用しました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@PersistenceContext</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"SampleEM"</span><span class="p">,</span> <span class="n">unitName</span> <span class="o">=</span> <span class="s">"SampleUnit"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleResource</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">resourceMethod</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">NamingException</span> <span class="p">{</span>
+        <span class="n">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">InitialContext</span><span class="p">.</span><span class="na">doLookup</span><span class="p">(</span><span class="s">"java:comp/env/SampleEM"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この例だと変数 <span class="docutils literal"><span class="pre">em</span></span> に代入していますが、セミコロンレスJavaでは変数宣言も出来ません。
+なので次のように <span class="docutils literal"><span class="pre">Stream</span></span> を使うのが良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">if</span> <span class="p">(</span><span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">EntityManager</span><span class="p">)</span> <span class="n">InitialContext</span>
+                  <span class="p">.</span><span class="na">doLookup</span><span class="p">(</span><span class="s">"java:comp/env/SampleEM"</span><span class="p">))</span>
+                  <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">em</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="cm">/* emを使った処理 */</span> <span class="p">})</span>
+                  <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+</div>
+<p>あとは <span class="docutils literal"><span class="pre">EntityManager.createNativeQuery</span></span> でSQLを発行すればOKです。</p>
+</div>
+<div class="section" id="id1">
+<h2>まとめ</h2>
+<p>セミコロンレスJava EEで実用的なアプリケーションも作れる！(作らない)</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/semicolonlessjava.html">SemicolonlessJava</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 09, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/12/09/semicolonless_fizzbuzz.html">セミコロンなどレスJavaでFizzBuzz #semicolonlessjava</a></h1>
+<p>これは <a class="reference external" href="http://www.adventar.org/calendars/952">セミコロンレスJava Advent Calendar</a>
+の9日目です。</p>
+<div class="section" id="java-8fizzbuzz">
+<h2>セミコロンレスJava 8でFizzBuzz</h2>
+<p>セミコロンレスJava 8でFizzBuzzを書いてみましょう。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+                <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">15</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"FizzBuzz"</span>
+                             <span class="p">:</span> <span class="n">i</span> <span class="o">%</span>  <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"Fizz"</span>
+                             <span class="p">:</span> <span class="n">i</span> <span class="o">%</span>  <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"Buzz"</span>
+                             <span class="p">:</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">" "</span><span class="p">)))</span>
+                <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Stream APIとラムダ式のおかげでかなり簡単に書けました。</p>
+</div>
+<div class="section" id="id1">
+<h2>可変長引数</h2>
+<p>よく見ると <span class="docutils literal"><span class="pre">[</span></span> と <span class="docutils literal"><span class="pre">]</span></span> は <span class="docutils literal"><span class="pre">main</span></span> メソッドの引数で1回ずつしか使っていません。
+可変長引数にすると消せますね。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+                <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">15</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"FizzBuzz"</span>
+                             <span class="p">:</span> <span class="n">i</span> <span class="o">%</span>  <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"Fizz"</span>
+                             <span class="p">:</span> <span class="n">i</span> <span class="o">%</span>  <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"Buzz"</span>
+                             <span class="p">:</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">" "</span><span class="p">)))</span>
+                <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional">
+<h2>条件演算子とOptional</h2>
+<p>セミコロンレスJava 8では <span class="docutils literal"><span class="pre">Optional</span></span> が使えます。
+<span class="docutils literal"><span class="pre">Optional.getOrElse</span></span> を使えば条件演算子の代替になります。</p>
+<p>例えば次のコードは、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">"yes"</span> <span class="p">:</span> <span class="s">"no"</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>こう書けます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"yes"</span><span class="p">).</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="s">"no"</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">:</span></span> と <span class="docutils literal"><span class="pre">?</span></span> を消せました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+                <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">15</span> <span class="o">==</span> <span class="mi">0</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"FizzBuzz"</span><span class="p">)</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">%</span>  <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"Fizz"</span><span class="p">)</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">%</span>  <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"Buzz"</span><span class="p">)</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">toString</span><span class="p">()))))</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">" "</span><span class="p">)))</span>
+                <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="biginteger">
+<h2>数値演算とBigInteger</h2>
+<p><span class="docutils literal"><span class="pre">int</span></span> を <span class="docutils literal"><span class="pre">BigInteger</span></span> にすると演算がメソッド呼び出しになります。</p>
+<p>例えば次のコードは、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">...</span>
+<span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>こう書けます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="p">...</span>
+<span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">BigInteger</span><span class="p">(</span><span class="s">"2"</span><span class="p">)).</span><span class="na">equals</span><span class="p">(</span><span class="n">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">%</span></span> と <span class="docutils literal"><span class="pre">=</span></span> を消せました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+                <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
+                        <span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="s">"15"</span><span class="p">))</span>
+                        <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"FizzBuzz"</span><span class="p">)</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="s">"3"</span><span class="p">))</span>
+                        <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"Fizz"</span><span class="p">)</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="s">"5"</span><span class="p">))</span>
+                        <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="s">"Buzz"</span><span class="p">)</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">toString</span><span class="p">()))))</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">" "</span><span class="p">)))</span>
+                <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stringbuilder">
+<h2>文字列リテラルとStringBuilder</h2>
+<p>文字列リテラルもなくしてしまいましょう。
+<span class="docutils literal"><span class="pre">StringBuilder</span></span> に <span class="docutils literal"><span class="pre">char</span></span> を足し込んでやれば文字列は構築できます。</p>
+<p>ただし <span class="docutils literal"><span class="pre">char</span></span> リテラルを使うと <span class="docutils literal"><span class="pre">'</span></span> を入れ混んじゃうので、
+<span class="docutils literal"><span class="pre">int</span></span> をキャストしましょう。</p>
+<p>例えば次のコードは、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>こう書けます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x68</span><span class="p">)</span>
+                              <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x65</span><span class="p">)</span>
+                              <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6c</span><span class="p">)</span>
+                              <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6c</span><span class="p">)</span>
+                              <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6f</span><span class="p">)</span>
+                              <span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">"</span></span> を消せました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+                <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
+                        <span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">15</span><span class="p">)))</span>
+                        <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x46</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x69</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x42</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x75</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+                        <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x46</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x69</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
+                        <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x42</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x75</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                                <span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">toString</span><span class="p">()))))</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x20</span><span class="p">).</span><span class="na">toString</span><span class="p">())))</span>
+                <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>1引数のメソッド呼び出し化</h2>
+<p>さて、最後は <span class="docutils literal"><span class="pre">,</span></span> です。
+<span class="docutils literal"><span class="pre">IntStream.rangeClosed</span></span> の呼び出し部分でしか使ってないですね。
+がんばって消してみましょう。</p>
+<p>この <span class="docutils literal"><span class="pre">,</span></span> を消すには1引数のメソッド呼び出しだけで1〜100のストリームを生成する必要があります。
+でも、ざっとStream APIを眺めましたがそれを叶えてくるメソッドはなさそうでした。</p>
+<p>仕方がないので <span class="docutils literal"><span class="pre">AtomicInteger.incrementAndGet</span></span> と <span class="docutils literal"><span class="pre">IntStream.generate</span></span> を組み合わせてストリームを構築して、
+<span class="docutils literal"><span class="pre">IntStream.limit</span></span> で上限を設定すれば1〜100の <span class="docutils literal"><span class="pre">IntStream</span></span> が手に入ります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+
+<span class="c1">//1〜100のIntStreamを構築する普通の方法</span>
+<span class="n">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="c1">//AtomicIntegerを利用して1〜100のIntStreamを構築する方法</span>
+<span class="n">AtomicInteger</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicInteger</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">IntStream</span><span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">incrementAndGet</span><span class="p">()).</span><span class="na">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">,</span></span> が消えて最終的にこうなりました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+            <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">atomic</span><span class="p">.</span><span class="na">AtomicInteger</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span>
+                <span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">incrementAndGet</span><span class="p">())</span>
+                <span class="p">.</span><span class="na">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
+                        <span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">15</span><span class="p">)))</span>
+                    <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x46</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x69</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x42</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x75</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+                    <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x46</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x69</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
+                    <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x42</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x75</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">).</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)</span>
+                        <span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+                <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">toString</span><span class="p">()))))</span>
+            <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x20</span><span class="p">).</span><span class="na">toString</span><span class="p">())))</span>
+            <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これで使用している記号は <span class="docutils literal"><span class="pre">{}().-&gt;</span></span> だけになりました。</p>
+<p><span class="docutils literal"><span class="pre">{}</span></span> はクラス定義やらメソッド定義に必要だし、
+<span class="docutils literal"><span class="pre">().</span></span> はメソッド呼び出しあたりに必要だし、
+<span class="docutils literal"><span class="pre">-&gt;</span></span> はラムダ式に必要なのでこれ以上の省略は難しそう感あります。</p>
+<p>消せる方法が思いついたら教えてください。</p>
+<p>というわけで、セミコロンなどレスJavaでFizzBuzzしてみた話でした。</p>
+</div>
+<div class="section" id="new">
+<h2>追記：new演算子を消す</h2>
+<p>new演算子を使っているのは次の3つのクラスです。</p>
+<ul class="simple">
+<li><span class="docutils literal"><span class="pre">AtomicInteger</span></span></li>
+<li><span class="docutils literal"><span class="pre">BigInteger</span></span></li>
+<li><span class="docutils literal"><span class="pre">StringBuilder</span></span></li>
+</ul>
+<p>まず <span class="docutils literal"><span class="pre">BigInteger</span></span> ですが、
+<span class="docutils literal"><span class="pre">BigInteger.valueOf</span></span> という便利なファクトリーメソッドがありました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+
+<span class="c1">//これは</span>
+<span class="k">new</span> <span class="n">BigInteger</span><span class="p">(</span><span class="s">"100"</span><span class="p">);</span>
+
+<span class="c1">//これで良い！！</span>
+<span class="n">BigInteger</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>次に <span class="docutils literal"><span class="pre">StringBuilder</span></span> ですが、
+<span class="docutils literal"><span class="pre">String.valueOf</span></span> と <span class="docutils literal"><span class="pre">String.concat</span></span> を併用すれば良い事に気が付きました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+
+<span class="c1">//これは</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x68</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x65</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6c</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6c</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">append</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6f</span><span class="p">).</span><span class="na">toString</span><span class="p">();</span>
+
+<span class="c1">//これで良い！！</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x68</span><span class="p">)</span>
+   <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x65</span><span class="p">))</span>
+   <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6c</span><span class="p">))</span>
+   <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6c</span><span class="p">))</span>
+   <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x6f</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>最後に <span class="docutils literal"><span class="pre">AtomicInteger</span></span> ですが、</p>
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr"><a href="https://twitter.com/backpaper0">@backpaper0</a> <a href="https://twitter.com/nagise">@nagise</a> IntStream.generate(() -&gt; (int)(Math.random()*100)).distinct().limit(100).sorted()　これでどうでしょ？ツイートの長さ的に*使ってますけど，いい感じにしてください</p>— 卒研で死にそうなきつね (@bitter_fox) <a href="https://twitter.com/bitter_fox/status/674438084474200066">2015, 12月 9</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script><p>素晴らしい！！！(いろんな意味で)</p>
+<p>きつねさんのアイデアを元に、</p>
+<ul class="simple">
+<li>数値演算子を使わなくて済むように <span class="docutils literal"><span class="pre">Random.nextInt</span></span> を使用</li>
+<li>new演算子を使わないためにstaticファクトリーメソッドがある <span class="docutils literal"><span class="pre">SecureRandom</span></span> を使用</li>
+</ul>
+<p>といった事に気をつけて次のようなコードにしました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+
+<span class="c1">//これで1〜100のIntStreamが手に入る</span>
+<span class="n">SecureRandom</span> <span class="n">r</span> <span class="o">=</span> <span class="n">SecureRandom</span><span class="p">.</span><span class="na">getInstanceStrong</span><span class="p">();</span>
+<span class="n">IntStream</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">IntStream</span><span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="mi">101</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">distinct</span><span class="p">().</span><span class="na">limit</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+                            <span class="p">.</span><span class="na">sorted</span><span class="p">().</span><span class="na">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ちなみに、私が考えついたのは次のようなコードでした。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを書いて良い普通のJava</span>
+<span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">ArrayList</span><span class="p">)</span> <span class="n">Collectors</span><span class="p">.</span><span class="na">toList</span><span class="p">().</span><span class="na">supplier</span><span class="p">().</span><span class="na">get</span><span class="p">())</span>
+      <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">list</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">BigInteger</span><span class="p">.</span><span class="na">ONE</span><span class="p">))</span>
+      <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">list</span> <span class="o">-&gt;</span> <span class="n">IntStream</span><span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span>
+         <span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">BigInteger</span><span class="p">)</span> <span class="n">list</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+               <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+               <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">BigInteger</span><span class="p">.</span><span class="na">ONE</span><span class="p">)))</span>
+               <span class="p">.</span><span class="na">findFirst</span><span class="p">().</span><span class="na">get</span><span class="p">().</span><span class="na">intValue</span><span class="p">()))</span>
+      <span class="p">.</span><span class="na">findFirst</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>簡単に言うと <span class="docutils literal"><span class="pre">ArrayList</span></span> から値を取り出して返し、その値に1足して、また <span class="docutils literal"><span class="pre">ArrayList</span></span> に格納する、を繰り返しています。</p>
+<p><span class="docutils literal"><span class="pre">ArrayList</span></span> の生成には <span class="docutils literal"><span class="pre">Collectors.toList</span></span> で返される <span class="docutils literal"><span class="pre">Collector</span></span> の <span class="docutils literal"><span class="pre">supplier</span></span> を利用しました。
+ぶっちゃけ <span class="docutils literal"><span class="pre">Collectors.toList</span></span> の実装に依存しており美しくないですね。</p>
+<p>また、記号を抑えるためにraw型を使用していますが、そのせいでキャストが多発しており、これも美しくないです。</p>
+<p>その点、きつねさんが提案してくれた方法はコードが美しく、より狂気があふれており素晴らしい！！！</p>
+<p>というわけで、セミコロンなどレスJavaで書いたFizzBuzzは次のようになりました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFizzBuzz</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span>
+            <span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">security</span><span class="p">.</span><span class="na">SecureRandom</span><span class="p">.</span><span class="na">getInstanceStrong</span><span class="p">())</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">IntStream</span>
+                <span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="mi">101</span><span class="p">))</span>
+                <span class="p">.</span><span class="na">distinct</span><span class="p">().</span><span class="na">limit</span><span class="p">(</span><span class="mi">101</span><span class="p">).</span><span class="na">sorted</span><span class="p">().</span><span class="na">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+                    <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span>
+                                    <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x46</span><span class="p">)</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x69</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x42</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x75</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)))</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+                    <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span>
+                                    <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x46</span><span class="p">)</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x69</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)))</span>
+         <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">.</span><span class="na">mod</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+                    <span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)).</span><span class="na">map</span><span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span>
+                                    <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x42</span><span class="p">)</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x75</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">))</span>
+                            <span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x7a</span><span class="p">)))</span>
+                <span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">toString</span><span class="p">()))))</span>
+            <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="mh">0x20</span><span class="p">))))</span>
+            <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">fizzbuzz</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fizzbuzz</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/semicolonlessjava.html">SemicolonlessJava</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page7.html">Newer</a></li>
+            <li class="right"><a href="page9.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

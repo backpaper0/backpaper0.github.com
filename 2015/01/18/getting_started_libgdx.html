@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>libGDXプロジェクトをセットアップする #libgdx &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Spring Bootのサンプルで使ってるアノテーションをJSR 330のものにした" href="../17/spring_boot_jsr330.html" /><link rel="prev" title="Gitでブランチを統合する方法" href="../24/git_rebase_merge.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>January 18, 2015</span>
+        </div>
+    <div class="section" id="libgdx-libgdx">
+<h1>libGDXプロジェクトをセットアップする #libgdx</h1>
+<p>libGDXはJavaのゲームフレームワークで、デスクトップ・Android・iOS・HTML5用にビルドできるフレームワークです。
+どのプラットフォームであっても起動用のクラス以外のほとんどのコードを共有できるすごいやつです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://libgdx.badlogicgames.com/">libGDX</a></li>
+<li><a class="reference external" href="https://github.com/libgdx/libgdx/wiki">GitHubでホスティングされているlibGDXのWiki</a></li>
+</ul>
+<p>今回はlibGDXを使ったプロジェクトのセットアップ方法を書いていこうと思います。</p>
+<div class="section" id="id1">
+<h2>セットアップツールによるプロジェクトの生成</h2>
+<p><a class="reference external" href="http://libgdx.badlogicgames.com/download.html">ダウンロードページ</a>
+で “Download Setup App” をクリックして gdx-seup.jar をダウンロードしてください。</p>
+<p>ダウンロードできたらダブルクリック、もしくは次のコマンドで実行してください。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>java -jar gdx-setup.jar
+</pre></div>
+</div>
+<img alt="../../../_images/gdx-setup-screenshot.png" src="../../../_images/gdx-setup-screenshot.png" />
+<p>各項目を編集します。</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Name</td>
+<td>プロジェクトの名前。Androidプロジェクトはres/values/string.xmlのapp_nameにも使用される。</td>
+</tr>
+<tr class="row-even"><td>Package</td>
+<td>出力されるサンプルコードのパッケージ。AndroidManifest.xmlに書かれるpackageにも使用される。</td>
+</tr>
+<tr class="row-odd"><td>Game class</td>
+<td><a class="reference external" href="http://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/ApplicationListener.html">ApplicationListener</a>
+実装クラス。libGDXにおける起点となるクラス。</td>
+</tr>
+<tr class="row-even"><td>Destination</td>
+<td>プロジェクトの出力先ディレクトリ。</td>
+</tr>
+<tr class="row-odd"><td>Android SDK</td>
+<td>Android SDKのパス。Android用のビルドをする場合に必要。</td>
+</tr>
+</tbody>
+</table>
+<p>“LibGDX Version” は最新のものが選択されているはずなので、そのままで。</p>
+<p>“Sub Projects” はすべてチェックされていると思います。
+不要になればその時点で取り除けば良いし個別にビルドもできるので、これもそのままで。</p>
+<p>“Extensions” は “Box2d” のみがチェックされていると思います。
+ここについては詳しい解説が出来るほどの知識がありません。
+誰か教えてください！
+これもそのままでいきましょう。</p>
+<p>以上の状態で “Generate” を押してください。</p>
+<p>初回はGradleや依存JARのダウンロードが行われるので時間がかかります。
+お茶でも飲んでお待ちください。</p>
+<p>次のようなログが出ると完了です。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BUILD SUCCESSFUL
+
+Total time: 42.551 secs
+Done!
+To import in Eclipse: File -&gt; Import -&gt; Gradle -&gt; Gradle Project
+To import to Intellij IDEA: File -&gt; Import -&gt; build.gradle
+To import to NetBeans: File -&gt; Open Project...
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">プロジェクトのビルドには <a class="reference external" href="https://www.gradle.org/">Gradle</a>
+( <a class="reference external" href="http://gradle.monochromeroad.com/docs/">日本語ドキュメント</a> )が使われていますが、
+gdx-setup.jarが設定済みのbuild.gradleを出力してくれるのでGradleに詳しくなくても大丈夫です。</p>
+</div>
+</div>
+<div class="section" id="git">
+<h2>寄り道：Gitでバージョン管理を始める</h2>
+<p>今後の事を考えてGitでのバージョン管理を始めておきましょう。</p>
+<p>セットアップツールが .gitignore も出力してくれているのでややこしいことは何も考えずにバージョン管理を始められます。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git init
+git add .
+git commit -m <span class="s2">&quot;Initial commit&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="eclipse">
+<h2>Eclipseへのインポート</h2>
+<p>セットアップのログを見た感じだとEclipseにGradleプラグインが入っているとそのままインポート出来そうですね。</p>
+<p>私はGradleプラグインが入っていないEclipseを使っているので、その場合のインポート方法を書きます。</p>
+<p>まずGradleでコマンドを実行します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gradlew eclipse
+</pre></div>
+</div>
+<p>次にEclipseのメニューから
+<span class="menuselection">File ‣ Import ‣ General ‣ Existing Projects into Workspace</span>
+を選択します。
+それから “Select root directory” にプロジェクトのパスを入力してください。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>プロジェクトのパスをコピーするときはMacなら次のコマンドを使うとクリップボードに格納されて便利です。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pwd<span class="p">|</span>pbcopy
+</pre></div>
+</div>
+<p>Windowsなら次のコマンドで同じ事ができます。</p>
+<div class="last highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span><span class="p">|</span>clip
+</pre></div>
+</div>
+</div>
+<p>インポートするプロジェクトは code と desktop だけで良いでしょう。
+基本的にはデスクトップで開発してたまに実機確認という感じで進められると思います。</p>
+<p>インポートできたら（これが面倒なのですが）desktopプロジェクトにあるassetsディレクトリをクラスパスに加えてください。</p>
+<p>手っ取り早い方法はassetsディレクトリで右クリックして
+<span class="menuselection">Build Path ‣ Use as Source Folder</span>
+です。</p>
+<p>もしくは、プロジェクトのプロパティを開いて
+<span class="menuselection">Java Build Path ‣ Libraries</span>
+と辿って “Add Class Folder” を押してassetsディレクトリを指定してください。</p>
+</div>
+<div class="section" id="intellij-idea">
+<h2>IntelliJ IDEAへのインポート</h2>
+<p>私はIntelliJ IDEA分からんのですが、セットアップのログに書かれているように
+<span class="menuselection">File ‣ Import ‣ build.gradle</span>
+をやってみたところインポートできたっぽいです。</p>
+</div>
+<div class="section" id="id4">
+<h2>実行する</h2>
+<p>desktopプロジェクトの <span class="docutils literal"><span class="pre">src/main/java/yourpackage/DesktopLauncher.java</span></span> を実行してください。
+( <span class="docutils literal"><span class="pre">yourpackage</span></span> はセットアップ時に設定したパッケージです。
+適宜読み替えてください。)</p>
+</div>
+<div class="section" id="id5">
+<h2>結び</h2>
+<p>というわけでlibGDXプロジェクトのセットアップ方法を記載してみました。</p>
+<p>libGDXはAndroidアプリであってもデスクトップ中心で開発でき、
+コードの殆どを共有できるのがすごくて嬉しくてお気に入りです。</p>
+<p>願わくばもっともっとlibGDXユーザーが増えますように！</p>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a>, <a href="../../../tags/libgdx.html">libGDX</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../24/git_rebase_merge.html">Gitでブランチを統合する方法</a></li>
+            <li class="right"><a href="../17/spring_boot_jsr330.html">Spring Bootのサンプルで使ってるアノテーションをJSR 330のものにした</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

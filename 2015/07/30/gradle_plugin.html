@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Gradleプラグインを書いて公開しちゃった &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Java 8徹底再入門やった #kanjava" href="../12/jsr310_and_lambda_handson.html" /><link rel="prev" title="シリアライザブルなラムダ式" href="../../08/25/serialized_lambda.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>July 30, 2015</span>
+        </div>
+    <div class="section" id="gradle">
+<h1>Gradleプラグインを書いて公開しちゃった</h1>
+<div class="section" id="id1">
+<h2>きっかけ</h2>
+<p>JAX-RSでWebフォントなどの静的リソースを返すリソースメソッドを書いたんですが、
+ETagを使ってキャッシュをアレして転送量を節約したくなりました。</p>
+<p>で、ETagにはMD5ハッシュ値を使ってたんですが毎回ハッシュ値を計算するのはあほくさいので、
+ビルド時に計算してファイルに保存しておく事にしました。</p>
+<p>その際にGradleプラグインを書いて、
+どうせならと思って <a class="reference external" href="https://plugins.gradle.org/">https://plugins.gradle.org/</a> で公開する事にしました。</p>
+</div>
+<div class="section" id="id2">
+<h2>Gradleプラグインを書く</h2>
+<p>次の公式ドキュメント(の日本語訳)を参考にすればオッケー！</p>
+<ul class="simple">
+<li><a class="reference external" href="http://gradle.monochromeroad.com/docs/userguide/custom_tasks.html">第58章 カスタムタスクの作成</a></li>
+<li><a class="reference external" href="http://gradle.monochromeroad.com/docs/userguide/custom_plugins.html">第59章 カスタムプラグインの作成</a></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>Gradleプラグインを公開する</h2>
+<p><a class="reference external" href="https://plugins.gradle.org/docs/submit">How do I add my plugin to the plugin portal?</a>
+の通りに進めていけばオッケー！</p>
+<p>ざっくり書くと、
+まず <a class="reference external" href="https://plugins.gradle.org/user/register">アカウントを作って</a> 、
+自分のページでAPI Keyを作って、
+それを <cite>~/.gradle/gradle.properties</cite> に書いて、
+<cite>build.gradle</cite> へ <a class="reference external" href="https://plugins.gradle.org/docs/publish-plugin">Plugin Publishing Plugin</a>
+の設定を書いて、
+<span class="docutils literal"><span class="pre">gradle</span> <span class="pre">publishPlugins</span></span> で公開します。</p>
+</div>
+<div class="section" id="id7">
+<h2>Gradleプラグインを書くときに知ってて良かったこと</h2>
+<p>知ってて良かったことっていうかGroovyの文法なんですけど、
+次のようなことを知ってたらわりとスムーズにプラグインを書けました。</p>
+<ul class="simple">
+<li>アクセサメソッドはフィールドアクセスのように書ける。<ul>
+<li>例えば <span class="docutils literal"><span class="pre">foo.getBar()</span></span> は <span class="docutils literal"><span class="pre">foo.bar</span></span> と書ける。</li>
+<li>そして <span class="docutils literal"><span class="pre">foo.setBar(baz)</span></span> は <span class="docutils literal"><span class="pre">foo.bar</span> <span class="pre">=</span> <span class="pre">baz</span></span> と書ける。</li>
+</ul>
+</li>
+<li>メソッド呼び出しで最後の引数がクロージャだと括弧の外に出せる。
+つまり <span class="docutils literal"><span class="pre">foo(bar,</span> <span class="pre">{</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">...</span> <span class="pre">})</span></span> は <span class="docutils literal"><span class="pre">foo(bar)</span> <span class="pre">{</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">...</span> <span class="pre">}</span></span> と書けて組み込みの構文のようにできる。</li>
+<li>引数がMapなら <span class="docutils literal"><span class="pre">foo(bar:</span> <span class="pre">&quot;...&quot;,</span> <span class="pre">baz:</span> <span class="pre">123)</span></span> みたいに書ける。</li>
+<li>展開演算子。
+<span class="docutils literal"><span class="pre">['hoge',</span> <span class="pre">'foo',</span> <span class="pre">'x'].collect</span> <span class="pre">{</span> <span class="pre">it.length()</span> <span class="pre">}</span></span>
+を
+<span class="docutils literal"><span class="pre">['hoge',</span> <span class="pre">'foo',</span> <span class="pre">'x']*.length()</span></span>
+と書ける。</li>
+<li><span class="docutils literal"><span class="pre">leftShift</span></span> という名前のメソッドは <span class="docutils literal"><span class="pre">&lt;&lt;</span></span> と書ける。
+タスクを定義するときの <span class="docutils literal"><span class="pre">task</span> <span class="pre">hoge</span> <span class="pre">&lt;&lt;</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></span> は
+<a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/Task.html#leftShift(groovy.lang.Closure)">Task.leftShiftメソッド</a>
+です。</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>Gradleプラグインを書くにあたって参考にしたもの</h2>
+<p>最初に挙げた公式ドキュメントの日本語訳はもちろん参考にしましたが、
+他に
+<a class="reference external" href="https://docs.gradle.org/current/javadoc/">GradleのAPIドキュメント</a>
+が参考になりました。</p>
+<p>特に次のクラスのドキュメントをよく読んだ気がします。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html">Project</a></li>
+<li><a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/TaskContainer.html">TaskContainer</a></li>
+<li><a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/Task.html">Task</a></li>
+</ul>
+<p>それから <a class="reference external" href="https://github.com/gradle/gradle">Gradleのソースコード</a>
+も参考になりました。
+特に
+<a class="reference external" href="https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/groovy/org/gradle/api/plugins/JavaPlugin.java">JavaPlugin</a>
+や
+<a class="reference external" href="https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/groovy/org/gradle/api/plugins/WarPlugin.java">WarPlugin</a>
+を参考にしました。</p>
+</div>
+<div class="section" id="id10">
+<h2>まとめ</h2>
+<p>Gradleプラグインは書くのも公開するのもお手軽っぽいので、
+これを読んで良いなと思ったらチャレンジしてみてくれさい！</p>
+<p>ちなみに、こちらが私が書いたプラグインですどうぞ！</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/gradle-hash-plugin">gradle hash plugin</a></li>
+</ul>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/gradle.html">Gradle</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../../08/25/serialized_lambda.html">シリアライザブルなラムダ式</a></li>
+            <li class="right"><a href="../12/jsr310_and_lambda_handson.html">Java 8徹底再入門やった #kanjava</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

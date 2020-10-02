@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>JavaFXでクラサバする事を考えた &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Visitorパターンについて考えた" href="../22/visitor.html" /><link rel="prev" title="KotlinではじめるJAX-RS" href="../../../2014/07/01/kotlin_jaxrs.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 30, 2013</span>
+        </div>
+    <div class="section" id="javafx">
+<h1>JavaFXでクラサバする事を考えた</h1>
+<p>私はエスアイヤーでギョームアプリ作ってるのでその辺りにJavaFXぶっ込んだらどうなるか考えてみました。</p>
+<p>とりあえず次に挙げた機能が必要っぽいかなーと思います。</p>
+<ul class="simple">
+<li>画面遷移</li>
+<li>検索結果などのグリッド表示</li>
+<li>グリッドから詳細画面を開く的なやつ</li>
+<li>ダイアログ</li>
+<li>バックグラウンド処理</li>
+<li>サーバとの通信</li>
+</ul>
+<div class="section" id="id1">
+<h2>画面遷移</h2>
+<p>Hoge駆動の忘年会というぁゃしぃ集まりでは</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/stage/Stage.html#setScene(javafx.scene.Scene)">Stage#setScene(Scene)</a> でSceneを入れ替える</li>
+<li><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/Scene.html#setRoot(javafx.scene.Parent)">Scene#setRoot(Parent)</a> でルートノードを入れ替える</li>
+</ul>
+<p>という案を挙げてみました。
+このふたつのうちSceneを入れ替える方法だと画面がチラついてしまいましたので
+ルートノードを入れ替える方法がベターかなー、と思っていましたが、
+StackPaneあたりに必要なだけNodeを突っ込んでvisibleを切り替える、
+というのがもっと良いんじゃないかと現時点では思っています。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.ActionEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.EventHandler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.Scene</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.Button</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.BorderPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.StackPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScreenTransitionSample</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="p">(</span><span class="n">Stage</span> <span class="n">stage</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+
+        <span class="kd">final</span> <span class="n">BorderPane</span> <span class="n">firstPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BorderPane</span><span class="p">();</span>
+        <span class="n">Button</span> <span class="n">next</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">&quot;次へ行く&quot;</span><span class="p">);</span>
+        <span class="n">firstPane</span><span class="p">.</span><span class="na">setCenter</span><span class="p">(</span><span class="n">next</span><span class="p">);</span>
+
+        <span class="kd">final</span> <span class="n">BorderPane</span> <span class="n">secondPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BorderPane</span><span class="p">();</span>
+        <span class="n">Button</span> <span class="n">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">&quot;前へ戻る&quot;</span><span class="p">);</span>
+        <span class="n">secondPane</span><span class="p">.</span><span class="na">setCenter</span><span class="p">(</span><span class="n">prev</span><span class="p">);</span>
+        <span class="n">secondPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+        <span class="n">StackPane</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackPane</span><span class="p">();</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">firstPane</span><span class="p">);</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">secondPane</span><span class="p">);</span>
+
+        <span class="n">next</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">firstPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                <span class="n">secondPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="n">prev</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">firstPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                <span class="n">secondPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scene</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+        <span class="n">stage</span><span class="p">.</span><span class="na">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">);</span>
+        <span class="n">stage</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">&quot;画面遷移&quot;</span><span class="p">);</span>
+        <span class="n">stage</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>検索画面などのグリッド表示</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableView.html">TableView</a> を使います。</p>
+<p>Scene Builderを使って画面を組み立てる場合はまずTableViewをペタっと置いて、
+カラムを足す場合はTableColumnを貼付けたTableViewへペロっと置きます。</p>
+<p>データを表示するときは <a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableColumn.html#setCellValueFactory(javafx.util.Callback)">TableColumn#setCellValueFactory(Callback)</a> を使って値のファクトリーを設定して、
+TableViewのitemsへaddします。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ResourceBundle</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.fxml.FXML</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.fxml.Initializable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.TableColumn</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.TableView</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.cell.PropertyValueFactory</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridController</span> <span class="kd">implements</span> <span class="n">Initializable</span> <span class="p">{</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableView</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="n">accounts</span><span class="p">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">id</span><span class="p">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">name</span><span class="p">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">desc</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">URL</span> <span class="n">location</span><span class="p">,</span> <span class="n">ResourceBundle</span> <span class="n">resources</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">id</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">));</span>
+        <span class="n">name</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">));</span>
+        <span class="n">desc</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;desc&quot;</span><span class="p">));</span>
+
+        <span class="n">Account</span> <span class="n">account1</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">&quot;backpaper0&quot;</span><span class="p">,</span> <span class="s">&quot;うらがみ&quot;</span><span class="p">,</span> <span class="s">&quot;全裸&quot;</span><span class="p">);</span>
+        <span class="n">Account</span> <span class="n">account2</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">&quot;tan_go238&quot;</span><span class="p">,</span> <span class="s">&quot;たんご&quot;</span><span class="p">,</span> <span class="s">&quot;カレー&quot;</span><span class="p">);</span>
+        <span class="n">Account</span> <span class="n">account3</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">&quot;irof&quot;</span><span class="p">,</span> <span class="s">&quot;いろふ&quot;</span><span class="p">,</span> <span class="s">&quot;足首&quot;</span><span class="p">);</span>
+
+        <span class="n">accounts</span><span class="p">.</span><span class="na">getItems</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">account1</span><span class="p">);</span>
+        <span class="n">accounts</span><span class="p">.</span><span class="na">getItems</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">account2</span><span class="p">);</span>
+        <span class="n">accounts</span><span class="p">.</span><span class="na">getItems</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">account3</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>こんな感じになります。</p>
+<img alt="../../../_images/GridSample.png" src="../../../_images/GridSample.png" />
+</div>
+<div class="section" id="id3">
+<h2>グリッドから詳細画面を開く的なやつ</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableColumn.html#setCellFactory(javafx.util.Callback)">TableColumn#setCellFactory(Callback)</a> を使います。
+Callback実装クラスではセル毎にcallメソッドが呼ばれるようですが、
+ここでTableCellを作成して返します。
+TableCellではsetGraphicメソッドでボタンをセットしています。
+これでセルにボタンを置く事が出来るようです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridController</span> <span class="kd">implements</span> <span class="n">Initializable</span> <span class="p">{</span>
+
+    <span class="p">...</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">opener</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">URL</span> <span class="n">location</span><span class="p">,</span> <span class="n">ResourceBundle</span> <span class="n">resources</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">opener</span><span class="p">.</span><span class="na">setCellFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">OpenerFactory</span><span class="p">());</span>
+
+        <span class="n">opener</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">));</span>
+
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">OpenerFactory</span> <span class="kd">implements</span> <span class="n">Callback</span><span class="o">&lt;</span><span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">call</span><span class="p">(</span><span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">param</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">tableCell</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="kd">private</span> <span class="n">Pane</span> <span class="n">pane</span> <span class="o">=</span> <span class="n">createPane</span><span class="p">();</span>
+
+            <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="p">;</span>
+
+            <span class="kd">private</span> <span class="n">Pane</span> <span class="nf">createPane</span><span class="p">()</span> <span class="p">{</span>
+                <span class="n">HBox</span> <span class="n">pane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HBox</span><span class="p">();</span>
+                <span class="n">pane</span><span class="p">.</span><span class="na">setAlignment</span><span class="p">(</span><span class="n">Pos</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+
+                <span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">&quot;詳細を開く&quot;</span><span class="p">);</span>
+                <span class="n">button</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+                <span class="n">pane</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">button</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">pane</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">updateItem</span><span class="p">(</span><span class="n">String</span> <span class="n">id</span><span class="p">,</span> <span class="kt">boolean</span> <span class="n">empty</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">super</span><span class="p">.</span><span class="na">updateItem</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">empty</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">empty</span> <span class="o">==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+                    <span class="n">setGraphic</span><span class="p">(</span><span class="n">pane</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="k">return</span> <span class="n">tableCell</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ボタンが置けました。</p>
+<img alt="../../../_images/GridOpenerSample.png" src="../../../_images/GridOpenerSample.png" />
+</div>
+<div class="section" id="id4">
+<h2>ダイアログ</h2>
+<p>Swingで言うところのJOptionPaneのようなお手軽ダイアログは無いようですが、Stageを使う事で実現可能っぽいです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://d.hatena.ne.jp/aoe-tk/20130526/1369577773">JavaFX2.2でダイアログを作る方法 - AOEの日記</a></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>バックグラウンド処理</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/concurrent/Service.html">Service</a> を使います。
+SwingWorker的なやつです。
+こんな感じの雰囲気で。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="n">String</span> <span class="nf">call</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+                <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+                <span class="k">return</span> <span class="s">&quot;終わったよーん&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">succeeded</span><span class="p">()</span> <span class="p">{</span>
+                <span class="n">text</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">getValue</span><span class="p">());</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="k">return</span> <span class="n">task</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">service</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Service#createTask()でTaskを返しています。
+Taskではcallメソッドを実装していますが、これがSwingWorkerでいうdoInBackgroundのようです。
+succeededメソッドは処理が正常終了したときに呼ばれます。
+他にキャンセルしたときに呼ばれるcancelledメソッドや失敗したときに呼ばれるfailedメソッドがあります。</p>
+<p>しかし結果がどうあれ必ず呼ばれるfinally的なメソッドがありません。
+これは不便な気がします。</p>
+<p>finally的なアレを実現する方法として今んところ思いついているのは、Taskには実行中かそうでないかを表すrunningというbooleanのプロパティがあるので、
+それにリスナーを追加します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">task</span><span class="p">.</span><span class="na">runningProperty</span><span class="p">().</span><span class="na">addListener</span><span class="p">(</span>
+        <span class="k">new</span> <span class="n">ChangeListener</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changed</span><span class="p">(</span><span class="n">ObservableValue</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">observable</span><span class="p">,</span>
+                                <span class="n">Boolean</span> <span class="n">oldValue</span><span class="p">,</span> <span class="n">Boolean</span> <span class="n">newValue</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">newValue</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;終わったよーん&quot;</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+</pre></div>
+</div>
+<p>もっと良い方法があったら教えて欲しいです。</p>
+<p>あと、処理中にProgressIndicatorというのを表示しておくと良い感じになりそうです。
+StackPaneにメインとなるPaneとProgressIndicatorを含んだPaneを突っ込んでvisibleで切り替えます。</p>
+<p>というわけでバックグラウンド処理のサンプルを次に記載します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.concurrent.Service</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.concurrent.Task</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.concurrent.WorkerStateEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.ActionEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.EventHandler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.geometry.Pos</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.Scene</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.Button</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.ProgressIndicator</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.GridPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.StackPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LongTimeTaskSample</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="p">(</span><span class="n">Stage</span> <span class="n">primaryStage</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+
+        <span class="c1">//インジケータを含むPaneを組み立てる</span>
+        <span class="kd">final</span> <span class="n">GridPane</span> <span class="n">progressPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GridPane</span><span class="p">();</span>
+        <span class="n">progressPane</span><span class="p">.</span><span class="na">setAlignment</span><span class="p">(</span><span class="n">Pos</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+
+        <span class="n">ProgressIndicator</span> <span class="n">indicator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProgressIndicator</span><span class="p">();</span>
+        <span class="n">progressPane</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">indicator</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="c1">//メインとなるPaneを組み立てる</span>
+        <span class="n">GridPane</span> <span class="n">mainPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GridPane</span><span class="p">();</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">setAlignment</span><span class="p">(</span><span class="n">Pos</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">setHgap</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">setVgap</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+        <span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">&quot;重い処理を行う&quot;</span><span class="p">);</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="kd">final</span> <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="p">();</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+        <span class="c1">//StackPaneに突っ込む</span>
+        <span class="n">StackPane</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackPane</span><span class="p">();</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">mainPane</span><span class="p">);</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">progressPane</span><span class="p">);</span>
+
+        <span class="c1">//最初はインジケータは見えなくする</span>
+        <span class="n">progressPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+        <span class="n">button</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="c1">//ボタンが押されたらインジケータを見せる</span>
+                <span class="n">progressPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                <span class="n">text</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+                <span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                    <span class="nd">@Override</span>
+                    <span class="kd">protected</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                            <span class="nd">@Override</span>
+                            <span class="kd">protected</span> <span class="n">String</span> <span class="nf">call</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+                                <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+                                <span class="k">return</span> <span class="s">&quot;終わったよーん&quot;</span><span class="p">;</span>
+                            <span class="p">}</span>
+                        <span class="p">};</span>
+                        <span class="n">task</span><span class="p">.</span><span class="na">setOnSucceeded</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">WorkerStateEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                            <span class="nd">@Override</span>
+                            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">WorkerStateEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="c1">//タスクが終わったらインジケータを見えなくする</span>
+                                <span class="n">progressPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                                <span class="n">text</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">getValue</span><span class="p">());</span>
+                            <span class="p">}</span>
+                        <span class="p">});</span>
+                        <span class="k">return</span> <span class="n">task</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">};</span>
+                <span class="n">service</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scene</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+        <span class="n">primaryStage</span><span class="p">.</span><span class="na">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">);</span>
+        <span class="n">primaryStage</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">&quot;重い処理&quot;</span><span class="p">);</span>
+        <span class="n">primaryStage</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>実行したらこんな感じです。</p>
+<p>ポチっと。</p>
+<img alt="../../../_images/LongTimeTaskSample1.png" src="../../../_images/LongTimeTaskSample1.png" />
+<p>くるくるー。</p>
+<img alt="../../../_images/LongTimeTaskSample2.png" src="../../../_images/LongTimeTaskSample2.png" />
+<p>どーん！</p>
+<img alt="../../../_images/LongTimeTaskSample3.png" src="../../../_images/LongTimeTaskSample3.png" />
+<p>ちなみにこのコードだとインジケータが表示されているときにボタンはクリックできなくなっていますが、
+タブでフォーカス移動してスペースキーで押せたりします。
+きっとjava.awt.FocusTraversalPolicyのようなものがあると思うのでまた勉強しておくことにします。</p>
+</div>
+<div class="section" id="id6">
+<h2>サーバとの通信</h2>
+<p>(　ﾟ∀ﾟ)o彡°JAX-RS！JAX-RS！</p>
+</div>
+<div class="section" id="id7">
+<h2>まとめ</h2>
+<p>ここ数日JavaFXを触ってみてエスアイヤーのギョームアプリも普通に書けそうだなー、と感じました。</p>
+<p>また今回はフォーカスしませんでしたがFXMLで画面を組めるのがすごく良いですね。
+Scene Builderでサクッとモックを作って、OKならそのまま実装する、というスタイルが楽にできそうで嬉しいです。</p>
+<p>あとScene Builderが特定のIDEに依存していないのも嬉しいですね。
+好きなIDEを使えます。</p>
+<p>という訳でJava 8がリリースされたら是非ともJavaFXでアプリケーション組みたいなー、と思ったのでした。</p>
+<p>おわり。</p>
+</div>
+<div class="section" id="id8">
+<h2>参考資料</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javafx/">JavaFX Documentation</a></li>
+<li><a class="reference external" href="http://skrb.hatenablog.com/">JavaFX in the Box</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/aoe-tk/searchdiary?word=%2A%5BJavaFX%5D">AOEの日記</a> ※リンクURLはJavaFXタグを検索しています</li>
+<li><a class="reference external" href="http://itpro.nikkeibp.co.jp/article/COLUMN/20060915/248243/">Java技術最前線：ITpro</a> ※2012年8月～のテーマ「JavaFX 2で始めるGUI開発」</li>
+</ul>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a>, <a href="../../../tags/javafx.html">JavaFX</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../../../2014/07/01/kotlin_jaxrs.html">KotlinではじめるJAX-RS</a></li>
+            <li class="right"><a href="../22/visitor.html">Visitorパターンについて考えた</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

@@ -1,0 +1,226 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>HttpServerとJAXBでAPIを組込む &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="NetBeans 7.2.1でJPQLの補完するー" href="../23/netbeans_jpql.html" /><link rel="prev" title="Java8でBDDっぽくテストを書けるかもしれないアイデア" href="../../03/03/like_bdd_by_java8.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>January 30, 2013</span>
+        </div>
+    <div class="section" id="httpserverjaxbapi">
+<h1>HttpServerとJAXBでAPIを組込む</h1>
+<p>前に小酒さんとJavaのプロセス間通信についてお話しました。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://togetter.com/li/441590">http://togetter.com/li/441590</a></li>
+</ul>
+<p>んで、私も監視というかAPIというか、そんな感じのアレを簡易で良いのでサクッと組込む必要が出てきました。
+という訳で <a class="reference external" href="http://docs.oracle.com/javase/7/docs/jre/api/net/httpserver/spec/com/sun/net/httpserver/HttpServer.html">HttpServer</a> とJAXBでサクッと組込もうと思います。</p>
+<p>ほい、サンプルコード。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpExchange</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpHandler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpServer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.OutputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.net.InetSocketAddress</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.JOptionPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.SwingUtilities</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.xml.bind.JAXB</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.xml.bind.annotation.XmlRootElement</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Monitor</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">InetSocketAddress</span> <span class="n">address</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InetSocketAddress</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">backlog</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">HttpServer</span> <span class="n">server</span> <span class="o">=</span> <span class="n">HttpServer</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">bind</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">backlog</span><span class="p">);</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">HttpContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">server</span><span class="p">.</span><span class="na">createContext</span><span class="p">(</span><span class="s">&quot;/log&quot;</span><span class="p">);</span>
+            <span class="n">HttpHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LogHandler</span><span class="p">();</span>
+            <span class="n">context</span><span class="p">.</span><span class="na">setHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">);</span>
+            <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+
+            <span class="n">SwingUtilities</span><span class="p">.</span><span class="na">invokeAndWait</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nd">@Override</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;ダイアログを閉じると鯖終了&quot;</span><span class="p">;</span>
+                    <span class="n">JOptionPane</span><span class="p">.</span><span class="na">showMessageDialog</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+        <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+            <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">LogHandler</span> <span class="kd">implements</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">HttpExchange</span> <span class="n">exchange</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+            <span class="n">Log</span> <span class="n">log</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Log</span><span class="p">();</span>
+            <span class="n">log</span><span class="p">.</span><span class="na">result</span> <span class="o">=</span> <span class="n">Result</span><span class="p">.</span><span class="na">SUCCESS</span><span class="p">;</span>
+            <span class="n">log</span><span class="p">.</span><span class="na">timestamp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="p">();</span>
+
+            <span class="kt">int</span> <span class="n">statusCode</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">chunked</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">exchange</span><span class="p">.</span><span class="na">sendResponseHeaders</span><span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">chunked</span><span class="p">);</span>
+
+            <span class="k">try</span> <span class="p">(</span><span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">exchange</span><span class="p">.</span><span class="na">getResponseBody</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">JAXB</span><span class="p">.</span><span class="na">marshal</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
+                <span class="n">out</span><span class="p">.</span><span class="na">flush</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nd">@XmlRootElement</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Log</span> <span class="p">{</span>
+
+        <span class="kd">public</span> <span class="n">Result</span> <span class="n">result</span><span class="p">;</span>
+
+        <span class="kd">public</span> <span class="n">Date</span> <span class="n">timestamp</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">enum</span> <span class="n">Result</span> <span class="p">{</span>
+
+        <span class="n">SUCCESS</span><span class="p">,</span> <span class="n">FAILURE</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>HttpServerはアドレス渡して準備して、パス渡してコンテキスト作って、ハンドラ登録すればおk。
+Java SEでもHTTP鯖立てるの簡単ですね。
+わーい。</p>
+<p>今回はアプリケーションの処理結果とタイムスタンプを持ったログを返す感じのハンドラを書いてみました。
+ログはPOJOで表現していますが、JAXBでXMLに変換してレスポンスに書き出しています。
+このハンドラは次のようなXMLを返します。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;log&gt;</span>
+    <span class="nt">&lt;result&gt;</span>SUCCESS<span class="nt">&lt;/result&gt;</span>
+    <span class="nt">&lt;timestamp&gt;</span>2013-01-30T23:08:37.482+09:00<span class="nt">&lt;/timestamp&gt;</span>
+<span class="nt">&lt;/log&gt;</span>
+</pre></div>
+</div>
+<p>XMLベースのWeb APIなら構築するのは簡単ですね。
+わーい。</p>
+<p>まあもうちょい多機能なAPIを構築したかったらJerseyを突っ込みますが要件によってはこれで十分かなー、とか思ったりしました。</p>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a>, <a href="../../../tags/jaxb.html">JAXB</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../../03/03/like_bdd_by_java8.html">Java8でBDDっぽくテストを書けるかもしれないアイデア</a></li>
+            <li class="right"><a href="../23/netbeans_jpql.html">NetBeans 7.2.1でJPQLの補完するー</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

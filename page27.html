@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 27 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page28.html" /><link rel="prev" title="Newer" href="page26.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>November 03, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/11/03/semicolonless_java_fibonacci_without_z_combinator.html">セミコロンレスJavaでフィボナッチをZコンビネータなしで</a></h1>
+<p><a class="reference internal" href="2014/11/02/semicolonless_java_fibonacci.html"><span class="doc">セミコロンレスJavaでフィボナッチ</span></a> でZコンビネータ使って再帰だ！(ドヤ)
+とか書きましたがそんなものは必要なかった。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFibonacci</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span><span class="p">.</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span> <span class="nf">of</span><span class="p">((</span><span class="n">f</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">n</span> <span class="p">:</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)))</span>
+            <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">).</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">interface</span> <span class="nc">F</span> <span class="kd">extends</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">function</span><span class="p">.</span><span class="na">BiFunction</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>難しく考え過ぎんなって話ですね_(:3｣∠)_</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/semicolonlessjava.html">SemicolonlessJava</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>November 02, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/11/02/semicolonless_java_fibonacci.html">セミコロンレスJavaでフィボナッチ</a></h1>
+<p>概要：ネタでしかない</p>
+<div class="section" id="id1">
+<h2>セミコロンレスJavaとは</h2>
+<p>以下を参照ください。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://seesaawiki.jp/w/semicolonlessjava/">Semicolonless Java公式Wiki</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/Nagise/20100321/1269182606">Javaでセミコロンなしでプログラムを書く - プログラマーの脳みそ</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/Nagise/20131111/1384170146">Semicolonless Java8 - プログラマーの脳みそ</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/bitter_fox/20141022/1413947357">セミコロンレスJavaはJava8の夢を見るか？ - bitter_foxの日記</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/bitter_fox/20141022/1413955082">セミコロンレスJavaはJava8の夢を見るか？～変数編～ - bitter_foxの日記</a></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>ある項のフィボナッチ数を書き出す</h2>
+<p>結論から行きましょう。</p>
+<p>ある項のフィボナッチ数を書き出すプログラムですが、こんなコードになりました。
+うわ横に長え。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SemicolonlessFibonacci</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="na">Stream</span><span class="p">.</span><span class="o">&lt;</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">function</span><span class="p">.</span><span class="na">Function</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;&gt;</span> <span class="nf">of</span><span class="p">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">n</span> <span class="p">:</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="p">((</span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">function</span><span class="p">.</span><span class="na">Function</span><span class="o">&lt;</span><span class="n">G</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span><span class="p">)))).</span><span class="na">apply</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span><span class="p">))))</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">fib</span> <span class="o">-&gt;</span> <span class="n">fib</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)))</span>
+            <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">).</span><span class="na">findFirst</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">interface</span> <span class="nc">F</span> <span class="kd">extends</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">function</span><span class="p">.</span><span class="na">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="p">{}</span>
+
+    <span class="kd">interface</span> <span class="nc">G</span> <span class="kd">extends</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">function</span><span class="p">.</span><span class="na">Function</span><span class="o">&lt;</span><span class="n">G</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これを <span class="docutils literal"><span class="pre">SemicolonlessFibonacci.java</span></span> という名前で保存して
+<span class="docutils literal"><span class="pre">javac</span> <span class="pre">SemicolonlessFibonacci.java</span></span> でコンパイルし、
+<span class="docutils literal"><span class="pre">java</span> <span class="pre">-cp</span> <span class="pre">.</span> <span class="pre">SemicolonlessFibonacci</span> <span class="pre">10</span></span> というふうに実行してください。</p>
+<p>引数をいろいろ変えて試すと標準出力にフィボナッチ数が書き出されることがお分かり頂けると思います。</p>
+</div>
+<div class="section" id="id5">
+<h2>やりたかったこと</h2>
+<p>今回、実現したかったことはステートレスな再帰です。</p>
+<p>セミコロンレスJavaでは戻り値をもつメソッドを定義できない( <span class="docutils literal"><span class="pre">return</span></span> にはセミコロンが必須のため )
+という制限のためミュータブルなオブジェクトを引数にしてそれを更新することでメソッドの呼び出し元に値を戻すしかありません。
+たぶん。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//戻り値のあるメソッドはreturnでセミコロン必要</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//ミュータブルな引数で値を戻す</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">holder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">holder</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"hoge"</span><span class="p">))</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>セミコロンレスJava 8からはラムダ式を使えば戻り値をもつ処理を定義できるようになりました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">if</span> <span class="p">(</span><span class="n">Stream</span><span class="p">.</span><span class="o">&lt;</span><span class="n">IntBinaryOperator</span><span class="o">&gt;</span> <span class="nf">of</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="c1">//二つのintを足して返す関数を定義</span>
+          <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">.</span><span class="na">applyAsInt</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>            <span class="c1">//関数適用</span>
+          <span class="p">.</span><span class="na">peek</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">)</span>               <span class="c1">//出力</span>
+          <span class="p">.</span><span class="na">findFirst</span><span class="p">().</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ですが、自身を再帰呼び出しすることはできません。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンJava……ていうかJava</span>
+<span class="n">IntUnaryOperator</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="n">n</span> <span class="o">+</span> <span class="n">sum</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+                                           <span class="c1">//~~~ コンパイルエラー</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="z">
+<h2>Zコンビネータ</h2>
+<p>これらの問題を解決するのがZコンビネータです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%8B%95%E7%82%B9%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8D%E3%83%BC%E3%82%BF#Z.E3.82.B3.E3.83.B3.E3.83.93.E3.83.8D.E3.83.BC.E3.82.BF">不動点コンビネータ - Wikipedia</a></li>
+</ul>
+<p>この辺は全然詳しくないんですがラムダ計算で再帰を行うことが出来るアレっぽいです。
+きしださんのエントリも参考にさせて頂きました。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://d.hatena.ne.jp/nowokay/20090409">おとうさん、ぼくにもYコンビネータがわかりましたよ！ - きしだのはてな</a></li>
+</ul>
+<p>再帰するにはYコンビネータというのもあるようですが正格評価戦略の言語ではスタックオーバーフローになるっぽいです。
+ていうかなりました。</p>
+<p>というわけでZコンビネータです。
+その定義は次の通りです。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span/>Z = λf. (λx. f (λy. x x y)) (λx. f (λy. x x y))
+</pre></div>
+</div>
+<p>これをJavaで書くとこんな感じになりました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">static</span> <span class="n">F</span> <span class="nf">z</span><span class="p">(</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Function</span><span class="o">&lt;</span><span class="n">G</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span><span class="p">));</span>
+    <span class="n">G</span> <span class="n">b</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="na">apply</span><span class="p">(</span><span class="n">y</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span> <span class="nc">F</span> <span class="kd">extends</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="p">{}</span>
+
+<span class="kd">interface</span> <span class="nc">G</span> <span class="kd">extends</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">G</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span> <span class="p">{}</span>
+</pre></div>
+</div>
+<p>このzメソッドを用いてフィボナッチ数を求める処理を再帰で書いたのが次になります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Function</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">f</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">n</span> <span class="p">:</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+                                        <span class="c1">//~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~ この辺が再帰</span>
+
+<span class="n">F</span> <span class="n">fib</span> <span class="o">=</span> <span class="n">z</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fib</span><span class="p">.</span><span class="na">apply</span><span class="p">(</span><span class="mi">11</span><span class="p">));</span> <span class="c1">//11番目のフィボナッチ数を出力する</span>
+</pre></div>
+</div>
+<p>あとはセミコロンを消す為になんやかんやいろいろやって一番最初のコードになりました。</p>
+</div>
+<div class="section" id="id6">
+<h2>まとめ</h2>
+<p>Java 8時代になりセミコロンレスJavaでも再帰を使えるようになりました。
+これによりセミコロンレスJava 8が秘めたる可能性を更に感じる事ができました。</p>
+<p>今回は末尾再帰最適化まで考える力は残っていませんでしたが、
+<a class="reference external" href="http://www.oreilly.co.jp/books/9784873117041/">「Javaによる関数型プログラミング」</a>
+の7章を参考にすればなんとかなるかもしれません。
+ならないかもしれません。</p>
+<p>みなさんもセミコロンレスJavaをはじめてみませんか？
+みませんね。
+はい、ごめんなさい。</p>
+<p>続き： <a class="reference internal" href="2014/11/03/semicolonless_java_fibonacci_without_z_combinator.html"><span class="doc">セミコロンレスJavaでフィボナッチをZコンビネータなしで</span></a></p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/semicolonlessjava.html">SemicolonlessJava</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page26.html">Newer</a></li>
+            <li class="right"><a href="page28.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

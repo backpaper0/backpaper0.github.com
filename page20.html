@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 20 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page21.html" /><link rel="prev" title="Newer" href="page19.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>January 11, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/01/11/spring_boot.html">Spring Bootをやってみた</a></h1>
+<p><a class="reference external" href="http://syobochim.hatenablog.com/entry/2015/01/10/195802">しょぼちむがSpring Bootのハンズオンのレポートを書いていた</a>
+のでそれを参考に手を動かしてみました。
+ブログ通りに写経していったら普通に動いたので楽ちんでした。</p>
+<p>ただし私の知識がアレで
+<a class="reference external" href="https://apps.twitter.com/">Twitter Application Management</a>
+のSettingsタブにある
+“Allow this application to be used to Sign in with Twitter”
+にチェックを入れる必要があるっぽいのに気付かなくてそこだけちょっとつまずいた。
+Twitterﾌﾟﾖｸﾞﾔﾐﾝｸﾞしてないのバレる！</p>
+<div class="section" id="httpservletrequesthttpsession">
+<h2>HttpServletRequestとHttpSessionをなくす</h2>
+<p>さて、出来上がったアプリケーションでは
+HttpServletRequest
+と
+HttpSession
+を使っている箇所があったのでそれらを使わないように変更します。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">HttpServletRequest
+と
+HttpSession
+はサーブレットのAPIでありSpringのAPIではありません。
+なるべく低レベルのAPIを直接使用しない方がコードがシンプルになるし
+ユニットテストが書きやすくて嬉しい、というのが個人的な考えです。</p>
+</div>
+<p>まずは HttpServletRequest を消します。
+Twitterの認証から戻ってくるときに
+oauth_verifier
+というリクエストパラメータを受け取っている所に使われています。
+これをTwitterControllerのdoTweetメソッドと同じやり方で受け取るように変更します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">"accessToken"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">accessToken</span><span class="p">(</span><span class="n">Model</span> <span class="n">model</span><span class="p">,</span>
+        <span class="nd">@RequestParam</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"oauth_verifier"</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="n">String</span> <span class="n">verifier</span><span class="p">)</span>
+        <span class="kd">throws</span> <span class="n">TwitterException</span> <span class="p">{</span>
+</pre></div>
+</div>
+<p>次いでHttpSessionを消します。
+認証の際に必要となるリクエストトークンとアクセストークンを保持するために
+HttpSession
+が使用されているようです。
+今回はそれらを格納するセッションスコープのクラスを作ってコントローラーにインジェクションする方法をとります。</p>
+<p>まずこれがトークンを格納するセッションスコープのクラス。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">jp.co.bizreach.spring_boot_sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Scope</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ScopedProxyMode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.context.WebApplicationContext</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">twitter4j.auth.AccessToken</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">twitter4j.auth.RequestToken</span><span class="p">;</span>
+
+<span class="nd">@Component</span>
+<span class="nd">@Scope</span><span class="p">(</span><span class="n">proxyMode</span> <span class="o">=</span> <span class="n">ScopedProxyMode</span><span class="p">.</span><span class="na">TARGET_CLASS</span><span class="p">,</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">WebApplicationContext</span><span class="p">.</span><span class="na">SCOPE_SESSION</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TwitterAuth</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="n">AccessToken</span> <span class="n">accessToken</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="n">RequestToken</span> <span class="n">requestToken</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="n">AccessToken</span> <span class="nf">getAccessToken</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">accessToken</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAccessToken</span><span class="p">(</span><span class="n">AccessToken</span> <span class="n">accessToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">accessToken</span> <span class="o">=</span> <span class="n">accessToken</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">RequestToken</span> <span class="nf">getRequestToken</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">requestToken</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRequestToken</span><span class="p">(</span><span class="n">RequestToken</span> <span class="n">requestToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">requestToken</span> <span class="o">=</span> <span class="n">requestToken</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>TwitterAuthController と TwitterController には次のようにフィールドにインジェクションします。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="n">TwitterAuth</span> <span class="n">auth</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>あとはこのフィールドを使ってトークンを格納したり取り出したりすればオッケーです。</p>
+<p>これでサーブレットAPIをなくすことが出来ました！</p>
+</div>
+<div class="section" id="pom-xml">
+<h2>pom.xmlを作る</h2>
+<p>しょぼちむのブログより</p>
+<blockquote>
+<div>今回はサンプルアプリを作ってくれていて、基本的にはそれを動かしてみるって感じだったけど、pomファイルの作成のところからやってみたかったかも。</div></blockquote>
+<p>作成しましょう！</p>
+<p>サンプルはmvn archetype:generateで空のプロジェクトを作ったあとに
+pom.xmlを編集してdependencyを追加したように見えます。</p>
+<p>適当なディレクトリでmvn archetype:generateを実行します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span/>mvn archetype:generate
+</pre></div>
+</div>
+<p>すると色んな雛形が一覧でずらーっと出てくるので使いたいものを番号で指定します。</p>
+<p>今回はデフォルトの <a class="reference external" href="http://repo1.maven.org/maven2/org/apache/maven/archetypes/maven-archetype-quickstart/">maven-archetype-quickstart</a> を使用しますので数字は何も入力せず次に進みます。</p>
+<p>maven-archetype-quickstart
+のバージョンを尋ねられます。
+既に最新が選択されているのでここも何も入力せず次に進みます。</p>
+<p>ここから groupId、artifactId、version、そしてアプリケーションの
+package
+を尋ねられます。
+適宜入力してそのまま進むと次のようなログが出て空のプロジェクトが作成されます。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span/>[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.1
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: basedir, Value: /Users/backpaper0/src/temp
+[INFO] Parameter: package, Value: app
+[INFO] Parameter: groupId, Value: sample
+[INFO] Parameter: artifactId, Value: spring-boot-sample
+[INFO] Parameter: packageName, Value: app
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] ********************* End of debug info from resources from generated POM ***********************
+[INFO] project created from Old (1.x) Archetype in dir: /Users/backpaper0/src/temp/spring-boot-sample
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 55.560 s
+[INFO] Finished at: 2015-01-12T12:38:58+09:00
+[INFO] Final Memory: 14M/95M
+[INFO] ------------------------------------------------------------------------
+</pre></div>
+</div>
+<p>作成されたファイルは次のような感じ。</p>
+<ul class="simple">
+<li>./pom.xml</li>
+<li>./src/main/java/app/App.java</li>
+<li>./src/test/java/app/AppTest.java</li>
+</ul>
+<p>pom.xmlとHello, world!するだけのクラス(App.java)とassertTrue(true)するだけのテストクラス(AppTest.java)です。</p>
+<p>App.java
+と
+AppTest.java
+は要らないので消します。</p>
+<p>それからpom.xmlを編集します。</p>
+<p>mvn archetype:generateした直後の状態は次のような感じです。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+  <span class="nt">&lt;groupId&gt;</span>sample<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>spring-boot-sample<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+
+  <span class="nt">&lt;name&gt;</span>spring-boot-sample<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;url&gt;</span>http://maven.apache.org<span class="nt">&lt;/url&gt;</span>
+
+  <span class="nt">&lt;properties&gt;</span>
+    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+  <span class="nt">&lt;/properties&gt;</span>
+
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>3.8.1<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+<p>これに
+<a class="reference external" href="http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#getting-started-maven-installation">リファレンスの10.1.1 Maven installation</a>
+を参考にして parent要素と dependency要素を追加しました。
+あとついでにJUnitのバージョンを4.12に上げました。
+それとmaven-compiler-pluginの設定を追加してJava 8でビルドされるようにしました。
+んでもって、spring-boot-maven-pluginの設定を追加してスタンドアロンJARを作れるようにしました。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+  <span class="nt">&lt;groupId&gt;</span>sample<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>spring-boot-sample<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+
+  <span class="nt">&lt;name&gt;</span>spring-boot-sample<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;url&gt;</span>http://maven.apache.org<span class="nt">&lt;/url&gt;</span>
+
+  <span class="nt">&lt;properties&gt;</span>
+    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+  <span class="nt">&lt;/properties&gt;</span>
+
+  <span class="nt">&lt;parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.2.1.RELEASE<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/parent&gt;</span>
+
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.twitter4j<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>twitter4j-core<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>4.0.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>4.12<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+
+  <span class="nt">&lt;build&gt;</span>
+    <span class="nt">&lt;plugins&gt;</span>
+      <span class="nt">&lt;plugin&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;/plugin&gt;</span>
+      <span class="nt">&lt;plugin&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>3.1<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;configuration&gt;</span>
+          <span class="nt">&lt;source&gt;</span>1.8<span class="nt">&lt;/source&gt;</span>
+          <span class="nt">&lt;target&gt;</span>1.8<span class="nt">&lt;/target&gt;</span>
+          <span class="nt">&lt;encoding&gt;</span>${project.build.sourceEncoding}<span class="nt">&lt;/encoding&gt;</span>
+        <span class="nt">&lt;/configuration&gt;</span>
+      <span class="nt">&lt;/plugin&gt;</span>
+    <span class="nt">&lt;/plugins&gt;</span>
+  <span class="nt">&lt;/build&gt;</span>
+
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+<p>これで概ねハンズオンのpom.xmlに近くなったと思います。</p>
+</div>
+<div class="section" id="id2">
+<h2>今後の予定</h2>
+<p>リファレンスには
+<a class="reference external" href="http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#getting-started-gradle-installation">10.1.2 Gradle installation</a>
+というのがあったのでGradle化してみたいですね。</p>
+<p>それと
+<a class="reference external" href="http://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-jersey/">spring-boot-starter-jersey</a>
+というのがあるっぽいのでSpring MVCをJAX-RSに置き換えるというのもやってみたいです。</p>
+<p>……やらない雰囲気が漂っていますが気にしない方向で！</p>
+</div>
+<div class="section" id="id3">
+<h2>まとめ</h2>
+<p>ひとのブログを写経しただけっていう他力本願がひどいブログ初めでした。</p>
+<p>今年もよろしくお願い致します。</p>
+</div>
+<div class="section" id="id4">
+<h2>今日のコード</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/spring_boot_sample">https://github.com/backpaper0/spring_boot_sample</a></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>あわせて読みたい</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://syobochim.hatenablog.com/entry/2015/01/25/193327">初心者大歓迎! webアプリを作ってみよう!勉強会のレポ起因にブログ書いてもらったからやってみた！！！ - そこに仁義はあるのか(仮)</a></li>
+</ul>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/spring_boot.html">Spring Boot</a>, <a href="tags/maven.html">Maven</a>, <a href="tags/syobochim.html">syobochim</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 24, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/12/24/glassfish_create_session_id.html">GlassFishでセッションIDを生成してるところ</a></h1>
+<p>これは <a class="reference external" href="http://www.adventar.org/calendars/383">GlassFish Advent Calendar 2014</a> の24日目です。</p>
+<p>相変わらずの小ネタです。</p>
+<p>以前調べたのですが、
+GlassFishでのHttpSession実装クラスは <span class="docutils literal"><span class="pre">org.apache.catalina.session.StandardSession</span></span> で、
+これはTomcatのコードを利用したものですが、
+セッションIDの生成処理は変更されているようです。</p>
+<p>なんやかんや辿って行くと <span class="docutils literal"><span class="pre">com.enterprise.util.uuid.UuidUtil</span></span> の <span class="docutils literal"><span class="pre">generateUuid</span></span>
+メソッドに行き着きました。</p>
+<p>コードを引用します。</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//this method can take in the session object</span>
+<span class="c1">//and insure better uniqueness guarantees</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">generateUuid</span><span class="p">(</span><span class="n">Object</span> <span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">//low order time bits</span>
+    <span class="kt">long</span> <span class="n">presentTime</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">presentTimeLow</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">presentTime</span><span class="p">;</span>
+    <span class="n">String</span> <span class="n">presentTimeStringLow</span> <span class="o">=</span> <span class="n">formatHexString</span><span class="p">(</span><span class="n">presentTimeLow</span><span class="p">);</span>
+
+    <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+    <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">presentTimeStringLow</span><span class="p">);</span>
+    <span class="c1">//sb.append(":");</span>
+    <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">getIdentityHashCode</span><span class="p">(</span><span class="n">obj</span><span class="p">));</span>
+    <span class="c1">//sb.append(":");</span>
+    <span class="c1">//sb.append(_inetAddr);</span>
+    <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">addRandomTo</span><span class="p">(</span><span class="n">_inetAddr</span><span class="p">));</span>
+    <span class="c1">//sb.append(":");</span>
+    <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">getNextRandomString</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">sb</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>ご覧の通り、</p>
+<ul class="simple">
+<li>システム日付</li>
+<li>セッションオブジェクトのIdentityハッシュコード</li>
+<li>ローカルホストのIPアドレス</li>
+<li>ランダムな文字列</li>
+</ul>
+<p>を繋げたものになっています。</p>
+<p>ここから呼び出されているメソッドを細かく見て行くと7文字で切ってたりしてマジこれでセキュアなん？
+とか思ってしまったりしましたが “insure better uniqueness guarantees”
+とか書かれてるし衝突耐性高くて大丈夫なんでしょうたぶん。</p>
+<p>ちなみに <span class="docutils literal"><span class="pre">org.apache.catalina.session.StandardSession</span></span> は <a class="reference external" href="http://repo1.maven.org/maven2/org/glassfish/main/web/web-core/4.1/">org.glassfish.main.web:web-core</a> に、
+<span class="docutils literal"><span class="pre">com.enterprise.util.uuid.UuidUtil</span></span> は <a class="reference external" href="http://repo1.maven.org/maven2/org/glassfish/main/common/common-util/4.1/">org.glassfish.main.common:common-util</a> に入っています。</p>
+<p>というわけであっさりしていますが、以上。</p>
+<p>GlassFishさん、来年もお世話になります！</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/glassfish.html">GlassFish</a>, <a href="tags/security.html">security</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page19.html">Newer</a></li>
+            <li class="right"><a href="page21.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

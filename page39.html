@@ -1,0 +1,1002 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 39 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page40.html" /><link rel="prev" title="Newer" href="page38.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>June 02, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/06/02/jsr330.html">JSR 330を実装してみた</a></h1>
+<p>JSR 330はDIの仕様です。
+参照実装はGuiceです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://jcp.org/en/jsr/detail?id=330">http://jcp.org/en/jsr/detail?id=330</a></li>
+</ul>
+<p>仕様は薄いしTCKもあるので実装してみました。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/radishtainer">https://github.com/backpaper0/radishtainer</a></li>
+</ul>
+<p>まあ何とかTCK通しただけですががが。</p>
+<p>JSR 330の仕様では@Injectで注釈しているメソッドがインジェクション対象となりますが、サブクラスでオーバーライドされており、オーバーライドされたそのメソッドが@Injectで注釈されていなければインジェクション対象とはなりません。</p>
+<p>で、メソッドがスーパークラスのメソッドをオーバーライドしているのかどうかはリフレクションで取得できるだろー、と思ってたけどできませんでした。</p>
+<p>んで、スーパークラスに同じシグネチャのメソッドがあればオーバーライドしていると判断してええじゃろ、と思ってたけどそんな簡単なアレじゃありませんでした。
+メソッド名と引数の数・型が同じでも例えば可視性がpackage privateでスーパークラスとサブクラスが異なるパッケージであればオーバーライドしていません。
+パッケージが一緒でもスーパークラスの方で定義されたメソッドがprivateだとやっぱりオーバーライドしていません。</p>
+<p>というわけでオーバーライドしてるかどうかの判定が面倒で泥臭くなっています。
+もっと良い方法があれば教えてください、的な。</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/jsr_330.html">JSR 330</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>May 02, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/05/02/jaxrs.html">JAX-RSとかの話</a></h1>
+<p>これは2013-04-19に行われた「いいね！Java EE！」で使用した資料を加筆修正したものです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://connpass.com/event/2109/">http://connpass.com/event/2109/</a></li>
+</ul>
+<div class="section" id="id1">
+<h2>JAX-RSって？</h2>
+<ul class="simple">
+<li>Webアプリを作るためのAPI</li>
+<li><a class="reference external" href="http://jcp.org/en/jsr/detail?id=311">JSR 311 (JAX-RS 1.x)</a></li>
+<li><a class="reference external" href="http://jcp.org/en/jsr/detail?id=339">JSR 339 (JAX-RS 2.x)</a></li>
+<li>Java EE 6 Full Profile に入ってる(なぜかWeb Profileじゃない)</li>
+<li>Java EE 7 からは Web Profile に入る</li>
+<li>Jersey(参照実装)、RESTEasy、Apache CXFなどの実装があり、みんな大好きTomcatでも使える</li>
+<li>仕様書(PDF)は41ページで目に優しい(ちなみにEJB 3.1は626ページ)</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>開発準備</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://ja.netbeans.org/">NetBeans</a> を使いましょう！</li>
+</ul>
+<p>以上</p>
+<div class="section" id="maven">
+<h3>Maven</h3>
+<p>Mavenでアレするなら次のようなdependencyを書けば良いです。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.sun.jersey<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jersey-bundle<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.11.1<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.sun.jersey.jersey-test-framework<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jersey-test-framework-http<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.11.1<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+<p>Jerseyのartifactはjersey-serverやjersey-jsonなどいくつかに分かれているのですが、jersey-bundleはそれらがまとめられたもので、こいつを指定するのが楽ちんです。</p>
+<p>jersey-test-framework-http はJerseyのテスティングフレームワークで、Hotspotに入ってる com.sun.net.httpserver.HttpServer で実行します。</p>
+<p>artifactId の末尾の -http を -grizzly にするとGrizzly(GlassFishのHTTPを捌く部分)で動かす事もできますし、-inmemory にするとソケットを介さずインメモリで動かす事もできます。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>はじめてのJAX-RS</h2>
+<p>クエリパラメータで名前を渡すとHello, xxx!が返るWeb APIを書きましょう。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">javax.ws.rs.GET</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.Path</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.QueryParam</span><span class="p">;</span>
+
+<span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">say</span><span class="p">(</span>
+            <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">"!"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これは次のようなHTTPリクエストを処理することができます。</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span/><span class="nf">GET</span> <span class="nn">/rest/hello?name=world</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+</div>
+<p>/rest がアプリケーションのルートとなります。
+これは後述するApplicationサブクラスに注釈する@ApplicationPathで指定する値が対応します。
+あとは何となく見たら分かる感じではありますが、/hello が @Path(“hello”) に、?name=world が @QueryParam(“name”) に、それからリクエストメソッドがGETですが @GET が対応しています。</p>
+<p>こいつをとりあえずサクッと動かすならjersey-test-frameworkを使うのがらくちんです。
+JUnitでぶん回すことができます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">com.sun.jersey.test.framework.AppDescriptor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.jersey.test.framework.JerseyTest</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.jersey.test.framework.LowLevelAppDescriptor.Builder</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.hamcrest.CoreMatchers.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.junit.Assert.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResourceTest</span> <span class="kd">extends</span> <span class="n">JerseyTest</span> <span class="p">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test_say</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">resource</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">queryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span> <span class="s">"world"</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">is</span><span class="p">(</span><span class="s">"Hello, world!"</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">AppDescriptor</span> <span class="nf">configure</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Builder</span><span class="p">(</span><span class="n">HelloResource</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3>アプリケーションサーバやサーブレットコンテナで動かす</h3>
+<p><a class="reference external" href="https://glassfish.java.net/">GlassFish</a> などのJava EEアプリケーションサーバで動かすにはApplicationサブクラスを作ります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">javax.ws.rs.ApplicationPath</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Application</span><span class="p">;</span>
+
+<span class="nd">@ApplicationPath</span><span class="p">(</span><span class="s">"rest"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JaxrsActivator</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Applicationを継承して@ApplicationPathで注釈するだけです。
+あとはHelloResourceとこのJaxrsActivatorをWARにパッケージングしてデプロイすればおkです。</p>
+<p>Tomcatなどのサーブレットコンテナだと専用のサーブレットを登録する必要がある……と見せかけてServlet 3対応のコンテナならJerseyのJARを突っ込むだけでweb.xmlを書く必要はありません。
+web.xmlを書かなくてもServletContainerInitializerを利用して動的にサーブレットを追加してくれます。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>リソースクラス、リソースメソッド</h2>
+<p>リソースクラスは@Pathで注釈したクラスで先の例でいうとHelloResourceがリソースクラスになります。
+クラス名に制約はないのでHelloでもFoobarでも何でも良いです。
+@Pathにはこのリソースクラスで処理するパスを指定します。
+リソースクラスはpublicなコンストラクタが必要です。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>リソースメソッドはリソースクラスに定義されたメソッドで@GETや@POSTといったHTTPメソッドに対応するアノテーションで注釈します。
+リソースメソッドでは@Consumesで受け取るリクエストボディのContent-Typeを指定できます。
+同じように@Producesで送り返すレスポンスボディのContent-Typeを指定できます。
+また引数に@QueryParamや@HeaderParamを注釈することでクエリパラメータやリクエストヘッダをマッピングすることができます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Consumes</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">say</span><span class="p">(</span>
+        <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="nd">@DefaultValue</span><span class="p">(</span><span class="s">"world"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">"!"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>なお、@QueryParamなどでマッピング出来るのはリソースメソッドの引数だけじゃなくコンストラクタの引数や</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">HelloResource</span><span class="p">(</span>
+            <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>フィールド、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>setterなども使用できます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+
+    <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>個人的にはメソッドの引数を使用するのが好きです。</p>
+</div>
+<div class="section" id="id6">
+<h2>パラメータのマッピング</h2>
+<p>既にクエリパラメータを@QueryParamでマッピングする例は挙げましたが、他にはリクエストヘッダやパスの一部、Cookieの値などをアノテーションでマッピングすることができます。</p>
+<div class="section" id="queryparam">
+<h3>@QueryParam</h3>
+<ul class="simple">
+<li>クエリパラメータをマッピング</li>
+<li>/hoge?<strong>name</strong>=<strong>value</strong></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formparam">
+<h3>@FormParam</h3>
+<ul class="simple">
+<li>フォームのPOSTリクエストで送信するパラメータをマッピング</li>
+<li>&lt;input type=”text” name=”<strong>name</strong>”&gt;</li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@POST</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@FormParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pathparam">
+<h3>@PathParam</h3>
+<ul class="simple">
+<li>パスの一部をマッピング</li>
+<li>/hoge/<strong>value</strong></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Path</span><span class="p">(</span><span class="s">"{name}"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@PathParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>コロンで区切って正規表現を書く事もできます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Path</span><span class="p">(</span><span class="s">"{id:[0-9]{1,10}}"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">findById</span><span class="p">(</span>
+        <span class="nd">@PathParam</span><span class="p">(</span><span class="s">"id"</span><span class="p">)</span> <span class="n">Long</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="matrixparam">
+<h3>@MatrixParam</h3>
+<ul class="simple">
+<li>マトリックスパラメータ</li>
+<li>セミコロンで区切った形式</li>
+<li>/hoge;foo=1;bar=2</li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@MatrixParam</span><span class="p">(</span><span class="s">"left"</span><span class="p">)</span> <span class="n">String</span> <span class="n">left</span><span class="p">,</span>
+        <span class="nd">@MatrixParam</span><span class="p">(</span><span class="s">"right"</span><span class="p">)</span> <span class="n">String</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cookieparam">
+<h3>@CookieParam</h3>
+<ul class="simple">
+<li>Cookieをマッピング</li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@Cookie</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="headerparam">
+<h3>@HeaderParam</h3>
+<ul class="simple">
+<li>リクエストヘッダをマッピング</li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@HeaderParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>パラメータをまとめる</h3>
+<p>パラメータがひとつふたつなら良いですが、もっと多くなると引数に列挙するのはシグネチャがうるさくなりますね。
+Jerseyなら@InjectParamを使うことでパラメータをPOJOにまとめることができます。
+ただし、JAX-RSの仕様じゃなくてJerseyの実装依存の機能ですので、そこんとこ注意です。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@InjectParam</span> <span class="n">HogeBean</span> <span class="n">bean</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HogeBean</span> <span class="p">{</span>
+
+    <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"foo"</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">foo</span><span class="p">;</span>
+
+    <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"bar"</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">bar</span><span class="p">;</span>
+
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>ちなみにJAX-RS 2からはこの@InjectParamと同様の機能をもつ@BeanParamというアノテーションが追加されます。</p>
+</div>
+<div class="section" id="pojo">
+<h3>パラメータをPOJOで受け取る</h3>
+<p>ここまで@QueryParamなどで受け取るパラメータの型はStringを使用していましたが、自作のクラスを使用することも可能です。
+パラメータを受け取れるクラスは、valueOfまたはfromStringという名前の静的ファクトリメソッドを定義する必要があります。
+引数はStringです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fullname</span> <span class="p">{</span>
+
+   <span class="p">...</span>
+
+    <span class="c1">//public static Fullname valueOf(String value) {</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Fullname</span> <span class="nf">fromString</span><span class="p">(</span><span class="n">String</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Fullname</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>リソースメソッドではStringでパラメータを受けるときと同じ感覚で使えます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="p">(</span>
+        <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">Fullname</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="xml">
+<h2>XMLで通信する</h2>
+<p>エンティティボディがXMLの場合、JAXBで自作のクラスにマッピングする機能がJAX-RSにはあります。</p>
+<p>例えばこのようなXMLを、</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;hogeBean&gt;</span>
+  <span class="nt">&lt;foo&gt;</span>hello<span class="nt">&lt;/foo&gt;</span>
+  <span class="nt">&lt;bar&gt;</span>world<span class="nt">&lt;/bar&gt;</span>
+<span class="nt">&lt;/hogeBean&gt;</span>
+</pre></div>
+</div>
+<p>このようなクラスで受け取ることが可能です。
+@XmlRootElementはJAXBのAPIです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@XmlRootElement</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HogeBean</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">foo</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>リソースメソッドはこのようになります。
+@ConsumesでXMLを受け取る事を明示しています。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@POST</span>
+<span class="nd">@Consumes</span><span class="p">(</span><span class="s">"application/xml"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doHoge</span><span class="p">(</span><span class="n">HogeBean</span> <span class="n">bean</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>レスポンスをXMLにすることも可能です。
+その場合、リソースメソッドは次のようになります。
+今度は@ProducesでXMLを返すことを明示しています。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"application/xml"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">HogeBean</span> <span class="nf">getHoge</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>前述の通りXMLとクラスの相互変換を行う部分はJAX-RSではなくJAXBの仕様です。
+JAXBはJava SEに入っているので動作確認は手軽にできます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">HogeBean</span> <span class="n">obj</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">StringWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringWriter</span><span class="p">();</span>
+<span class="n">JAXB</span><span class="p">.</span><span class="na">marshal</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
+<span class="n">String</span> <span class="n">xml</span> <span class="o">=</span> <span class="n">out</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+
+<span class="p">...</span>
+
+<span class="n">String</span> <span class="n">xml</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">StringReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">xml</span><span class="p">);</span>
+<span class="n">HogeBean</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">JAXB</span><span class="p">.</span><span class="na">unmarshal</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">HogeBean</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="json">
+<h2>JSONで通信する</h2>
+<p>前述のようにJAXBでXML通信している場合、Jerseyなら@Consumesや@Producesでのメディアタイプの指定をapplication/jsonに変更するだけでJSONで通信することが可能です。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@POST</span>
+<span class="c1">//@Consumes("application/xml")</span>
+<span class="c1">//@Produces("application/xml")</span>
+<span class="nd">@Consumes</span><span class="p">(</span><span class="s">"application/json"</span><span class="p">)</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"application/json"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">HogeBean</span> <span class="nf">doHoge</span><span class="p">(</span><span class="n">HogeBean</span> <span class="n">bean</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>元々はXMLで通信していましたが、たったこれだけで次のようなJSONで通信するようになります。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span/><span class="p">{</span> <span class="nt">"foo"</span> <span class="p">:</span> <span class="s2">"hello"</span><span class="p">,</span>
+  <span class="nt">"bar"</span> <span class="p">:</span> <span class="s2">"world"</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="id8">
+<h3>JSON通信での問題点</h3>
+<p>リストを含む次のようなクラスの、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@XmlRootElement</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hoge</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">foobar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>インスタンスを作成して、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Hoge</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hoge</span><span class="p">();</span>
+<span class="n">obj</span><span class="p">.</span><span class="na">foobar</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"c"</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>XML通信すると次のようなXMLになります。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;hoge&gt;</span>
+  <span class="nt">&lt;foobar&gt;</span>a<span class="nt">&lt;/foobar&gt;</span>
+  <span class="nt">&lt;foobar&gt;</span>b<span class="nt">&lt;/foobar&gt;</span>
+  <span class="nt">&lt;foobar&gt;</span>c<span class="nt">&lt;/foobar&gt;</span>
+<span class="nt">&lt;/hoge&gt;</span>
+</pre></div>
+</div>
+<p>foobar要素がリストの要素分、フラットに並んでいますね。</p>
+<p>これがJSON通信の場合だと次のようなJSONになります。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span/><span class="p">{</span> <span class="nt">"foobar"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span> <span class="p">]</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>XMLではフラットに並んでいたfoobar要素が空気を読んでリストになっていますね。</p>
+<p>で、次はこんな感じのインスタンスを、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Hoge</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hoge</span><span class="p">();</span>
+<span class="n">obj</span><span class="p">.</span><span class="na">foobar</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"x"</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>JSON通信すると次のようなJSONになります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="p">{</span> <span class="s">"foobar"</span> <span class="p">:</span> <span class="s">"x"</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>リストじゃなくなっていますね。
+なんでやねん、と。</p>
+<p>foobar要素が一つのXMLを想像するとなんとなく納得できます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="o">&lt;</span><span class="n">hoge</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">foobar</span><span class="o">&gt;</span><span class="n">x</span><span class="o">&lt;/</span><span class="n">foobar</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">hoge</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>このように、要素がひとつだとリストなのかリストじゃないのか分からないのです。
+JerseyのJAXB経由のJSON変換は、XMLに変換する過程に横入りして行っているのでこの影響をモロに受けてリストじゃなくなってしまうっぽいです。</p>
+<p>クライアント側もJerseyを使っていたりするとこれが問題になることは無いですが、WebアプリでjQueryなんかを使ってたりするとリストのつもりで受け取ったらリストじゃなかったでござる、という状況になって困ります。
+というか困りました、実際に。</p>
+</div>
+<div class="section" id="jacksonjson">
+<h3>JacksonでJSON通信する</h3>
+<p>前述の「要素がひとつの場合にリストじゃなくなっちゃう問題」に対処するにはJacksonを利用したJSON変換を行うと良いです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://jackson.codehaus.org/">http://jackson.codehaus.org/</a></li>
+</ul>
+<p>Jacksonを使うとfoobar要素がひとつしかない場合でも次のようなJSONに変換されます。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span/><span class="p">{</span> <span class="nt">"foobar"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"x"</span> <span class="p">]</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>また、Jacksonを使うと、</p>
+<ul class="simple">
+<li>クラスを@XmlRootElementで注釈する必要がない</li>
+<li>リソースメソッドの戻り値をjava.util.Listにする事が可能</li>
+</ul>
+<p>などの利点があります。</p>
+<p>JerseyでJacksonを使うには初期パラメータ com.sun.jersey.api.json.POJOMappingFeature を true に設定します。</p>
+<p>jersey-test-frameworkを使ったりJDKのHttpServerで動かす場合はResourceConfigというクラスで設定すると良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">ResourceConfig</span> <span class="n">rc</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">rc</span><span class="p">.</span><span class="na">getFeatures</span><span class="p">().</span><span class="na">put</span><span class="p">(</span><span class="n">JSONConfiguration</span><span class="p">.</span><span class="na">FEATURE_POJO_MAPPING</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>書くまでもないですが、このコードにあるJSONConfiguration.FEATURE_POJO_MAPPINGは文字列の定数で、”com.sun.jersey.json.POJOMappingFeature”です。</p>
+<p>サーブレット経由で動かすならweb.xmlで設定することも可能です。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;servlet&gt;</span>
+  <span class="nt">&lt;servlet-name&gt;</span>Jersey<span class="nt">&lt;/servlet-name&gt;</span>
+  <span class="nt">&lt;servlet-class&gt;</span>com.sun.jersey.spi.container.servlet.ServletContainer<span class="nt">&lt;/servlet-class&gt;</span>
+  <span class="nt">&lt;init-param&gt;</span>
+    <span class="nt">&lt;param-name&gt;</span>com.sun.jersey.api.json.POJOMappingFeature<span class="nt">&lt;/param-name&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>true<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+</pre></div>
+</div>
+<p>個人的にはJerseyでJSON通信するならJacksonを使うのが良いと思います。</p>
+</div>
+</div>
+<div class="section" id="xmljson">
+<h2>XMLでもJSONでも通信する</h2>
+<p>これまでXMLかJSONのどちらか片方で通信する設定方法を紹介しましたが、ひとつのメソッドでXMLでもJSONでも通信することも可能です。
+設定は単純で@Consumesや@Producesに複数のメディアタイプを書けば良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@POST</span>
+<span class="nd">@Consumes</span><span class="p">({</span> <span class="s">"application/json"</span><span class="p">,</span> <span class="s">"application/xml"</span> <span class="p">})</span>
+<span class="nd">@Produces</span><span class="p">({</span> <span class="s">"application/json"</span><span class="p">,</span> <span class="s">"application/xml"</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="n">HogeBean</span> <span class="nf">doHoge</span><span class="p">(</span><span class="n">HogeBean</span> <span class="n">bean</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>このリソースメソッドはクライアントがAcceptヘッダでapplication/jsonを要求すればJSONで通信し、application/xmlを要求すればXMLで通信します。
+このようにメソッドの内容はまったく同じだけど、HTTPリクエストの内容によって通信のフォーマットを切り替えられるのはJAX-RSの強みですね。</p>
+</div>
+<div class="section" id="messagebodyreader-messagebodywriter">
+<h2>MessageBodyReader/MessageBodyWriter</h2>
+<p>JAX-RSで通信できるのはXMLやJSONだけではありません。
+MessageBodyReaderやMessageBodyWriterを実装すればエンティティボディを好きにマッピングすることが可能です。</p>
+<p>例えば、String[][]をCSVで出力するMessageBodyWriterを実装してみます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Provider</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/csv"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CsvWriter</span> <span class="kd">implements</span> <span class="n">MessageBodyWriter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">[][]&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isWriteable</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="p">,</span> <span class="n">Type</span> <span class="n">genericType</span><span class="p">,</span>
+            <span class="n">Annotation</span><span class="o">[]</span> <span class="n">annotations</span><span class="p">,</span> <span class="n">MediaType</span> <span class="n">mediaType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">type</span> <span class="o">==</span> <span class="n">String</span><span class="o">[][]</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getSize</span><span class="p">(</span><span class="n">String</span><span class="o">[][]</span> <span class="n">t</span><span class="p">,</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="p">,</span> <span class="n">Type</span> <span class="n">genericType</span><span class="p">,</span>
+            <span class="n">Annotation</span><span class="o">[]</span> <span class="n">annotations</span><span class="p">,</span> <span class="n">MediaType</span> <span class="n">mediaType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeTo</span><span class="p">(</span><span class="n">String</span><span class="o">[][]</span> <span class="n">t</span><span class="p">,</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="p">,</span> <span class="n">Type</span> <span class="n">genericType</span><span class="p">,</span>
+            <span class="n">Annotation</span><span class="o">[]</span> <span class="n">annotations</span><span class="p">,</span> <span class="n">MediaType</span> <span class="n">mediaType</span><span class="p">,</span>
+            <span class="n">MultivaluedMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">httpHeaders</span><span class="p">,</span>
+            <span class="n">OutputStream</span> <span class="n">entityStream</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="p">,</span> <span class="n">WebApplicationException</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">(</span><span class="n">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrintWriter</span><span class="p">(</span><span class="n">entityStream</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">row</span> <span class="p">:</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">String</span> <span class="n">column</span> <span class="p">:</span> <span class="n">row</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">"%s,"</span><span class="p">,</span> <span class="n">column</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>@Providerで注釈していますが、これを付けておくとアノテーションスキャンで拾ってくれます。
+あるいはクラスパス上にMETA-INF/services/javax.ws.rs.ext.MessageBodyWriterというファイルを作って、中にCsvWriterのFQDNを書いてServiceLoaderに拾ってもらいます。</p>
+<p>@Producesで注釈することで、このMessageBodyWriterが処理する対象となるContent-Typeを指定しています。
+さらにisWritableメソッドでこのMessageBodyWriterを使うべきか判断することが可能です。</p>
+<p>getSizeメソッドは書き出すエンティティボディのバイトサイズです。
+算出できない（し辛い）場合は-1を返しておくと良きに計らってくれます。</p>
+<p>最後にwriteToメソッドですが、これが実際にエンティティボディに書き出すメソッドになります。</p>
+<p>このCsvWriterに対応するレスポンスを返すリソースメソッドはこんな感じです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/csv"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span><span class="o">[][]</span> <span class="nf">getCsv</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>オブジェクトから実際の通信形式へ変換する方法をMessageBodyWriterに分離しているのでリソースメソッドはシンプルに保たれていますね。</p>
+</div>
+<div class="section" id="webapplicationexception">
+<h2>WebApplicationException</h2>
+<p>場合によってはリソースメソッドで処理中に「やっぱり404返したいわー」などというときもあると思いますが、WebApplicationExceptionを投げるのが楽ちんです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@GET</span>
+<span class="nd">@Path</span><span class="p">(</span><span class="s">"{isbn}"</span><span class="p">)</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"application/json"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">Book</span> <span class="nf">get</span><span class="p">(</span><span class="nd">@PathParam</span><span class="p">(</span><span class="s">"isbn"</span><span class="p">)</span> <span class="n">Isbn</span> <span class="n">isbn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">bookBean</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">isbn</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">book</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">WebApplicationException</span><span class="p">(</span><span class="mi">404</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exceptionmapper">
+<h2>ExceptionMapper</h2>
+<p>リソースメソッドから投げられた特定の例外を受け取って処理したい場合はExceptionMapperを実装したサブクラスを作ります。</p>
+<p>例えばJPAの楽観排他機能で更新したいエンティティが既に別のひとに更新されていた場合、OptimisticLockExceptionが投げられますが、これを受け取って処理をするExceptionMapperを書いてみます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OptimisticLockExceptionMapper</span> <span class="kd">implements</span> <span class="n">ExceptionMapper</span><span class="o">&lt;</span><span class="n">OptimisticLockException</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Response</span> <span class="nf">toResponse</span><span class="p">(</span><span class="n">OptimisticLockException</span> <span class="n">exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">.</span><span class="na">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="na">entity</span><span class="p">(</span><span class="s">"更新されとった＞＜"</span><span class="p">).</span><span class="na">type</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="context">
+<h2>@Contextで色々な情報を参照する</h2>
+<p>前述のOptimisticLockExceptionMapperですが、EJBを使っている場合はOptimisticLockExceptionがRollbackExceptionに包まれて投げられます。
+RollbackExceptionはOptimisticLockExceptionと継承関係は無いのでOptimisticLockExceptionMapperで処理できません。</p>
+<p>そんな場合はProvidersを使います。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">RollbackExceptionMapper</span> <span class="kd">implements</span> <span class="n">ExceptionMapper</span><span class="o">&lt;</span><span class="n">RollbackException</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Context</span>
+    <span class="kd">private</span> <span class="n">Providers</span> <span class="n">p</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Response</span> <span class="nf">toResponse</span><span class="p">(</span><span class="n">RollbackException</span> <span class="n">exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Throwable</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">exception</span><span class="p">.</span><span class="na">getCause</span><span class="p">();</span>
+        <span class="n">Class</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;</span> <span class="n">type</span> <span class="o">=</span> <span class="p">(</span><span class="n">Class</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">cause</span><span class="p">.</span><span class="na">getClass</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">.</span><span class="na">getExceptionMapper</span><span class="p">(</span><span class="n">type</span><span class="p">).</span><span class="na">toResponse</span><span class="p">(</span><span class="n">cause</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>@ContextでProvidersをインジェクションします。
+Providersはクラスやアノテーションを渡すとそれに対応するExceptionMapperやMessageBodyReaderを取ってこれる便利なものです。
+このような便利クラスを@Contextでインジェクションできます。</p>
+<p>インジェクションできる便利クラスはProvidersの他にクエリパラメータやパスの情報を取って来れるUriInfoや、HTTPヘッダを取れるHttpHeaders、認証情報を取れるSecurityContextなどがあります。</p>
+</div>
+<div class="section" id="di">
+<h2>他にもDIしたい</h2>
+<div class="section" id="ejbdi">
+<h3>EJBでDI</h3>
+<p>リソースクラスをStateless Session Beanにします。
+@EJBでSession Beanを、@PersistenceContextでEntityManagerなどをインジェクションできます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="nd">@Stateless</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="nd">@EJB</span>
+    <span class="kd">private</span> <span class="n">HelloBean</span> <span class="n">helloBean</span><span class="p">;</span>
+
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">say</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">helloBean</span><span class="p">.</span><span class="na">say</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>個人的な利点は宣言的トランザクションでしょうか。</p>
+<p>欠点はSession BeanかEntityManagerぐらいしかDIするものがないことですかね。</p>
+</div>
+<div class="section" id="cdidi">
+<h3>CDIでDI</h3>
+<p>WEB-INF/beans.xmlを作成します。
+空のファイルでもOKです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="nd">@RequestScoped</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="kd">private</span> <span class="n">HelloBean</span> <span class="n">helloBean</span><span class="p">;</span>
+
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">say</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">helloBean</span><span class="p">.</span><span class="na">say</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>基本的に何でもDIできるのが利点です。
+CDIでは殆どのクラスが管理Beanになります。</p>
+<p>欠点はEJBでは使えていた宣言的トランザクション使えないことです。
+まあ自分でCDIのインターセプターを書いて適用すれば良いんですが、ちょっと面倒です。</p>
+</div>
+<div class="section" id="ejbcdi">
+<h3>EJBとCDIを併用する</h3>
+<p>というわけでEJBとCDIを併用します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Stateless</span>
+<span class="nd">@Path</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloResource</span> <span class="p">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="kd">private</span> <span class="n">HelloBean</span> <span class="n">helloBean</span><span class="p">;</span>
+
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">say</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">helloBean</span><span class="p">.</span><span class="na">say</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>利点はDIを@Injectで統一できることです。
+CDI管理Beanは当然ですが、（少し手を加える必要がありますが）EntityManagerもDataSourceも@Injectでぶっ込むことが可能です。</p>
+<p>欠点はJersey 1.11.1のバグです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.coppermine.jp/docs/programming/2012/12/jax-rs-ejb2.html">http://www.coppermine.jp/docs/programming/2012/12/jax-rs-ejb2.html</a></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>その他、DIの利点</h3>
+<ul class="simple">
+<li>インターセプタをかませる（JAX-RS 2.0からはJAX-RSの仕様にインターセプターが入りますが）</li>
+<li>モックにすげ替えやすい</li>
+<li>Arquillianでテストしやすい</li>
+</ul>
+</div>
+</div>
+<div class="section" id="arquillian">
+<h2>Arquillian</h2>
+<p>ArquillianはJBossが提供しているJava EE向けの結合テストフレームワークです。
+以下の例のようにテストコードを書く事が可能です。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@RunWith</span><span class="p">(</span><span class="n">Arquillian</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalcTest</span> <span class="p">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="n">CalcBean</span> <span class="n">calcBean</span><span class="p">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test_add</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">calcBean</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="n">is</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Deployment</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">WebArchive</span> <span class="nf">createDeployment</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ShrinkWrap</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">WebArchive</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">addClass</span><span class="p">(</span><span class="n">CalcBean</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">addAsWebInfResource</span><span class="p">(</span><span class="n">EmptyAsset</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">,</span> <span class="s">"beans.xml"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><a class="reference external" href="http://d.hatena.ne.jp/backpaper0/20121202/1354465585">http://d.hatena.ne.jp/backpaper0/20121202/1354465585</a></li>
+</ul>
+</div>
+<div class="section" id="jax-rs-2-0">
+<h2>JAX-RS 2.0の新機能</h2>
+<p>JAX-RS 2.0からは以下のような機能が追加されます。</p>
+<ul class="simple">
+<li>フィルター</li>
+<li>インターセプター</li>
+<li>非同期処理</li>
+<li>クライアントAPI</li>
+<li>Bean Validationとの統合</li>
+</ul>
+<div class="section" id="id10">
+<h3>フィルター</h3>
+<p>リクエスト・レスポンスそれぞれに対応するフィルターを書けます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingFilter</span> <span class="kd">implements</span> <span class="n">ContainerRequestFilter</span><span class="p">,</span> <span class="n">ContainerResponseFilter</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">filter</span><span class="p">(</span><span class="n">ContainerRequestContext</span> <span class="n">requestContext</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">Logger</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="s">"request"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">filter</span><span class="p">(</span><span class="n">ContainerRequestContext</span> <span class="n">requestContext</span><span class="p">,</span>
+            <span class="n">ContainerResponseContext</span> <span class="n">responseContext</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">Logger</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="s">"response"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>インターセプター</h3>
+<p>エンティティボディを読み書きするところに横入りしてごにょごにょできます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StarInterceptor</span> <span class="kd">implements</span> <span class="n">ReaderInterceptor</span><span class="p">,</span> <span class="n">WriterInterceptor</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">aroundReadFrom</span><span class="p">(</span><span class="n">ReaderInterceptorContext</span> <span class="n">context</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="p">,</span>
+        <span class="n">WebApplicationException</span> <span class="p">{</span>
+        <span class="n">Object</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
+        <span class="k">return</span> <span class="s">"+"</span> <span class="o">+</span> <span class="n">entity</span> <span class="o">+</span> <span class="s">"+"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">aroundWriteTo</span><span class="p">(</span><span class="n">WriterInterceptorContext</span> <span class="n">context</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="p">,</span>
+        <span class="n">WebApplicationException</span> <span class="p">{</span>
+        <span class="n">Object</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">getEntity</span><span class="p">();</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">setEntity</span><span class="p">(</span><span class="s">"*"</span> <span class="o">+</span> <span class="n">entity</span> <span class="o">+</span> <span class="s">"*"</span><span class="p">);</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>アノテーションで適用する範囲を決める</h3>
+<p>CDIも似たような感じですが、フィルター（インターセプター）にアノテーションを付けておくと同じアノテーションが付いているリソースクラス・リソースメソッドにそのフィルター（インターセプター）を噛ませることが出来るようです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@NameBinding</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">,</span>
+         <span class="n">ElementType</span><span class="p">.</span><span class="na">METHOD</span><span class="p">})</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="nd">@interface</span> <span class="n">Logged</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nd">@Logged</span>
+<span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingFilter</span> <span class="kd">implements</span> <span class="n">ContainerRequestFilter</span><span class="p">,</span> <span class="n">ContainerResponseFilter</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>リソースメソッドはこんな感じ。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@POST</span>
+<span class="nd">@Logged</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">post</span><span class="p">(</span><span class="n">String</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>非同期処理</h3>
+<p>Servlet 3.xにも非同期処理が入りましたが、JAX-RSにもやってきました。
+以下のサンプルはJSR 339に乗っていたものです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">AsyncResponse</span><span class="o">&gt;</span> <span class="n">suspended</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="n">ArrayBlockingQueue</span><span class="o">&lt;</span><span class="n">AsyncResponse</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="nd">@GET</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">readMessage</span><span class="p">(</span><span class="nd">@Suspended</span> <span class="n">AsyncResponse</span> <span class="n">ar</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
+    <span class="n">suspended</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">ar</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nd">@POST</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="s">"text/plain"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">postMessage</span><span class="p">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">AsyncResponse</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">suspended</span><span class="p">.</span><span class="na">take</span><span class="p">();</span>
+    <span class="n">ar</span><span class="p">.</span><span class="na">resume</span><span class="p">(</span><span class="n">message</span><span class="p">);</span> <span class="c1">// resumes the processing of one GET request</span>
+    <span class="k">return</span> <span class="s">"Message sent"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>うん、使いどころがわかりません！</p>
+</div>
+<div class="section" id="id14">
+<h3>使ってみたい</h3>
+<p>というわけで、JAX-RS 2.0のリリースはまだですが、いち早く試したい場合はJersey 2.xを使ってみましょう！</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.core<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-server<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0-rc1<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.test-framework.providers<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-test-framework-provider-jdk-http<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0-rc1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>まとめ</h2>
+<ul class="simple">
+<li>JAX-RSいいね！</li>
+<li>もうServletは要らないですね</li>
+<li>ところで「いいね！Java EE！」の第二回はあるんですかね？</li>
+</ul>
+<p>資料の手直し、最後の方疲れたので投げやりです。
+まあ、またJAX-RSは話題に出すと思いますので書ききれなかった（書き忘れた）アレとかソレはまたの機会にー。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/jax_rs.html">JAX-RS</a>, <a href="tags/jersey.html">Jersey</a>, <a href="tags/java.html">Java</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page38.html">Newer</a></li>
+            <li class="right"><a href="page40.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

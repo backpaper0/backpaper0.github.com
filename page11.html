@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 11 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page12.html" /><link rel="prev" title="Newer" href="page10.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>August 25, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/08/25/serialized_lambda.html">シリアライザブルなラムダ式</a></h1>
+<p>ラムダ式は <span class="docutils literal"><span class="pre">Serializable</span></span> にできます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//キャストしたり</span>
+<span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">Serializable</span><span class="p">)</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="s">"x"</span><span class="p">;</span>
+
+<span class="c1">//メソッドであれしたり</span>
+<span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">Serializable</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">consume</span><span class="p">(</span><span class="n">T</span> <span class="n">supplier</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>で、シリアライズできるぞー、と思ってこんなコード書いて、</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.function.Supplier</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sample</span> <span class="p">{</span>
+
+    <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">Serializable</span><span class="p">)</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">toString</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+
+        <span class="c1">//↓シリアライザブルなサプライヤー</span>
+        <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sample</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+
+        <span class="c1">//シリアライズしてみる</span>
+        <span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="p">();</span>
+        <span class="k">try</span> <span class="p">(</span><span class="n">ObjectOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="p">(</span><span class="n">baos</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">out</span><span class="p">.</span><span class="na">writeObject</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>実行すると、</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span/>Exception in thread "main" java.io.NotSerializableException: Sample
+    at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+    at java.io.ObjectOutputStream.writeArray(ObjectOutputStream.java:1378)
+    at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1174)
+    at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+    at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+    at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+    at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+    at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+    at Sample.main(Sample.java:17)
+</pre></div>
+</div>
+<p>例外です！</p>
+<p>これはラムダ式で <span class="docutils literal"><span class="pre">Sample</span></span> クラスの <span class="docutils literal"><span class="pre">toString</span></span> メソッドを呼んでいるため
+<span class="docutils literal"><span class="pre">Sample</span></span> がキャプチャされますが、 <span class="docutils literal"><span class="pre">Sample</span></span> はSerializableでないため例外が出ます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">get</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">Serializable</span><span class="p">)</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">toString</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>キャプチャというのはラムダ式内でラムダ式のスコープの外側の変数を参照した場合にラムダ式の実行環境に持ってくるっぽい感じのあれです。</p>
+<p>キャプチャされているインスタンスは <span class="docutils literal"><span class="pre">SerializedLambda</span></span> から取ってこれます。
+<span class="docutils literal"><span class="pre">SerializedLambda</span></span> はprivate finalな <span class="docutils literal"><span class="pre">writeReplace</span></span> メソッドで取ってこれます。
+取ってこれるからと言ってカジュアルに呼んで良いメソッドではないです。
+<span class="docutils literal"><span class="pre">writeReplace</span></span> については <span class="docutils literal"><span class="pre">Serializable</span></span> のJavadocに書いてあります。</p>
+<p>こんな感じで <span class="docutils literal"><span class="pre">SerializedLambda</span></span> とキャプチャしたインスタンスを取ってこれました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sample</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+
+<span class="n">Method</span> <span class="n">m</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">"writeReplace"</span><span class="p">);</span>
+<span class="n">m</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="n">SerializedLambda</span> <span class="n">sl</span> <span class="o">=</span> <span class="p">(</span><span class="n">SerializedLambda</span><span class="p">)</span> <span class="n">m</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sl</span><span class="p">.</span><span class="na">getCapturedArgCount</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">sl</span><span class="p">.</span><span class="na">getCapturedArg</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この辺りをもっといじくりまわすと面白い事ができそうな気がしなくもないですね！</p>
+<div class="section" id="id2">
+<h2>関係ありそうな、そうでもないような参考リソース</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://mike-neck.hatenadiary.com/entry/2015/08/21/034542">http://mike-neck.hatenadiary.com/entry/2015/08/21/034542</a></li>
+<li><a class="reference external" href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/invoke/SerializedLambda.html">https://docs.oracle.com/javase/jp/8/docs/api/java/lang/invoke/SerializedLambda.html</a></li>
+<li><a class="reference external" href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html">https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html</a></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>まとめもオチもない</h2>
+<p>とりあえず <span class="docutils literal"><span class="pre">Sample</span></span> クラスは <span class="docutils literal"><span class="pre">Serializable</span></span> をimplementsしましょう。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>July 30, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/07/30/gradle_plugin.html">Gradleプラグインを書いて公開しちゃった</a></h1>
+<div class="section" id="id1">
+<h2>きっかけ</h2>
+<p>JAX-RSでWebフォントなどの静的リソースを返すリソースメソッドを書いたんですが、
+ETagを使ってキャッシュをアレして転送量を節約したくなりました。</p>
+<p>で、ETagにはMD5ハッシュ値を使ってたんですが毎回ハッシュ値を計算するのはあほくさいので、
+ビルド時に計算してファイルに保存しておく事にしました。</p>
+<p>その際にGradleプラグインを書いて、
+どうせならと思って <a class="reference external" href="https://plugins.gradle.org/">https://plugins.gradle.org/</a> で公開する事にしました。</p>
+</div>
+<div class="section" id="id2">
+<h2>Gradleプラグインを書く</h2>
+<p>次の公式ドキュメント(の日本語訳)を参考にすればオッケー！</p>
+<ul class="simple">
+<li><a class="reference external" href="http://gradle.monochromeroad.com/docs/userguide/custom_tasks.html">第58章 カスタムタスクの作成</a></li>
+<li><a class="reference external" href="http://gradle.monochromeroad.com/docs/userguide/custom_plugins.html">第59章 カスタムプラグインの作成</a></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>Gradleプラグインを公開する</h2>
+<p><a class="reference external" href="https://plugins.gradle.org/docs/submit">How do I add my plugin to the plugin portal?</a>
+の通りに進めていけばオッケー！</p>
+<p>ざっくり書くと、
+まず <a class="reference external" href="https://plugins.gradle.org/user/register">アカウントを作って</a> 、
+自分のページでAPI Keyを作って、
+それを <cite>~/.gradle/gradle.properties</cite> に書いて、
+<cite>build.gradle</cite> へ <a class="reference external" href="https://plugins.gradle.org/docs/publish-plugin">Plugin Publishing Plugin</a>
+の設定を書いて、
+<span class="docutils literal"><span class="pre">gradle</span> <span class="pre">publishPlugins</span></span> で公開します。</p>
+</div>
+<div class="section" id="id7">
+<h2>Gradleプラグインを書くときに知ってて良かったこと</h2>
+<p>知ってて良かったことっていうかGroovyの文法なんですけど、
+次のようなことを知ってたらわりとスムーズにプラグインを書けました。</p>
+<ul class="simple">
+<li>アクセサメソッドはフィールドアクセスのように書ける。<ul>
+<li>例えば <span class="docutils literal"><span class="pre">foo.getBar()</span></span> は <span class="docutils literal"><span class="pre">foo.bar</span></span> と書ける。</li>
+<li>そして <span class="docutils literal"><span class="pre">foo.setBar(baz)</span></span> は <span class="docutils literal"><span class="pre">foo.bar</span> <span class="pre">=</span> <span class="pre">baz</span></span> と書ける。</li>
+</ul>
+</li>
+<li>メソッド呼び出しで最後の引数がクロージャだと括弧の外に出せる。
+つまり <span class="docutils literal"><span class="pre">foo(bar,</span> <span class="pre">{</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">...</span> <span class="pre">})</span></span> は <span class="docutils literal"><span class="pre">foo(bar)</span> <span class="pre">{</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">...</span> <span class="pre">}</span></span> と書けて組み込みの構文のようにできる。</li>
+<li>引数がMapなら <span class="docutils literal"><span class="pre">foo(bar:</span> <span class="pre">"...",</span> <span class="pre">baz:</span> <span class="pre">123)</span></span> みたいに書ける。</li>
+<li>展開演算子。
+<span class="docutils literal"><span class="pre">['hoge',</span> <span class="pre">'foo',</span> <span class="pre">'x'].collect</span> <span class="pre">{</span> <span class="pre">it.length()</span> <span class="pre">}</span></span>
+を
+<span class="docutils literal"><span class="pre">['hoge',</span> <span class="pre">'foo',</span> <span class="pre">'x']*.length()</span></span>
+と書ける。</li>
+<li><span class="docutils literal"><span class="pre">leftShift</span></span> という名前のメソッドは <span class="docutils literal"><span class="pre">&lt;&lt;</span></span> と書ける。
+タスクを定義するときの <span class="docutils literal"><span class="pre">task</span> <span class="pre">hoge</span> <span class="pre">&lt;&lt;</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></span> は
+<a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/Task.html#leftShift(groovy.lang.Closure)">Task.leftShiftメソッド</a>
+です。</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>Gradleプラグインを書くにあたって参考にしたもの</h2>
+<p>最初に挙げた公式ドキュメントの日本語訳はもちろん参考にしましたが、
+他に
+<a class="reference external" href="https://docs.gradle.org/current/javadoc/">GradleのAPIドキュメント</a>
+が参考になりました。</p>
+<p>特に次のクラスのドキュメントをよく読んだ気がします。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html">Project</a></li>
+<li><a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/TaskContainer.html">TaskContainer</a></li>
+<li><a class="reference external" href="https://docs.gradle.org/current/javadoc/org/gradle/api/Task.html">Task</a></li>
+</ul>
+<p>それから <a class="reference external" href="https://github.com/gradle/gradle">Gradleのソースコード</a>
+も参考になりました。
+特に
+<a class="reference external" href="https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/groovy/org/gradle/api/plugins/JavaPlugin.java">JavaPlugin</a>
+や
+<a class="reference external" href="https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/groovy/org/gradle/api/plugins/WarPlugin.java">WarPlugin</a>
+を参考にしました。</p>
+</div>
+<div class="section" id="id10">
+<h2>まとめ</h2>
+<p>Gradleプラグインは書くのも公開するのもお手軽っぽいので、
+これを読んで良いなと思ったらチャレンジしてみてくれさい！</p>
+<p>ちなみに、こちらが私が書いたプラグインですどうぞ！</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/gradle-hash-plugin">gradle hash plugin</a></li>
+</ul>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/gradle.html">Gradle</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page10.html">Newer</a></li>
+            <li class="right"><a href="page12.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

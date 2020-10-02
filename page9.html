@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 9 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page10.html" /><link rel="prev" title="Newer" href="page8.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 05, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/12/05/semicolonless_java_enum_method.html">セミコロンレスJava 8の新機能「enumにメソッド生やす」 #semicolonlessjava</a></h1>
+<p>これは
+<a class="reference external" href="http://www.adventar.org/calendars/952">セミコロンレスJava Advent Calendar 2015</a>
+の5日目です。</p>
+<div class="section" id="javaenum">
+<h2>レガシーセミコロンレスJavaにおけるenumの制限</h2>
+<p>Java言語ではenumにメソッドを生やす事ができます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//これはセミコロンを付けても良いありふれた普通のJavaコード</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="n">Hoge</span> <span class="p">{</span>
+    <span class="n">FOO</span><span class="p">,</span> <span class="n">BAR</span><span class="p">,</span> <span class="n">BAZ</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">println</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>しかしメソッドを定義するためには一番最後に宣言した列挙定数(上記の例でいうと
+<span class="docutils literal"><span class="pre">BAZ</span></span>
+)の後ろにセミコロンをつける必要があります。</p>
+<p>これは回避できない制約なのでセミコロンレスJavaではenumにメソッドは生やせませんでした。</p>
+</div>
+<div class="section" id="java-8enum">
+<h2>セミコロンレスJava 8におけるenumの新機能</h2>
+<p>しかし、Java 8でインターフェースにデフォルトメソッドを持てるようになり、
+その副次効果でセミコロンレスJava 8ではenumにメソッドを生やす事が出来るようになりました。</p>
+<p>手順は簡単で、デフォルトメソッドを定義したインターフェースを用意してenumでそれをimplementsするだけです。</p>
+<p>コード例を示します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Hoge</span> <span class="kd">implements</span> <span class="n">Fuga</span> <span class="p">{</span>
+   <span class="n">FOO</span><span class="p">,</span> <span class="n">BAR</span><span class="p">,</span> <span class="n">BAZ</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Fuga</span> <span class="p">{</span>
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">println</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">"%s%n"</span><span class="p">,</span> <span class="p">((</span><span class="n">Hoge</span><span class="p">)</span> <span class="k">this</span><span class="p">).</span><span class="na">name</span><span class="p">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>enumの列挙定数や他のメソッドにアクセスしたい場合はキャストすればOKです。</p>
+</div>
+<div class="section" id="id1">
+<h2>まとめ</h2>
+<ul class="simple">
+<li>enumにメソッドを生やせるようになり、ますますセミコロンレスJavaが便利に！</li>
+</ul>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/semicolonlessjava.html">SemicolonlessJava</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 01, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/12/01/jjug_ccc_2015_fall.html">JJUG CCC 2015 Fallに行ってきた #jjug_ccc</a></h1>
+<ul class="simple">
+<li><a class="reference external" href="http://www.java-users.jp/?page_id=2056">http://www.java-users.jp/?page_id=2056</a></li>
+</ul>
+<div class="section" id="jax-rs">
+<h2>JAX-RSネタで登壇してきた</h2>
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">GH-1のタイポっぽいけどGlassFishっぽくて良いな！ <a href="https://t.co/jfu08S7JMW">pic.twitter.com/jfu08S7JMW</a></p>— うらがみ (@backpaper0) <a href="https://twitter.com/backpaper0/status/670444637669093376">2015, 11月 28</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script><ul class="simple">
+<li><a class="reference external" href="http://www.java-users.jp/?page_id=2064#AB-1">http://www.java-users.jp/?page_id=2064#AB-1</a></li>
+</ul>
+<p>というわけで登壇させて頂きました。</p>
+<ul class="simple">
+<li><a class="reference external" href="/ghosts/jaxrs-getting-started-and-practice.html">JAX-RS入門および実践</a></li>
+</ul>
+<p>ペース配分が甘くて最後のテストコードのパートをまるごと省略してしまい、聴講してくださった皆様には大変申し訳なく思っています。
+おそらく関Javaで再演しますが、その際はしっかり最後まで話せるよう練習しておきます。</p>
+<p>また、懇親会で「物足りなかった」というご意見を頂きました。
+確かに、できる限りJAX-RSをご存知ない方にもJAX-RSを知って頂きたく、最大公約数的な内容にしたので物足りないと感じた方はいらっしゃるだろうなと思いました。</p>
+<p>ですので次(JJUG CCCとは限りませんが)はもうちょっと濃い目の話しをしたいなと思っています。</p>
+<p>私のセッションを選んでくださった聴講者の皆様、私のCfPを選んでくださったJJUGスタッフの皆様、資料レビューに付き合ってくれたほげメン・やんくさん、本当にありがとうございました！</p>
+</div>
+<div class="section" id="id2">
+<h2>まーやさん、たろうさんのコミュニティセッションでお話してきた</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.java-users.jp/?page_id=2064#EF-7">http://www.java-users.jp/?page_id=2064#EF-7</a></li>
+</ul>
+<p>関Javaというコミュニティのスタッフをやっているという事でお声がけ頂いてお話してきました。</p>
+<p>内容についてはまーやさんが素敵なレポートを書き上げてくださいました！</p>
+<ul class="simple">
+<li><a class="reference external" href="https://hotchpotchj37.wordpress.com/2015/11/30/2015%E5%B9%B4%EF%BC%91%EF%BC%91%E6%9C%8828%E6%97%A5jjug%E3%80%80ccc%E3%80%80%E5%8F%82%E5%8A%A0%E3%81%8D%E3%82%8D%E3%81%8F%EF%BD%9E%E7%99%BB%E5%A3%87%E7%B7%A8%EF%BD%9E/">2015年11月28日JJUG　CCC　参加きろく～登壇編～ | hotchpotch</a></li>
+</ul>
+<p>ここでは時間の都合で話せなかった事を記載しておきます。</p>
+<div class="section" id="id3">
+<h3>苦労話 会場の確保</h3>
+<p>これは毎回悩みます。</p>
+<p>テーマによってどの程度の集客が見込めるか考えて、その規模感に合った会場を探して、という感じで色々考えた挙句ばふぁさんを頼る、というのが最近のアレ。</p>
+<p>本当に最近はばふぁさんを頼りすぎているのですが、いつも快く引き受けてくださって当日も笑顔で迎えてくださるのでもうホントなんというかマジ感謝ありがとうございます大好きラブ！って感じです。</p>
+</div>
+<div class="section" id="or">
+<h3>抱えている課題(or 過去にあった課題) 調整力不足</h3>
+<p>運営には登壇者と日程調整して、会場を探して、懇親会のお店を探して、内容によっては当日までにリマインダメールを投げたり、
+というような事をする調整力というかなんというか、そんな感じのプログラマの苦手領域っぽいスキルが求められます。</p>
+<p>私も最初は……というかまあ今も苦労してはいますが、何度もやっているうちに慣れてきて前よりは上手くやれるようになりました。
+そして仕事をする上でも以前よりも調整事ができるようになって業務を円滑に進められるようになったと思っています。</p>
+<p>プログラミングの勉強会の運営をやって、プログラミングスキル以外のスキルがレベルアップした、という。
+棚ぼた。</p>
+</div>
+<div class="section" id="id4">
+<h3>その他、個人的な思い</h3>
+<p>私はコミュニティ運営をしていない一般の参加者だった頃、運営をやっている人たちを神格化していたように思います。
+あの人たちはすごい！
+参加しかしていない自分よりも上の人だ！
+殿上人だ！
+と。</p>
+<p>でも自分が運営に関わってみると運営は神ではないし、「コミュニティ運営してる・してない」はエンジニアの優劣になんら関係無いという事を理解しました。
+まあ当たり前っちゃ当たり前なんですが。
+とはいえ勉強会って楽しいし、どうやって開催するのかその時は全然見当もつかなかったし、なんだかそう思っちゃってたんですよね。</p>
+<p>まあ何が言いたいかというと「コミュニティ運営をしている・していない」は上下関係じゃなくて異なるレイヤーだということです。
+やりたい人がやれば良いし、やってる人は楽しくてやってるだけなので運営に関われない事を負い目に感じる必要は無いんだよ、と。
+そんな感じです。</p>
+<p>私は(これは会場でも言いましたが)勉強会に参加してくださった方が書いた感想ブログを読んだり、
+Twitterで「参加してよかった！」とツイートなさるのを見るのがすごく嬉しいので、まだしばらくはコミュニティ運営に関わって行きたいと思っています。</p>
+<p>面白いセッションにお誘い頂いたまーやさん・たろうさん、一緒にパネラーをしたまみさん・ひつじさん、それから一緒に楽しんでくださった参加者の皆様、ありがとうございました！
+楽しかったですね！</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>拝聴したセッション</h2>
+<p>ではここから拝聴したセッションについてざっくり記載します。</p>
+<div class="section" id="ef-3-reactive-web-spring-5">
+<h3>EF-3 Reactive Webアプリケーション – そしてSpring 5へ</h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.java-users.jp/?page_id=2064#EF-3">http://www.java-users.jp/?page_id=2064#EF-3</a></li>
+</ul>
+<p>まきさんのスピード感あふれるセッション(時間が足りない的な意味で)。
+スピード感あふれていましたが、すごく分かりやすかったです。
+(RxJavaをほんのり触った事があったからそれも幸いしたかな)</p>
+<p>内容もすごく良かったのですが、時間が無いと仰っていたのにRod Johnsonとのツーショット写真やSpring Tシャツを嬉しそうに自慢するまきさんがかわいかったのも見所でした。</p>
+</div>
+<div class="section" id="ef-5-java">
+<h3>EF-5 これからのコンピューティングの変化とJava</h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.java-users.jp/?page_id=2064#EF-5">http://www.java-users.jp/?page_id=2064#EF-5</a></li>
+</ul>
+<p>きしださんの癒しボイス満載のセッション。</p>
+<p>FPGAとかよく分からないんですが、自然な流れでJVM・Java言語の話になっていき、最後にはなるほど感が残る素敵なセッションでした。</p>
+<p>でもやっぱりFPGAとかよく分かってない事に今気がついたので、きしださんのブログを読んで勉強します。</p>
+</div>
+<div class="section" id="ab-6-java">
+<h3>AB-6 【こっそり始める】Javaプログラマコーディングマイグレーション</h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.java-users.jp/?page_id=2064#AB-6">http://www.java-users.jp/?page_id=2064#AB-6</a></li>
+</ul>
+<p>資料レビューし合ったやんくさんのセッション。</p>
+<p>自分が置かれている環境がアレな場合に、今居る環境を変える、もしくは別の環境に行く、
+という二択のうち前者をとる話でした。</p>
+<p>それも真正面から玉砕覚悟でぶつかっていくのではなく、隙を見つけてねじ込む搦め手をやってみようよ！っていう感じ。</p>
+<p>個人的には「おれはやるだけやった、でもあいつらが分からず屋なんだ」と他責にしちゃうのは好きではないし、
+過程よりも結果を残すのが大事だと思っているので、搦め手で確実に改善を狙うスタンスには好感を持ちました。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>懇親会</h2>
+<p>そう長くない時間で色々あったけどまとめきれないので割愛！
+楽しかった、とだけ言っておく！</p>
+<p>色んな人に挨拶できたけど、しきれなかったので来春にリベンジします！</p>
+<p>JJUG CCC 2015 Fall、楽しかった！！！</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/jax_rs.html">JAX-RS</a>, <a href="tags/emotion.html">emotion</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page8.html">Newer</a></li>
+            <li class="right"><a href="page10.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

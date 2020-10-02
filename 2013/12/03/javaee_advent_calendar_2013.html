@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>私のBeanValidationの使い方(Java EE Advent Calendar 2013) &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="GlassFish v3.1.2.2でServerヘッダとX-Powered-Byヘッダを返さないようにする" href="../../09/26/glassfish_server_xpoweredby.html" /><link rel="prev" title="Visitorパターンについて考えた" href="../22/visitor.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 03, 2013</span>
+        </div>
+    <div class="section" id="beanvalidation-java-ee-advent-calendar-2013">
+<h1>私のBeanValidationの使い方(Java EE Advent Calendar 2013)</h1>
+<p>このエントリは <a class="reference external" href="http://www.adventar.org/calendars/152">Java EE Advent Calendar 2013</a> の3日目です。
+昨日は <a class="reference external" href="https://twitter.com/matsumana">&#64;matsumana</a> さんのご担当で <a class="reference external" href="http://matsumana.info/blog/2013/12/02/jax-rs-mustache/">JAX-RS + mustache - &#64;matsumana の技術メモ</a> でした。</p>
+<p>今回はBeanValidationの自分なりの使い方をご紹介します。</p>
+<div class="section" id="id1">
+<h2>その前に</h2>
+<p>BeanValidationてなんや？という方は <a class="reference external" href="http://jcp.org/en/jsr/detail?id=349">JSR 349</a> の仕様を読むと良いでしょう。
+200ページ超えてますが半分以上コードっぽいのでそんなにしんどくないんじゃないかと思わなくもないけどどうでしょうか？</p>
+<p>もしくは「BeanValidation しんさん」でググると良いですよ。</p>
+</div>
+<div class="section" id="id2">
+<h2>本題</h2>
+<p>BeanValidationではフィールドやgetterに&#64;NotNullとか&#64;Sizeとかアノテーションをモリモリ付けてバリデーションするわけですが、調子に乗ってるとすぐアノテーション地獄になってキツいのです。
+ですので特定のバリデーションを集約する方法が欲しいわけでして、正攻法は独自のアノテーションを導入してそこに集約することだと思いますが、私は別のやり方を採用しています。</p>
+<p>まず、正攻法と同じく独自のアノテーションとConstraintValidatorを導入します。
+アノテーションはこんな感じ。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">net.hogedriven.backpaper0.javaeeadventcalendar2013</span><span class="p">;</span>
+
+<span class="kn">import static</span> <span class="nn">java.lang.annotation.ElementType.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">java.lang.annotation.RetentionPolicy.*</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Documented</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Retention</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.RetentionPolicy</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Target</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.validation.Constraint</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.validation.Payload</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span> <span class="n">METHOD</span><span class="p">,</span> <span class="n">FIELD</span><span class="p">,</span> <span class="n">ANNOTATION_TYPE</span><span class="p">,</span> <span class="n">CONSTRUCTOR</span><span class="p">,</span> <span class="n">PARAMETER</span> <span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Constraint</span><span class="p">(</span><span class="n">validatedBy</span> <span class="o">=</span> <span class="p">{</span> <span class="n">DomainValidator</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">DomainType</span> <span class="p">{</span>
+
+    <span class="n">String</span> <span class="nf">message</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">groups</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Payload</span><span class="o">&gt;[]</span> <span class="nf">payload</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="nd">@Target</span><span class="p">({</span> <span class="n">METHOD</span><span class="p">,</span> <span class="n">FIELD</span><span class="p">,</span> <span class="n">ANNOTATION_TYPE</span><span class="p">,</span> <span class="n">CONSTRUCTOR</span><span class="p">,</span> <span class="n">PARAMETER</span> <span class="p">})</span>
+    <span class="nd">@Retention</span><span class="p">(</span><span class="n">RUNTIME</span><span class="p">)</span>
+    <span class="nd">@Documented</span>
+    <span class="nd">@interface</span> <span class="n">List</span> <span class="p">{</span>
+
+        <span class="n">DomainType</span><span class="o">[]</span> <span class="nf">value</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>至って普通ですね。</p>
+<p>続いてConstraintValidatorはこんな感じです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">net.hogedriven.backpaper0.javaeeadventcalendar2013</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.validation.ConstraintValidator</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.validation.ConstraintValidatorContext</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DomainValidator</span> <span class="kd">implements</span>
+        <span class="n">ConstraintValidator</span><span class="o">&lt;</span><span class="n">DomainType</span><span class="p">,</span> <span class="n">WithValidation</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">DomainType</span> <span class="n">constraintAnnotation</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">WithValidation</span> <span class="n">value</span><span class="p">,</span>
+            <span class="n">ConstraintValidatorContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="na">validate</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">message</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">context</span><span class="p">.</span><span class="na">disableDefaultConstraintViolation</span><span class="p">();</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">buildConstraintViolationWithTemplate</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">addConstraintViolation</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>isValidメソッドでは具体的なバリデーションは行わずWithValidation#validateに任せています。</p>
+<p>WithValidation実装クラスは例えばこんな感じ。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">net.hogedriven.backpaper0.javaeeadventcalendar2013</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserId</span> <span class="kd">implements</span> <span class="n">WithValidation</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">UserId</span><span class="p">(</span><span class="n">String</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">validate</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="na">length</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">&quot;10文字以下でｵﾅｼｬｽ&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">char</span> <span class="n">c</span> <span class="p">:</span> <span class="n">value</span><span class="p">.</span><span class="na">toCharArray</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">((</span><span class="sc">&#39;a&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span>
+                    <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="sc">&#39;A&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">&#39;Z&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span>
+                    <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="sc">&#39;0&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="s">&quot;アルファベットと数字でよろろ&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">UserId</span> <span class="nf">fromString</span><span class="p">(</span><span class="n">String</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">value</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">UserId</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>validateメソッド内で詳しく値をチェックしてエラーがなければnullを、エラーがあったらエラーメッセージを返しています。</p>
+<p>ConstraintValidatorのisValidメソッドではこのvalidateメソッドでエラーが返ってきたらそれをもとにConstraintViolationを組み立てます。</p>
+</div>
+<div class="section" id="id3">
+<h2>なぜこの方法を取るのか</h2>
+<p>私の大好きな <a class="reference external" href="http://jcp.org/en/jsr/detail?id=339">JAX-RS</a> ではリクエストパラメータやフォームパラメータを独自のクラスで受け取ることが出来ます。
+で、jersey-mvc使って画面もモリモリ書いてるのでそれなりのメッセージが返るバリデーションをしたいのです。
+しかもものぐさなので出来るだけ楽したいなー、と考えたり考えなかったりしながら色々試して今ここ、といった感じです。
+それにしてもJAX-RSいいよJAX-RS。</p>
+<p>ちなみにDomainTypeという名前にしているのはDDD由来ではなくて私の大好きな <a class="reference external" href="http://doma.seasar.org/">Doma</a> というフレームワークの機能であるドメインクラスに対してバリデーションを付けることが多いのでそういう名前にしています。
+いやホントDomaいいよDoma。</p>
+</div>
+<div class="section" id="id4">
+<h2>メリット＆デメリット</h2>
+<p>この方法をとるとアノテーションは&#64;DomainTypeを付けるだけで良いのでどのアノテーションを使えば良いのか迷うこともないしアノテーション地獄が少しマシになります。</p>
+<p>デメリットもあって、これは自分でもイケてないと思いまくっているのですが、WithValidation実装クラスがバリデーションするために不正な状態を許している、という点です。
+本来ならfromStringファクトリメソッドでバリデーションしておかしな値だったら例外投げるのが正道と思います。
+まあメリットとデメリットを秤にかけて現状はこの方法を取っとくのがベターやな、といった所です。</p>
+</div>
+<div class="section" id="id5">
+<h2>おまけ：相関バリデーション</h2>
+<p>……というのかどうかは知りませんが「開始時刻」と「終了時刻」の前後関係が正しいか？みたいなふたつ以上の値を用いたバリデーションをする方法です。
+簡単です。</p>
+<p>BeanValidationはフィールドかgetterにアノテーションを付けてバリデーションを行うので一見相関バリデーションは行えない気がします。
+が、例えば、ふたつの値をまとめるTupleというクラスを作ってそれに対してバリデーションするConstraintValidatorを作ればおkです。</p>
+<p>試しにふたつの値が同じか検証するやつを書いてみました。</p>
+<p>まずはTupleというクラスを導入。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">net.hogedriven.backpaper0.javaeeadventcalendar2013</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tuple</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">first</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">second</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">Tuple</span><span class="p">(</span><span class="n">String</span> <span class="n">first</span><span class="p">,</span> <span class="n">String</span> <span class="n">second</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">second</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>次にConstraintValidator。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">net.hogedriven.backpaper0.javaeeadventcalendar2013</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.validation.ConstraintValidator</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.validation.ConstraintValidatorContext</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EqualValidator</span> <span class="kd">implements</span> <span class="n">ConstraintValidator</span><span class="o">&lt;</span><span class="n">Equal</span><span class="p">,</span> <span class="n">Tuple</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">Equal</span> <span class="n">constraintAnnotation</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">Tuple</span> <span class="n">value</span><span class="p">,</span> <span class="n">ConstraintValidatorContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">Objects</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="na">first</span><span class="p">,</span> <span class="n">value</span><span class="p">.</span><span class="na">second</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>最後にアノテーション。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">net.hogedriven.backpaper0.javaeeadventcalendar2013</span><span class="p">;</span>
+
+<span class="kn">import static</span> <span class="nn">java.lang.annotation.ElementType.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">java.lang.annotation.RetentionPolicy.*</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Documented</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Retention</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.RetentionPolicy</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Target</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.validation.Constraint</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.validation.Payload</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span> <span class="n">METHOD</span><span class="p">,</span> <span class="n">FIELD</span><span class="p">,</span> <span class="n">ANNOTATION_TYPE</span><span class="p">,</span> <span class="n">CONSTRUCTOR</span><span class="p">,</span> <span class="n">PARAMETER</span> <span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Constraint</span><span class="p">(</span><span class="n">validatedBy</span> <span class="o">=</span> <span class="p">{</span> <span class="n">EqualValidator</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Equal</span> <span class="p">{</span>
+
+    <span class="n">String</span> <span class="nf">message</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">groups</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Payload</span><span class="o">&gt;[]</span> <span class="nf">payload</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="nd">@Target</span><span class="p">({</span> <span class="n">METHOD</span><span class="p">,</span> <span class="n">FIELD</span><span class="p">,</span> <span class="n">ANNOTATION_TYPE</span><span class="p">,</span> <span class="n">CONSTRUCTOR</span><span class="p">,</span> <span class="n">PARAMETER</span> <span class="p">})</span>
+    <span class="nd">@Retention</span><span class="p">(</span><span class="n">RUNTIME</span><span class="p">)</span>
+    <span class="nd">@Documented</span>
+    <span class="nd">@interface</span> <span class="n">List</span> <span class="p">{</span>
+
+        <span class="n">Equal</span><span class="o">[]</span> <span class="nf">value</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>特別なことはなにもないコードですね。</p>
+<p>使い方は次のような感じです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">String</span> <span class="n">first</span><span class="p">;</span>
+
+<span class="kd">private</span> <span class="n">String</span> <span class="n">second</span><span class="p">;</span>
+
+<span class="nd">@Equal</span><span class="p">(</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;違う値はアカン&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="n">Tuple</span> <span class="nf">getValue</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Tuple</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>また、相関バリデーションはひとつひとつの値がvalid前提であることが多いでしょうからgroupsを上手く使ってアレしてあげれば良いですね。</p>
+</div>
+<div class="section" id="id6">
+<h2>というわけで</h2>
+<p>自分なりのBeanValidationの使い方でした。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/javaee-advent-calendar">本日のコード</a></li>
+</ul>
+<p>Java EE Advent Calendar 2013、明日のご担当は <a class="reference external" href="https://twitter.com/kazuhira_r">&#64;kazuhira_r</a> さんです。</p>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a>, <a href="../../../tags/beanvalidation.html">BeanValidation</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../22/visitor.html">Visitorパターンについて考えた</a></li>
+            <li class="right"><a href="../../09/26/glassfish_server_xpoweredby.html">GlassFish v3.1.2.2でServerヘッダとX-Powered-Byヘッダを返さないようにする</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

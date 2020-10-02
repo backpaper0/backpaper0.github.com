@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 16 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page17.html" /><link rel="prev" title="Newer" href="page15.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>March 05, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/03/05/io.html">Reader/Writer/InputStream/OutputStream</a></h1>
+<p>少し話題に出たのでファイル読み書きなどでよく使う感じのアレをアレしたいと思います。</p>
+<p>まず、</p>
+<ul class="simple">
+<li><span class="docutils literal"><span class="pre">InputStream</span></span> / <span class="docutils literal"><span class="pre">OutputStream</span></span> はバイナリデータのストリームです。
+<span class="docutils literal"><span class="pre">byte[]</span></span> で読み書きします。</li>
+<li><span class="docutils literal"><span class="pre">Reader</span></span> / <span class="docutils literal"><span class="pre">Writer</span></span> はテキストデータのストリームです。
+<span class="docutils literal"><span class="pre">char[]</span></span> で読み書きします。</li>
+<li>ストリームというのは <span class="docutils literal"><span class="pre">byte[]</span></span> や <span class="docutils literal"><span class="pre">char[]</span></span> を使って少しずつデータを読み込んだり書き出したりするためのものです。</li>
+</ul>
+<p>というのが基本になります。</p>
+<div class="section" id="id1">
+<h2>ファイルの読み書き</h2>
+<div class="section" id="id2">
+<h3>テキストファイルを読み込む</h3>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="n">Paths</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">"path/to/file"</span><span class="p">);</span>
+<span class="k">try</span> <span class="p">(</span><span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">//読み込み処理</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ファイルはUTF-8で読み込まれます。</p>
+<p>UTF-8以外のファイルを読み込む場合は第二引数に <span class="docutils literal"><span class="pre">Charset</span></span> を渡します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">try</span> <span class="p">(</span><span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Charset</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">"Windows-31J"</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">line</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="p">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">in</span><span class="p">.</span><span class="na">readLine</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="c1">//読み込み処理</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>バイナリファイルを読み込む</h3>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">try</span> <span class="p">(</span><span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">newInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1000</span><span class="o">]</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">!=</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">in</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="c1">//読み込み処理</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">Files.newInputStream</span></span> はバッファリングされないので巨大なファイルやたくさんファイルを扱う処理だと遅いと思います。
+基本的には <span class="docutils literal"><span class="pre">BufferedInputStream</span></span> でラップする方が良いかとー。</p>
+</div>
+<div class="section" id="id4">
+<h3>テキストファイルを書き出す</h3>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">try</span> <span class="p">(</span><span class="n">BufferedWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="n">Files</span><span class="p">.</span><span class="na">newBufferedWriter</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">//書き出し処理</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>バイナリファイルを書き出す</h3>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">try</span> <span class="p">(</span><span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedOutputStream</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">newOutputStream</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="c1">//書き出し処理</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">Files.newInputStream</span></span> と同じく <span class="docutils literal"><span class="pre">Files.newOutputStream</span></span> もバッファリングされません。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>オンメモリで扱う</h2>
+<p><span class="docutils literal"><span class="pre">Writer</span></span> を渡したらそこにもろもろ書き出してくれるライブラリがあるんだけど
+わざわざファイルに書き出すんじゃなくてオンメモリで処理して <span class="docutils literal"><span class="pre">String</span></span> で結果を取りたいんや！
+というような場合には <span class="docutils literal"><span class="pre">StringWriter</span></span> を使います。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">StringWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringWriter</span><span class="p">();</span>
+<span class="n">library</span><span class="p">.</span><span class="na">writeTo</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">out</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">Reader</span></span> / <span class="docutils literal"><span class="pre">InputStream</span></span> / <span class="docutils literal"><span class="pre">OutputStream</span></span> にもそれぞれオンメモリで使用するためのクラスがあります。</p>
+<ul class="simple">
+<li><span class="docutils literal"><span class="pre">StringReader</span></span> は <span class="docutils literal"><span class="pre">String</span></span> を読み込める <span class="docutils literal"><span class="pre">Reader</span></span></li>
+<li><span class="docutils literal"><span class="pre">StringWriter</span></span> は <span class="docutils literal"><span class="pre">String</span></span> へ書き出せる <span class="docutils literal"><span class="pre">Writer</span></span></li>
+<li><span class="docutils literal"><span class="pre">ByteArrayInputStream</span></span> は <span class="docutils literal"><span class="pre">byte[]</span></span> を読み込める <span class="docutils literal"><span class="pre">InputStream</span></span></li>
+<li><span class="docutils literal"><span class="pre">ByteArrayOutputStream</span></span> は <span class="docutils literal"><span class="pre">byte[]</span></span> へ書き出せる <span class="docutils literal"><span class="pre">OutputStream</span></span></li>
+</ul>
+</div>
+<div class="section" id="inputstreamreader-outputstreamwriter">
+<h2>InputStreamをReaderへ/OutputStreamをWriterへ変換する</h2>
+<p>それぞれ <span class="docutils literal"><span class="pre">InputStreamReader</span></span> と <span class="docutils literal"><span class="pre">OutputStreamWriter</span></span> を使って変換できます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InputStreamReader</span><span class="p">(</span><span class="n">in</span><span class="p">,</span> <span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">);</span>
+
+<span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>第二引数に <span class="docutils literal"><span class="pre">Charset</span></span> を渡していますが、何も渡さない場合はデフォルトエンコーディングが使用されるので注意が必要です。
+デフォルトエンコーディングとはシステムプロパティ <span class="docutils literal"><span class="pre">file.encoding</span></span> で取得できるものです。
+変更したい場合は次のようにJava起動時にオプションを設定します。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span/>java -Dfile.encoding<span class="o">=</span>UTF-8 com.example.MainClass
+</pre></div>
+</div>
+</div>
+<div class="section" id="zip">
+<h2>ZIPファイルを読み込む/書き出す</h2>
+<p>ZIPファイルの読み書きには <span class="docutils literal"><span class="pre">ZipInputStream</span></span> と <span class="docutils literal"><span class="pre">ZipOutputStream</span></span> が使えます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="p">...</span>
+<span class="k">try</span><span class="p">(</span><span class="n">ZipInputStream</span> <span class="n">zin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipInputStream</span><span class="p">(</span><span class="n">in</span><span class="p">,</span> <span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">ZipEntry</span> <span class="n">zipEntry</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="p">(</span><span class="n">zipEntry</span> <span class="o">=</span> <span class="n">zin</span><span class="p">.</span><span class="na">getNextEntry</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1000</span><span class="o">]</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">!=</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">zin</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span> <span class="p">{</span>
+            <span class="c1">//読み込み処理</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="p">...</span>
+<span class="k">try</span><span class="p">(</span><span class="n">ZipOutputStream</span> <span class="n">zout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipOutputStream</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">ZipEntry</span> <span class="n">zipEntry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipEntry</span><span class="p">(</span><span class="s">"hoge.txt"</span><span class="p">);</span>
+    <span class="n">zout</span><span class="p">.</span><span class="na">putNextEntry</span><span class="p">(</span><span class="n">zipEntry</span><span class="p">);</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="p">...</span>
+    <span class="n">zout</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">zout</span><span class="p">.</span><span class="na">closeEntry</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>ファイルのコピー、移動をする</h2>
+<p><span class="docutils literal"><span class="pre">Files</span></span> を使います。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Path</span> <span class="n">src</span> <span class="o">=</span> <span class="p">...</span>
+<span class="n">Path</span> <span class="n">dest</span> <span class="o">=</span> <span class="p">...</span>
+
+<span class="n">Files</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">);</span>
+
+<span class="n">Files</span><span class="p">.</span><span class="na">move</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="channel">
+<h2>Channel</h2>
+<p><span class="docutils literal"><span class="pre">Reader</span></span> / <span class="docutils literal"><span class="pre">Writer</span></span> / <span class="docutils literal"><span class="pre">InputStream</span></span> / <span class="docutils literal"><span class="pre">OutputStream</span></span>
+の他に <span class="docutils literal"><span class="pre">Channel</span></span> というものもありますが <span class="docutils literal"><span class="pre">Channel</span></span> が必要になるライブラリには
+ほぼ出会った事がないので覚えなくても生きて行けると思います。</p>
+</div>
+<div class="section" id="id8">
+<h2>おまけ</h2>
+<p>テキストファイルの読み込みには <span class="docutils literal"><span class="pre">Files.newBufferedReader</span></span> を使うと書きましたが
+Java 6までは <span class="docutils literal"><span class="pre">FileReader</span></span> を使って次のようにファイル読み込みをしていました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"path/to/file"</span><span class="p">);</span>
+<span class="n">Reader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileReader</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">//読み込み処理</span>
+<span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">Charset</span></span> を渡さずに <span class="docutils literal"><span class="pre">FileReader</span></span> をインスタンス化していますが、
+この場合はデフォルトエンコーディングが使われていました。</p>
+<p>しかも <span class="docutils literal"><span class="pre">FileReader</span></span> には <span class="docutils literal"><span class="pre">Charset</span></span> を受け取るコンストラクタは用意されていません。
+ではデフォルトエンコーディング以外でファイルを読み込みたい場合はどうするのか？</p>
+<p>その場合は、</p>
+<ol class="arabic simple">
+<li><span class="docutils literal"><span class="pre">FileInputStream</span></span> でファイルを開いて</li>
+<li><span class="docutils literal"><span class="pre">InputStreamReader</span></span> で <span class="docutils literal"><span class="pre">Charset</span></span> を指定しつつラップする</li>
+</ol>
+<p>という方法をとっていました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"path/to/file"</span><span class="p">);</span>
+<span class="n">Reader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InputStreamReader</span><span class="p">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="n">Charset</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">"iso-2022-jp"</span><span class="p">));</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">//読み込み処理</span>
+<span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="n">in</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>そういう訳で <span class="docutils literal"><span class="pre">java.io</span></span> で <span class="docutils literal"><span class="pre">Charset</span></span> を受け取らない場合はデフォルトエンコーディング、
+<span class="docutils literal"><span class="pre">java.nio.file</span></span> で <span class="docutils literal"><span class="pre">Charset</span></span> を受け取らない場合はUTF-8が使われる、という感じです。</p>
+<p>デフォルトエンコーディングは環境によって変わるので <span class="docutils literal"><span class="pre">java.nio.file</span></span> を使っておくのが安全だと思います。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>February 28, 2015</span>
+        </div>
+        <div class="section">
+            <h1><a href="2015/02/28/junit_4_12_test_rule.html">JUnit 4.12から入ったTestRuleを軽く見てみる</a></h1>
+<div class="section" id="disableondebug">
+<h2>DisableOnDebug</h2>
+<p><span class="docutils literal"><span class="pre">DisableOnDebug</span></span> 他の <span class="docutils literal"><span class="pre">TestRule</span></span> をラップして、
+デバッグ実行されているときのみラップした <span class="docutils literal"><span class="pre">TestRule</span></span> を適用します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">org.junit.Rule</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.DisableOnDebug</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.TestRule</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.Timeout</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HogeTest</span> <span class="p">{</span>
+
+    <span class="nd">@Rule</span>
+    <span class="kd">public</span> <span class="n">TestRule</span> <span class="n">timeout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DisableOnDebug</span><span class="p">(</span><span class="n">Timeout</span><span class="p">.</span><span class="na">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span> <span class="c1">//1秒以上かかったら失敗とみなす</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testHoge</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="c1">//test code</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>こんな感じで <span class="docutils literal"><span class="pre">Timeout</span></span> と組み合わせる事が多い気がします。</p>
+<p>コマンドライン引数に次のいずれかが含まれていればデバッグ実行されていると判断するようです。</p>
+<ul class="simple">
+<li><span class="docutils literal"><span class="pre">-Xdebug</span></span></li>
+<li><span class="docutils literal"><span class="pre">-agentlib:jdwp</span></span></li>
+</ul>
+<p>デバッグ実行かどうかの判断は <span class="docutils literal"><span class="pre">DisableOnDebug.isDebugging</span></span> メソッドをオーバーライドすればカスタマイズできます。</p>
+</div>
+<div class="section" id="stopwatch">
+<h2>Stopwatch</h2>
+<p><span class="docutils literal"><span class="pre">Stopwatch</span></span> はテスト実行にかかった時間を <span class="docutils literal"><span class="pre">System.nanoTime</span></span> メソッドで計測します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">java.util.logging.Logger</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.Rule</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.rules.Stopwatch</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.runner.Description</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FugaTest</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">FugaTest</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+
+    <span class="nd">@Rule</span>
+    <span class="kd">public</span> <span class="n">Stopwatch</span> <span class="n">stopwatch</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stopwatch</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">succeeded</span><span class="p">(</span><span class="kt">long</span> <span class="n">nanos</span><span class="p">,</span> <span class="n">Description</span> <span class="n">description</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">"テストの実行に%,dナノ秒かかった"</span><span class="p">,</span> <span class="n">nanos</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="c1">//test code</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ロギング目的に使うのが多そうです。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/junit.html">JUnit</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page15.html">Newer</a></li>
+            <li class="right"><a href="page17.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

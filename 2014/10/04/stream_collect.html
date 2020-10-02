@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Streamのcollectメソッドを学ぶ &mdash; 裏紙</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Streamのメソッドを操作の種類別で一覧にした" href="stream_methods.html" /><link rel="prev" title="Java 8 HotSpot meetingを開催した #kanjava" href="../26/java_8_hotspot_meeting.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="../../../index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="../../../pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="../../../archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>October 04, 2014</span>
+        </div>
+    <div class="section" id="streamcollect">
+<h1>Streamのcollectメソッドを学ぶ</h1>
+<p><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html">Stream</a> にある数多くのメソッドの中でも分かり辛い感じがする
+<a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> について学びます。</p>
+<div class="section" id="collect">
+<h2><span class="docutils literal"><span class="pre">collect</span></span> メソッドの概要</h2>
+<p>端的に述べると <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> は <span class="docutils literal"><span class="pre">Stream&lt;T&gt;</span></span> を <span class="docutils literal"><span class="pre">R</span></span> に変換する操作です。</p>
+<p>より詳しく述べると、
+<span class="docutils literal"><span class="pre">Stream</span></span> の各要素( <span class="docutils literal"><span class="pre">T</span></span> )を中間コンテナ( <span class="docutils literal"><span class="pre">A</span></span> )に折り畳んだ後に最終的な結果( <span class="docutils literal"><span class="pre">R</span></span> )に変換する操作です。</p>
+<p>括弧内のアルファベットは <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html">Collector</a> が持つ3つの型変数に対応しています。</p>
+<ul class="simple">
+<li><span class="docutils literal"><span class="pre">T</span></span> : Streamの要素の型</li>
+<li><span class="docutils literal"><span class="pre">A</span></span> : <strong>ミュータブル</strong> な中間コンテナの型</li>
+<li><span class="docutils literal"><span class="pre">R</span></span> : 最終的に返される結果の型</li>
+</ul>
+<p>例えば <span class="docutils literal"><span class="pre">Stream&lt;Character&gt;</span></span> を単純に繋げて <span class="docutils literal"><span class="pre">String</span></span> にする場合は、
+<span class="docutils literal"><span class="pre">Stream</span></span> の各 <span class="docutils literal"><span class="pre">Character</span></span> ( <span class="docutils literal"><span class="pre">T</span></span> )を <span class="docutils literal"><span class="pre">StringBuilder</span></span> ( <span class="docutils literal"><span class="pre">A</span></span> )に <span class="docutils literal"><span class="pre">append</span></span> した後に <span class="docutils literal"><span class="pre">String</span></span> ( <span class="docutils literal"><span class="pre">R</span></span> )に変換する、
+という流れになります。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">高パフォーマンスを得るため中間コンテナは <strong>ミュータブル</strong> となっています。
+詳細は <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/package-summary.html#MutableReduction">java.util.streamパッケージの「可変リダクション」</a> を参照ください。</p>
+</div>
+</div>
+<div class="section" id="collector">
+<h2><span class="docutils literal"><span class="pre">Collector</span></span> インターフェースの説明</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> は引数に <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html">Collector</a> を取ります。
+<a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html">Collector</a> は「関数を返す4つのメソッド」と「特性を返すメソッド」を持ったインターフェースです。</p>
+<p>「特性」については後述するとして、まず「4つの関数」を説明します。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#supplier--">supplier</a> : 中間コンテナを生成する関数。
+順次処理のとき最初の1回だけ実行される。
+並列処理のときは複数回実行されることがある。</li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#accumulator--">accumulator</a> : 中間コンテナへ値を折り畳む関数。
+<span class="docutils literal"><span class="pre">Stream</span></span> の要素の数だけ実行される。</li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#combiner--">combiner</a> : ふたつの中間コンテナをひとつにマージする関数。
+並列処理のときに実行されることがある。</li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#finisher--">finisher</a> : 中間コンテナから最終的な結果へ変換する。
+最後の1回だけ実行される。</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">日本語Javadocの説明文ではそれぞれ「サプライヤ」「アキュムレータ」「コンバイナ」「フィニッシャ」と表記されています。
+勉強会などで読み方を牽制し合わなくて済みますね！</p>
+</div>
+<div class="section" id="id1">
+<h3>文字を結合する <span class="docutils literal"><span class="pre">Collector</span></span> の例</h3>
+<p>例えば <span class="docutils literal"><span class="pre">Character</span></span> の <span class="docutils literal"><span class="pre">Stream</span></span> を <span class="docutils literal"><span class="pre">StringBuilder</span></span> へ折り畳んで最終的に
+<span class="docutils literal"><span class="pre">String</span></span> に変換するという処理を考えてみます。</p>
+<p><span class="docutils literal"><span class="pre">Collector</span></span> が返す関数はそれぞれ次のような処理を行うようにします。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#supplier--">supplier</a> で <span class="docutils literal"><span class="pre">StringBuilder</span></span> のインスタンスを生成する</li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#accumulator--">accumulator</a> で <span class="docutils literal"><span class="pre">StringBuilder</span></span> へ <span class="docutils literal"><span class="pre">Character</span></span> を <span class="docutils literal"><span class="pre">append</span></span> する</li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#combiner--">combiner</a> でふたつの <span class="docutils literal"><span class="pre">StringBuilder</span></span> をひとつにマージする</li>
+<li><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#finisher--">finisher</a> で <span class="docutils literal"><span class="pre">StringBuilder</span></span> を <span class="docutils literal"><span class="pre">toString</span></span> する</li>
+</ul>
+<p>各関数のコードを記載します。</p>
+<ul>
+<li><p class="first"><span class="docutils literal"><span class="pre">supplier</span></span></p>
+<p>引数なしで <span class="docutils literal"><span class="pre">StringBuilder</span></span> のインスタンスを返します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>またはコンストラクタ参照でも良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nl">StringBuilder:</span><span class="p">:</span><span class="k">new</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><span class="docutils literal"><span class="pre">accumulator</span></span></p>
+<p><span class="docutils literal"><span class="pre">StringBuilder</span></span> と <span class="docutils literal"><span class="pre">Character</span></span> を受け取って
+<span class="docutils literal"><span class="pre">append</span></span> します。
+戻り値は <span class="docutils literal"><span class="pre">void</span></span> です。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>またはメソッド参照でも良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nl">StringBuilder:</span><span class="p">:</span><span class="n">append</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><span class="docutils literal"><span class="pre">combiner</span></span></p>
+<p>ふたつの <span class="docutils literal"><span class="pre">StringBuilder</span></span> を受け取ってひとつの
+<span class="docutils literal"><span class="pre">StringBuilder</span></span> にマージして返します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">sb1</span><span class="p">,</span> <span class="n">sb2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sb1</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">sb2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>またはメソッド参照でも良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nl">StringBuilder:</span><span class="p">:</span><span class="n">append</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><span class="docutils literal"><span class="pre">finisher</span></span></p>
+<p><span class="docutils literal"><span class="pre">StringBuilder</span></span> を受け取って <span class="docutils literal"><span class="pre">String</span></span> へ変換して返します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">sb</span> <span class="o">-&gt;</span> <span class="n">sb</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>またはメソッド参照でも良いです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nl">StringBuilder:</span><span class="p">:</span><span class="n">toString</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>これら4つの関数をもとにして <span class="docutils literal"><span class="pre">Collector</span></span> インスタンスを生成します。
+愚直に <span class="docutils literal"><span class="pre">Collector</span></span> インターフェースを実装したクラスを作っても良いのですが
+<span class="docutils literal"><span class="pre">Collector</span></span> の <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.html#of-java.util.function.Supplier-java.util.function.BiConsumer-java.util.function.BinaryOperator-java.util.function.Function-java.util.stream.Collector.Characteristics...-">ofメソッド</a> を利用するのが楽です。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Collector</span><span class="o">&lt;</span><span class="n">Character</span><span class="p">,</span> <span class="n">StringBuilder</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">characterJoiner</span> <span class="o">=</span>
+        <span class="n">Collector</span><span class="p">.</span><span class="na">of</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">(),</span>     <span class="c1">//supplier</span>
+                     <span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sb</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>       <span class="c1">//accumulator</span>
+                     <span class="p">(</span><span class="n">sb1</span><span class="p">,</span> <span class="n">sb2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sb1</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">sb2</span><span class="p">),</span> <span class="c1">//combiner</span>
+                     <span class="n">sb</span> <span class="o">-&gt;</span> <span class="n">sb</span><span class="p">.</span><span class="na">toString</span><span class="p">()));</span>         <span class="c1">//finisher</span>
+
+<span class="c1">//コンストラクタ参照・メソッド参照バージョン</span>
+<span class="n">Collector</span><span class="o">&lt;</span><span class="n">Character</span><span class="p">,</span> <span class="n">StringBuilder</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">characterJoiner</span> <span class="o">=</span>
+        <span class="n">Collector</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">StringBuilder</span><span class="p">::</span><span class="k">new</span><span class="p">,</span>        <span class="c1">//supplier</span>
+                     <span class="n">StringBuilder</span><span class="p">::</span><span class="n">append</span><span class="p">,</span>     <span class="c1">//accumulator</span>
+                     <span class="n">StringBuilder</span><span class="p">::</span><span class="n">append</span><span class="p">,</span>     <span class="c1">//combiner</span>
+                     <span class="n">StringBuilder</span><span class="p">::</span><span class="n">toString</span><span class="p">));</span> <span class="c1">//finisher</span>
+</pre></div>
+</div>
+<p>この <span class="docutils literal"><span class="pre">Collector</span></span> を使って文字を連結してみます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">).</span><span class="na">collect</span><span class="p">(</span><span class="n">characterJoiner</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">//hello</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3><span class="docutils literal"><span class="pre">Collector</span></span> の特性</h3>
+<p><span class="docutils literal"><span class="pre">Collector</span></span> はネストした列挙型 <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collector.Characteristics.html">Characteristics</a> を使用してみっつの特性を表すことができます。
+各特性について説明します。</p>
+<ul>
+<li><p class="first"><span class="docutils literal"><span class="pre">CONCURRENT</span></span> : ひとつの結果コンテナインスタンスに対して複数スレッドから <span class="docutils literal"><span class="pre">accumulator</span></span> を実行できる特性です。</p>
+<p>つまり次のような処理を行っても不整合が起こらなければ、この特性を持っていると言えます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">supplier</span><span class="p">.</span><span class="na">get</span><span class="p">();</span> <span class="c1">//中間コンテナ</span>
+
+<span class="k">new</span> <span class="n">Thread</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">accumulator</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">t1</span><span class="p">)).</span><span class="na">start</span><span class="p">();</span>
+
+<span class="k">new</span> <span class="n">Thread</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">accumulator</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">t2</span><span class="p">)).</span><span class="na">start</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><span class="docutils literal"><span class="pre">IDENTITY_FINISH</span></span> : <span class="docutils literal"><span class="pre">finisher</span></span> が恒等関数であり、省略できる特性です。</p>
+<p>つまり <span class="docutils literal"><span class="pre">finisher</span></span> が次のような実装になる場合、この特性を持っていると言えます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Function</span><span class="o">&lt;</span><span class="n">A</span><span class="p">,</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">finisher</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><span class="docutils literal"><span class="pre">UNORDERED</span></span> : 操作が要素の順序に依存しない特性です。</p>
+</li>
+</ul>
+<p>いずれの特性も性能向上のためのものと思われます。
+ですので特性をひとつも持たないとしても致命的な問題は無さそうです。
+むしろ自作 <span class="docutils literal"><span class="pre">Collector</span></span> がどの特性を持っているか分からない、いまいち自信が無いなどの場合は
+<span class="docutils literal"><span class="pre">Characteristics</span></span> を設定しない方が良いかも知れませんね。</p>
+<p><span class="docutils literal"><span class="pre">Collector</span></span> インスタンスを生成する際に特性を与えたい場合は <span class="docutils literal"><span class="pre">of</span></span> メソッドの第5引数(可変長引数です)を使用します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Collector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">collector</span> <span class="o">=</span>
+        <span class="n">Collector</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">supplier</span><span class="p">,</span> <span class="n">accumulator</span><span class="p">,</span> <span class="n">combiner</span><span class="p">,</span> <span class="n">finisher</span><span class="p">,</span>
+                     <span class="n">Characteristics</span><span class="p">.</span><span class="na">CONCURRENT</span><span class="p">,</span>
+                     <span class="n">Characteristics</span><span class="p">.</span><span class="na">IDENTITY_FINISH</span><span class="p">,</span>
+                     <span class="n">Characteristics</span><span class="p">.</span><span class="na">UNORDERED</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>中間コンテナの型変数について</h2>
+<p><span class="docutils literal"><span class="pre">Collector</span></span> は自分で実装しても良いですが、よく使われそうな実装を返す
+<span class="docutils literal"><span class="pre">static</span></span> メソッドを多数定義した <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collectors.html">Collectors</a> というユーティリティクラスが提供されています。</p>
+<p><a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collectors.html">Collectors</a> のメソッド一覧を眺めて戻り値に注目するとほとんどが
+<span class="docutils literal"><span class="pre">Collector&lt;T,</span> <span class="pre">?,</span> <span class="pre">R&gt;</span></span> となっており、
+中間コンテナの型がワイルドカードで宣言されていることが分かります。</p>
+<p>冒頭でも書きましたが <span class="docutils literal"><span class="pre">Stream</span></span> の <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> は <span class="docutils literal"><span class="pre">Stream&lt;T&gt;</span></span> を <span class="docutils literal"><span class="pre">R</span></span> に変換する操作です。
+このときの <span class="docutils literal"><span class="pre">T</span></span> と <span class="docutils literal"><span class="pre">R</span></span> は <span class="docutils literal"><span class="pre">Collector&lt;T,</span> <span class="pre">A,</span> <span class="pre">R&gt;</span></span> のそれに対応します。
+つまり <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> を使うひと―― <span class="docutils literal"><span class="pre">Collector</span></span> の利用者――にとっては中間コンテナが何であるか意識する必要はないんですね。</p>
+<p>このように利用者には不要な中間コンテナの型が見えており、
+実際にはワイルドカードが宣言されているというのは少し残念であり、
+<a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> をややこしく感じさせている一因かも知れないな、と思います。</p>
+<p>というわけで <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collectors.html">Collectors</a> の各メソッドでのワイルドカードは空気のように扱うことにしましょう。</p>
+</div>
+<div class="section" id="id4">
+<h2>まとめ、それと自分への宿題</h2>
+<ul class="simple">
+<li>使う側としては中間コンテナの存在は無視る</li>
+<li>よく分からんかったら <span class="docutils literal"><span class="pre">Characteristics</span></span> は付与しない</li>
+<li>何はともあれ <a class="reference external" href="http://docs.oracle.com/javase/jp/8/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-">collectメソッド</a> 便利</li>
+</ul>
+<p>こっから宿題。</p>
+<ul>
+<li><p class="first">Scalaの <span class="docutils literal"><span class="pre">scan</span></span> みたいなやつを実装してみる。</p>
+<p>こんなやつです。</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">//これはScalaコード</span>
+<span class="k">val</span> <span class="n">xs</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">to</span> <span class="mi">5</span> <span class="n">toList</span>
+<span class="n">xs</span><span class="o">.</span><span class="n">scan</span><span class="o">(</span><span class="mi">0</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span> <span class="c1">//0, 1, 3, 6, 10, 15</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="section" id="id5">
+<h3>追記：宿題やった</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/sandbox/blob/master/garakuta/src/test/java/ScanCollectorTest.java">ScanCollectorTest.java</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/java.html">Java</a>, <a href="../../../tags/stream_api.html">Stream API</a></span>
+        </div>
+        </div>
+    <ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../26/java_8_hotspot_meeting.html">Java 8 HotSpot meetingを開催した #kanjava</a></li>
+            <li class="right"><a href="stream_methods.html">Streamのメソッドを操作の種類別で一覧にした</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="../../../2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="../../../2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="../../../2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="../../../2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="../../../2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="../../../2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="../../../2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="../../../2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="../../../2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

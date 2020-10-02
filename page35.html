@@ -1,0 +1,1183 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 35 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page36.html" /><link rel="prev" title="Newer" href="page34.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 30, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/12/30/javafx.html">JavaFXでクラサバする事を考えた</a></h1>
+<p>私はエスアイヤーでギョームアプリ作ってるのでその辺りにJavaFXぶっ込んだらどうなるか考えてみました。</p>
+<p>とりあえず次に挙げた機能が必要っぽいかなーと思います。</p>
+<ul class="simple">
+<li>画面遷移</li>
+<li>検索結果などのグリッド表示</li>
+<li>グリッドから詳細画面を開く的なやつ</li>
+<li>ダイアログ</li>
+<li>バックグラウンド処理</li>
+<li>サーバとの通信</li>
+</ul>
+<div class="section" id="id1">
+<h2>画面遷移</h2>
+<p>Hoge駆動の忘年会というぁゃしぃ集まりでは</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/stage/Stage.html#setScene(javafx.scene.Scene)">Stage#setScene(Scene)</a> でSceneを入れ替える</li>
+<li><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/Scene.html#setRoot(javafx.scene.Parent)">Scene#setRoot(Parent)</a> でルートノードを入れ替える</li>
+</ul>
+<p>という案を挙げてみました。
+このふたつのうちSceneを入れ替える方法だと画面がチラついてしまいましたので
+ルートノードを入れ替える方法がベターかなー、と思っていましたが、
+StackPaneあたりに必要なだけNodeを突っ込んでvisibleを切り替える、
+というのがもっと良いんじゃないかと現時点では思っています。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.ActionEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.EventHandler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.Scene</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.Button</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.BorderPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.StackPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScreenTransitionSample</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="p">(</span><span class="n">Stage</span> <span class="n">stage</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+
+        <span class="kd">final</span> <span class="n">BorderPane</span> <span class="n">firstPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BorderPane</span><span class="p">();</span>
+        <span class="n">Button</span> <span class="n">next</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">"次へ行く"</span><span class="p">);</span>
+        <span class="n">firstPane</span><span class="p">.</span><span class="na">setCenter</span><span class="p">(</span><span class="n">next</span><span class="p">);</span>
+
+        <span class="kd">final</span> <span class="n">BorderPane</span> <span class="n">secondPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BorderPane</span><span class="p">();</span>
+        <span class="n">Button</span> <span class="n">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">"前へ戻る"</span><span class="p">);</span>
+        <span class="n">secondPane</span><span class="p">.</span><span class="na">setCenter</span><span class="p">(</span><span class="n">prev</span><span class="p">);</span>
+        <span class="n">secondPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+        <span class="n">StackPane</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackPane</span><span class="p">();</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">firstPane</span><span class="p">);</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">secondPane</span><span class="p">);</span>
+
+        <span class="n">next</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">firstPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                <span class="n">secondPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="n">prev</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">firstPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                <span class="n">secondPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scene</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+        <span class="n">stage</span><span class="p">.</span><span class="na">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">);</span>
+        <span class="n">stage</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">"画面遷移"</span><span class="p">);</span>
+        <span class="n">stage</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>検索画面などのグリッド表示</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableView.html">TableView</a> を使います。</p>
+<p>Scene Builderを使って画面を組み立てる場合はまずTableViewをペタっと置いて、
+カラムを足す場合はTableColumnを貼付けたTableViewへペロっと置きます。</p>
+<p>データを表示するときは <a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableColumn.html#setCellValueFactory(javafx.util.Callback)">TableColumn#setCellValueFactory(Callback)</a> を使って値のファクトリーを設定して、
+TableViewのitemsへaddします。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ResourceBundle</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.fxml.FXML</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.fxml.Initializable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.TableColumn</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.TableView</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.cell.PropertyValueFactory</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridController</span> <span class="kd">implements</span> <span class="n">Initializable</span> <span class="p">{</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableView</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="n">accounts</span><span class="p">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">id</span><span class="p">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">name</span><span class="p">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">desc</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">URL</span> <span class="n">location</span><span class="p">,</span> <span class="n">ResourceBundle</span> <span class="n">resources</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">id</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"id"</span><span class="p">));</span>
+        <span class="n">name</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"name"</span><span class="p">));</span>
+        <span class="n">desc</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"desc"</span><span class="p">));</span>
+
+        <span class="n">Account</span> <span class="n">account1</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">"backpaper0"</span><span class="p">,</span> <span class="s">"うらがみ"</span><span class="p">,</span> <span class="s">"全裸"</span><span class="p">);</span>
+        <span class="n">Account</span> <span class="n">account2</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">"tan_go238"</span><span class="p">,</span> <span class="s">"たんご"</span><span class="p">,</span> <span class="s">"カレー"</span><span class="p">);</span>
+        <span class="n">Account</span> <span class="n">account3</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="s">"irof"</span><span class="p">,</span> <span class="s">"いろふ"</span><span class="p">,</span> <span class="s">"足首"</span><span class="p">);</span>
+
+        <span class="n">accounts</span><span class="p">.</span><span class="na">getItems</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">account1</span><span class="p">);</span>
+        <span class="n">accounts</span><span class="p">.</span><span class="na">getItems</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">account2</span><span class="p">);</span>
+        <span class="n">accounts</span><span class="p">.</span><span class="na">getItems</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">account3</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>こんな感じになります。</p>
+<img alt="../../../_images/GridSample.png" src="_images/GridSample.png"/>
+</div>
+<div class="section" id="id3">
+<h2>グリッドから詳細画面を開く的なやつ</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/scene/control/TableColumn.html#setCellFactory(javafx.util.Callback)">TableColumn#setCellFactory(Callback)</a> を使います。
+Callback実装クラスではセル毎にcallメソッドが呼ばれるようですが、
+ここでTableCellを作成して返します。
+TableCellではsetGraphicメソッドでボタンをセットしています。
+これでセルにボタンを置く事が出来るようです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GridController</span> <span class="kd">implements</span> <span class="n">Initializable</span> <span class="p">{</span>
+
+    <span class="p">...</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">opener</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">URL</span> <span class="n">location</span><span class="p">,</span> <span class="n">ResourceBundle</span> <span class="n">resources</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">opener</span><span class="p">.</span><span class="na">setCellFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">OpenerFactory</span><span class="p">());</span>
+
+        <span class="n">opener</span><span class="p">.</span><span class="na">setCellValueFactory</span><span class="p">(</span><span class="k">new</span> <span class="n">PropertyValueFactory</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"id"</span><span class="p">));</span>
+
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">OpenerFactory</span> <span class="kd">implements</span> <span class="n">Callback</span><span class="o">&lt;</span><span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">call</span><span class="p">(</span><span class="n">TableColumn</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">param</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">tableCell</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TableCell</span><span class="o">&lt;</span><span class="n">Account</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="kd">private</span> <span class="n">Pane</span> <span class="n">pane</span> <span class="o">=</span> <span class="n">createPane</span><span class="p">();</span>
+
+            <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="p">;</span>
+
+            <span class="kd">private</span> <span class="n">Pane</span> <span class="nf">createPane</span><span class="p">()</span> <span class="p">{</span>
+                <span class="n">HBox</span> <span class="n">pane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HBox</span><span class="p">();</span>
+                <span class="n">pane</span><span class="p">.</span><span class="na">setAlignment</span><span class="p">(</span><span class="n">Pos</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+
+                <span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">"詳細を開く"</span><span class="p">);</span>
+                <span class="n">button</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+                <span class="n">pane</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">button</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">pane</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">updateItem</span><span class="p">(</span><span class="n">String</span> <span class="n">id</span><span class="p">,</span> <span class="kt">boolean</span> <span class="n">empty</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">super</span><span class="p">.</span><span class="na">updateItem</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">empty</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">empty</span> <span class="o">==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+                    <span class="n">setGraphic</span><span class="p">(</span><span class="n">pane</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="k">return</span> <span class="n">tableCell</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ボタンが置けました。</p>
+<img alt="../../../_images/GridOpenerSample.png" src="_images/GridOpenerSample.png"/>
+</div>
+<div class="section" id="id4">
+<h2>ダイアログ</h2>
+<p>Swingで言うところのJOptionPaneのようなお手軽ダイアログは無いようですが、Stageを使う事で実現可能っぽいです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://d.hatena.ne.jp/aoe-tk/20130526/1369577773">JavaFX2.2でダイアログを作る方法 - AOEの日記</a></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>バックグラウンド処理</h2>
+<p><a class="reference external" href="http://docs.oracle.com/javafx/2/api/javafx/concurrent/Service.html">Service</a> を使います。
+SwingWorker的なやつです。
+こんな感じの雰囲気で。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="n">String</span> <span class="nf">call</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+                <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+                <span class="k">return</span> <span class="s">"終わったよーん"</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">succeeded</span><span class="p">()</span> <span class="p">{</span>
+                <span class="n">text</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">getValue</span><span class="p">());</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        <span class="k">return</span> <span class="n">task</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">service</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Service#createTask()でTaskを返しています。
+Taskではcallメソッドを実装していますが、これがSwingWorkerでいうdoInBackgroundのようです。
+succeededメソッドは処理が正常終了したときに呼ばれます。
+他にキャンセルしたときに呼ばれるcancelledメソッドや失敗したときに呼ばれるfailedメソッドがあります。</p>
+<p>しかし結果がどうあれ必ず呼ばれるfinally的なメソッドがありません。
+これは不便な気がします。</p>
+<p>finally的なアレを実現する方法として今んところ思いついているのは、Taskには実行中かそうでないかを表すrunningというbooleanのプロパティがあるので、
+それにリスナーを追加します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="n">task</span><span class="p">.</span><span class="na">runningProperty</span><span class="p">().</span><span class="na">addListener</span><span class="p">(</span>
+        <span class="k">new</span> <span class="n">ChangeListener</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changed</span><span class="p">(</span><span class="n">ObservableValue</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">observable</span><span class="p">,</span>
+                                <span class="n">Boolean</span> <span class="n">oldValue</span><span class="p">,</span> <span class="n">Boolean</span> <span class="n">newValue</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">newValue</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"終わったよーん"</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+</pre></div>
+</div>
+<p>もっと良い方法があったら教えて欲しいです。</p>
+<p>あと、処理中にProgressIndicatorというのを表示しておくと良い感じになりそうです。
+StackPaneにメインとなるPaneとProgressIndicatorを含んだPaneを突っ込んでvisibleで切り替えます。</p>
+<p>というわけでバックグラウンド処理のサンプルを次に記載します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">sample</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.concurrent.Service</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.concurrent.Task</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.concurrent.WorkerStateEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.ActionEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.event.EventHandler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.geometry.Pos</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.Scene</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.Button</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.ProgressIndicator</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.GridPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.StackPane</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LongTimeTaskSample</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="p">(</span><span class="n">Stage</span> <span class="n">primaryStage</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+
+        <span class="c1">//インジケータを含むPaneを組み立てる</span>
+        <span class="kd">final</span> <span class="n">GridPane</span> <span class="n">progressPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GridPane</span><span class="p">();</span>
+        <span class="n">progressPane</span><span class="p">.</span><span class="na">setAlignment</span><span class="p">(</span><span class="n">Pos</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+
+        <span class="n">ProgressIndicator</span> <span class="n">indicator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProgressIndicator</span><span class="p">();</span>
+        <span class="n">progressPane</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">indicator</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="c1">//メインとなるPaneを組み立てる</span>
+        <span class="n">GridPane</span> <span class="n">mainPane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GridPane</span><span class="p">();</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">setAlignment</span><span class="p">(</span><span class="n">Pos</span><span class="p">.</span><span class="na">CENTER</span><span class="p">);</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">setHgap</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">setVgap</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+        <span class="n">Button</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Button</span><span class="p">(</span><span class="s">"重い処理を行う"</span><span class="p">);</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="kd">final</span> <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="p">();</span>
+        <span class="n">mainPane</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+        <span class="c1">//StackPaneに突っ込む</span>
+        <span class="n">StackPane</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackPane</span><span class="p">();</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">mainPane</span><span class="p">);</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">getChildren</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">progressPane</span><span class="p">);</span>
+
+        <span class="c1">//最初はインジケータは見えなくする</span>
+        <span class="n">progressPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+        <span class="n">button</span><span class="p">.</span><span class="na">setOnAction</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ActionEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ActionEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="c1">//ボタンが押されたらインジケータを見せる</span>
+                <span class="n">progressPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                <span class="n">text</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+                <span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Service</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                    <span class="nd">@Override</span>
+                    <span class="kd">protected</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Task</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                            <span class="nd">@Override</span>
+                            <span class="kd">protected</span> <span class="n">String</span> <span class="nf">call</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+                                <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+                                <span class="k">return</span> <span class="s">"終わったよーん"</span><span class="p">;</span>
+                            <span class="p">}</span>
+                        <span class="p">};</span>
+                        <span class="n">task</span><span class="p">.</span><span class="na">setOnSucceeded</span><span class="p">(</span><span class="k">new</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">WorkerStateEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+
+                            <span class="nd">@Override</span>
+                            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">WorkerStateEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="c1">//タスクが終わったらインジケータを見えなくする</span>
+                                <span class="n">progressPane</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                                <span class="n">text</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">getValue</span><span class="p">());</span>
+                            <span class="p">}</span>
+                        <span class="p">});</span>
+                        <span class="k">return</span> <span class="n">task</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">};</span>
+                <span class="n">service</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scene</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+        <span class="n">primaryStage</span><span class="p">.</span><span class="na">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">);</span>
+        <span class="n">primaryStage</span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="s">"重い処理"</span><span class="p">);</span>
+        <span class="n">primaryStage</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>実行したらこんな感じです。</p>
+<p>ポチっと。</p>
+<img alt="../../../_images/LongTimeTaskSample1.png" src="_images/LongTimeTaskSample1.png"/>
+<p>くるくるー。</p>
+<img alt="../../../_images/LongTimeTaskSample2.png" src="_images/LongTimeTaskSample2.png"/>
+<p>どーん！</p>
+<img alt="../../../_images/LongTimeTaskSample3.png" src="_images/LongTimeTaskSample3.png"/>
+<p>ちなみにこのコードだとインジケータが表示されているときにボタンはクリックできなくなっていますが、
+タブでフォーカス移動してスペースキーで押せたりします。
+きっとjava.awt.FocusTraversalPolicyのようなものがあると思うのでまた勉強しておくことにします。</p>
+</div>
+<div class="section" id="id6">
+<h2>サーバとの通信</h2>
+<p>(　ﾟ∀ﾟ)o彡°JAX-RS！JAX-RS！</p>
+</div>
+<div class="section" id="id7">
+<h2>まとめ</h2>
+<p>ここ数日JavaFXを触ってみてエスアイヤーのギョームアプリも普通に書けそうだなー、と感じました。</p>
+<p>また今回はフォーカスしませんでしたがFXMLで画面を組めるのがすごく良いですね。
+Scene Builderでサクッとモックを作って、OKならそのまま実装する、というスタイルが楽にできそうで嬉しいです。</p>
+<p>あとScene Builderが特定のIDEに依存していないのも嬉しいですね。
+好きなIDEを使えます。</p>
+<p>という訳でJava 8がリリースされたら是非ともJavaFXでアプリケーション組みたいなー、と思ったのでした。</p>
+<p>おわり。</p>
+</div>
+<div class="section" id="id8">
+<h2>参考資料</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.oracle.com/javafx/">JavaFX Documentation</a></li>
+<li><a class="reference external" href="http://skrb.hatenablog.com/">JavaFX in the Box</a></li>
+<li><a class="reference external" href="http://d.hatena.ne.jp/aoe-tk/searchdiary?word=%2A%5BJavaFX%5D">AOEの日記</a> ※リンクURLはJavaFXタグを検索しています</li>
+<li><a class="reference external" href="http://itpro.nikkeibp.co.jp/article/COLUMN/20060915/248243/">Java技術最前線：ITpro</a> ※2012年8月～のテーマ「JavaFX 2で始めるGUI開発」</li>
+</ul>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/javafx.html">JavaFX</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 22, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/12/22/visitor.html">Visitorパターンについて考えた</a></h1>
+<p>というお話。縦に長いです。コードが。</p>
+<div class="section" id="id1">
+<h2>ポリもーなんとかでなんとかする</h2>
+<p>例えば数値を表すNumNode、足し算を表すAddNode、それらのインターフェースとなるNodeがあるとします。
+で、計算を実装する場合Nodeにcalcメソッドとか定義してNumNodeとAddNodeで実装します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Node1</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="nf">calc</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode1</span> <span class="kd">implements</span> <span class="n">Node1</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">NumNode1</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddNode1</span> <span class="kd">implements</span> <span class="n">Node1</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node1</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node1</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddNode1</span><span class="p">(</span><span class="n">Node1</span> <span class="n">left</span><span class="p">,</span> <span class="n">Node1</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">left</span><span class="p">.</span><span class="na">calc</span><span class="p">()</span> <span class="o">+</span> <span class="n">right</span><span class="p">.</span><span class="na">calc</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>こいつで2 + 3 + 4を計算する場合は次のように使います。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kn">import static</span> <span class="nn">org.hamcrest.CoreMatchers.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.hamcrest.MatcherAssert.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Node1Test</span> <span class="p">{</span>
+
+    <span class="nd">@Test</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCalc</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Node1</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode1</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="n">Node1</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode1</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+        <span class="n">Node1</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode1</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">);</span>
+        <span class="n">Node1</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode1</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="n">Node1</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode1</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="n">node4</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">node5</span><span class="p">.</span><span class="na">calc</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">expected</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">is</span><span class="p">(</span><span class="n">expected</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>さて、今度は組み立てたNodeをWriterへ書き出したくなったとします。
+Nodeへprintメソッドを追加します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Node2</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="nf">calc</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="n">Writer</span> <span class="n">out</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode2</span> <span class="kd">implements</span> <span class="n">Node2</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">NumNode2</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="n">Writer</span> <span class="n">out</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddNode2</span> <span class="kd">implements</span> <span class="n">Node2</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node2</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node2</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddNode2</span><span class="p">(</span><span class="n">Node2</span> <span class="n">left</span><span class="p">,</span> <span class="n">Node2</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">left</span><span class="p">.</span><span class="na">calc</span><span class="p">()</span> <span class="o">+</span> <span class="n">right</span><span class="p">.</span><span class="na">calc</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="n">Writer</span> <span class="n">out</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"("</span><span class="p">);</span>
+        <span class="n">left</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+        <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"+"</span><span class="p">);</span>
+        <span class="n">right</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+        <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">")"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>さて、次は××処理を追加しますのでNodeへ××メソッドを……と、まあ、
+これはこれで良いんですが、処理を追加するたびにNodeおよびNode実装クラスに手を加える必要があり、それが嬉しくない状況もあります。</p>
+</div>
+<div class="section" id="id2">
+<h2>処理を外から渡す</h2>
+<p>Nodeから処理を取り除いて外から渡すことを考えてみます。</p>
+<p>まずはinstanceofで分岐しつつ各Node実装クラスについて処理してみます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Node3</span> <span class="p">{}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode3</span> <span class="kd">implements</span> <span class="n">Node3</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">NumNode3</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddNode3</span> <span class="kd">implements</span> <span class="n">Node3</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node3</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node3</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddNode3</span><span class="p">(</span><span class="n">Node3</span> <span class="n">left</span><span class="p">,</span> <span class="n">Node3</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Calclurator3</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">(</span><span class="n">Node3</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="k">instanceof</span> <span class="n">AddNode3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">AddNode3</span> <span class="n">addNode3</span> <span class="o">=</span> <span class="p">(</span><span class="n">AddNode3</span><span class="p">)</span> <span class="n">node</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">calc</span><span class="p">(</span><span class="n">addNode3</span><span class="p">.</span><span class="na">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">calc</span><span class="p">(</span><span class="n">addNode3</span><span class="p">.</span><span class="na">right</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="k">instanceof</span> <span class="n">NumNode3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NumNode3</span> <span class="n">numNode3</span> <span class="o">=</span> <span class="p">(</span><span class="n">NumNode3</span><span class="p">)</span> <span class="n">node</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">numNode3</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>わーいこれで処理を外だしﾃﾞｷﾀﾖｰ、じゃねえよ！という感じですね。</p>
+<p>instanceofの欠点はケースの漏れを静的に検出できないことだと思っています。
+例えばこの例で言うとNode実装クラスはAddNodeとNumNodeがありますが、
+NumNodeへの分岐を忘れていてもコンパイル時に気付きません。
+さらに node instanceof java.util.Date とか無関係なクラスを書いていても
+これもコンパイル時に気付きません。</p>
+<p>ケースの漏れを静的に検出といえばswitchがありますが、
+Stringかprimitiveまたはenumしか使えないので今回の例には不適当です。</p>
+<p>いやいやそんなのポリもーなんとかでアレすれば良いじゃん、という事で次のようなインターフェースを作ります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">interface</span> <span class="nc">Visitor4</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode4</span> <span class="n">node</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode4</span> <span class="n">node</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これをこういう風に実装すれば……</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">class</span> <span class="nc">Calclurator4</span> <span class="kd">implements</span> <span class="n">Visitor4</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">(</span><span class="n">Node4</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode4</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode4</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>華麗に解決！というわけには行きませんね。
+calcメソッド内のvisit(node)やAddNodeをとるvisitメソッド内でのvisit(node.left)やvisit(node.right)では
+渡しているNode実装クラスがなんなのか、コンパイル時には分かりませんので普通にコンパイルエラーです。</p>
+<p>無理矢理コンパイルを通そうと思うとこんなコードになりました。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">class</span> <span class="nc">Calclurator4</span> <span class="kd">implements</span> <span class="n">Visitor4</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="p">(</span><span class="n">Node4</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="k">instanceof</span> <span class="n">NumNode4</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">visit</span><span class="p">((</span><span class="n">NumNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="k">instanceof</span> <span class="n">AddNode4</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">visit</span><span class="p">((</span><span class="n">AddNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode4</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode4</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="c1">//compile error</span>
+        <span class="c1">//return visit(node.left) + visit(node.left);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span> <span class="k">instanceof</span> <span class="n">NumNode4</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NumNode4</span> <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">NumNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span> <span class="k">instanceof</span> <span class="n">NumNode4</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">NumNode4</span> <span class="n">right</span> <span class="o">=</span> <span class="p">(</span><span class="n">NumNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">visit</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">visit</span><span class="p">(</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span> <span class="k">instanceof</span> <span class="n">AddNode4</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">AddNode4</span> <span class="n">right</span> <span class="o">=</span> <span class="p">(</span><span class="n">AddNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">visit</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">visit</span><span class="p">(</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span> <span class="k">instanceof</span> <span class="n">AddNode4</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">AddNode4</span> <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">AddNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span> <span class="k">instanceof</span> <span class="n">NumNode4</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">NumNode4</span> <span class="n">right</span> <span class="o">=</span> <span class="p">(</span><span class="n">NumNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">visit</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">visit</span><span class="p">(</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span> <span class="k">instanceof</span> <span class="n">AddNode4</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">AddNode4</span> <span class="n">right</span> <span class="o">=</span> <span class="p">(</span><span class="n">AddNode4</span><span class="p">)</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">visit</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">visit</span><span class="p">(</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>はい、そこそこクソコードになりましたね？
+ていうかまたinstanceofが出てきましたし。</p>
+</div>
+<div class="section" id="id3">
+<h2>そこでVisitorパターンですよ</h2>
+<p>Nodeにacceptメソッドを追加して実装クラスで対応するvisitメソッドを呼ぶようにします。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Node5</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor5</span> <span class="n">visitor</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode5</span> <span class="kd">implements</span> <span class="n">Node5</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">NumNode5</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor5</span> <span class="n">visitor</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="p">.</span><span class="na">visit</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddNode5</span> <span class="kd">implements</span> <span class="n">Node5</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node5</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node5</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddNode5</span><span class="p">(</span><span class="n">Node5</span> <span class="n">left</span><span class="p">,</span> <span class="n">Node5</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor5</span> <span class="n">visitor</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="p">.</span><span class="na">visit</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span> <span class="nc">Visitor5</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode5</span> <span class="n">node</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode5</span> <span class="n">node</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Calclurator5</span> <span class="kd">implements</span> <span class="n">Visitor5</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode5</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode5</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Printer5</span> <span class="kd">implements</span> <span class="n">Visitor5</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Writer</span> <span class="n">out</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">Printer5</span><span class="p">(</span><span class="n">Writer</span> <span class="n">out</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode5</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode5</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"("</span><span class="p">);</span>
+            <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+            <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"+"</span><span class="p">);</span>
+            <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+            <span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">")"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>先ほどの例とは異なりvisitメソッドを各Node実装クラスのacceptメソッド内で呼んでいるので
+どのvisitメソッドなのかコンパイル時に分かりますね。</p>
+<p>これは次のように使います。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kn">import static</span> <span class="nn">org.hamcrest.CoreMatchers.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.hamcrest.MatcherAssert.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.StringWriter</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Node5Test</span> <span class="p">{</span>
+
+    <span class="nd">@Test</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCalc</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Node5</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode5</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode5</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode5</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode5</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode5</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="n">node4</span><span class="p">);</span>
+        <span class="n">Calclurator5</span> <span class="n">calclurator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Calclurator5</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">node5</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="n">calclurator</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">expected</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">is</span><span class="p">(</span><span class="n">expected</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testPrint</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Node5</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode5</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode5</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode5</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode5</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="n">Node5</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode5</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="n">node4</span><span class="p">);</span>
+        <span class="n">StringWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringWriter</span><span class="p">();</span>
+        <span class="n">Printer5</span> <span class="n">printer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Printer5</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+        <span class="n">node5</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="n">printer</span><span class="p">);</span>
+        <span class="n">String</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">out</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+        <span class="n">String</span> <span class="n">expected</span> <span class="o">=</span> <span class="s">"((2+3)+4)"</span><span class="p">;</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">is</span><span class="p">(</span><span class="n">expected</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これで処理を外に出せました。</p>
+<p>が、visitメソッドの戻り値がintだったりそもそもPrinterでは戻り値が意味なかったりしてもやもやしますね。</p>
+</div>
+<div class="section" id="id4">
+<h2>ジェネリクスを使う</h2>
+<p>使いましょう。
+引数と戻り値をジェネリクスでアレします。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Node6</span> <span class="p">{</span>
+
+    <span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor6</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="n">visitor</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode6</span> <span class="kd">implements</span> <span class="n">Node6</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">NumNode6</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor6</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="n">visitor</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="p">.</span><span class="na">visit</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddNode6</span> <span class="kd">implements</span> <span class="n">Node6</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node6</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node6</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddNode6</span><span class="p">(</span><span class="n">Node6</span> <span class="n">left</span><span class="p">,</span> <span class="n">Node6</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor6</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="n">visitor</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="p">.</span><span class="na">visit</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span> <span class="nc">Visitor6</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="n">R</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode6</span> <span class="n">node</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">);</span>
+
+    <span class="n">R</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode6</span> <span class="n">node</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Calclurator6</span> <span class="kd">implements</span> <span class="n">Visitor6</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Void</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode6</span> <span class="n">node</span><span class="p">,</span> <span class="n">Void</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode6</span> <span class="n">node</span><span class="p">,</span> <span class="n">Void</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Printer6</span> <span class="kd">implements</span> <span class="n">Visitor6</span><span class="o">&lt;</span><span class="n">Void</span><span class="p">,</span> <span class="n">Writer</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode6</span> <span class="n">node</span><span class="p">,</span> <span class="n">Writer</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode6</span> <span class="n">node</span><span class="p">,</span> <span class="n">Writer</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"("</span><span class="p">);</span>
+            <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+            <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"+"</span><span class="p">);</span>
+            <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+            <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">")"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>これでだいぶ良い感じになってきました。</p>
+<p>が、PrinterでIOExceptionをRuntimeExceptionへラップしてるおなじみのコードが哀愁を漂わせます。</p>
+</div>
+<div class="section" id="id5">
+<h2>例外もジェネリクスで</h2>
+<p>やってしまいましょう。
+Visitorの定義を少し修正します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">visitor</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Node7</span> <span class="p">{</span>
+
+    <span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span> <span class="kd">extends</span> <span class="n">Exception</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Visitor7</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span><span class="o">&gt;</span> <span class="n">visitor</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">E</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode7</span> <span class="kd">implements</span> <span class="n">Node7</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">NumNode7</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span> <span class="kd">extends</span> <span class="n">Exception</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">accept</span><span class="p">(</span>
+            <span class="n">Visitor7</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span><span class="o">&gt;</span> <span class="n">visitor</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">E</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="p">.</span><span class="na">visit</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddNode7</span> <span class="kd">implements</span> <span class="n">Node7</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node7</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Node7</span> <span class="n">right</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddNode7</span><span class="p">(</span><span class="n">Node7</span> <span class="n">left</span><span class="p">,</span> <span class="n">Node7</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span> <span class="kd">extends</span> <span class="n">Exception</span><span class="o">&gt;</span> <span class="n">R</span> <span class="nf">accept</span><span class="p">(</span>
+            <span class="n">Visitor7</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span><span class="o">&gt;</span> <span class="n">visitor</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">E</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="p">.</span><span class="na">visit</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span> <span class="nc">Visitor7</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">E</span> <span class="kd">extends</span> <span class="n">Exception</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="n">R</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode7</span> <span class="n">node</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">E</span><span class="p">;</span>
+
+    <span class="n">R</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode7</span> <span class="n">node</span><span class="p">,</span> <span class="n">P</span> <span class="n">parameter</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">E</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Calclurator7</span> <span class="kd">implements</span> <span class="n">Visitor7</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Void</span><span class="p">,</span> <span class="n">RuntimeException</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode7</span> <span class="n">node</span><span class="p">,</span> <span class="n">Void</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode7</span> <span class="n">node</span><span class="p">,</span> <span class="n">Void</span> <span class="n">parameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Printer7</span> <span class="kd">implements</span> <span class="n">Visitor7</span><span class="o">&lt;</span><span class="n">Void</span><span class="p">,</span> <span class="n">Writer</span><span class="p">,</span> <span class="n">IOException</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">NumNode7</span> <span class="n">node</span><span class="p">,</span> <span class="n">Writer</span> <span class="n">parameter</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">value</span><span class="p">));</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">Void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">AddNode7</span> <span class="n">node</span><span class="p">,</span> <span class="n">Writer</span> <span class="n">parameter</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"("</span><span class="p">);</span>
+        <span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+        <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">"+"</span><span class="p">);</span>
+        <span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+        <span class="n">parameter</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">")"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>もうだいぶ訳の分からないクソコードとなってきた感じがしますが、
+Calculatorではチェック例外を投げず、PrinterではIOExceptionを投げるような表現が
+できました。
+お疲れ様でした。</p>
+</div>
+<div class="section" id="id6">
+<h2>他の言語ではどうなのか</h2>
+<p>Groovyではどのメソッドを呼ぶかは実行時に決まるのでacceptメソッドが不要です。
+たしか動的ディスパッチと呼ばれていたと思います。</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span/><span class="kd">class</span> <span class="nc">AddNode</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">left</span>
+    <span class="kt">def</span> <span class="n">right</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">NumNode</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">value</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="nf">visit</span><span class="o">(</span><span class="n">AddNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">visit</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">)</span> <span class="o">+</span> <span class="n">visit</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="kt">def</span> <span class="nf">visit</span><span class="o">(</span><span class="n">NumNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span> <span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kt">def</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode</span><span class="o">(</span><span class="nl">value:</span> <span class="mi">2</span><span class="o">)</span>
+<span class="kt">def</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode</span><span class="o">(</span><span class="nl">value:</span> <span class="mi">3</span><span class="o">)</span>
+<span class="kt">def</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode</span><span class="o">(</span><span class="nl">left:</span> <span class="n">node1</span><span class="o">,</span> <span class="nl">right:</span> <span class="n">node2</span><span class="o">)</span>
+<span class="kt">def</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NumNode</span><span class="o">(</span><span class="nl">value:</span> <span class="mi">4</span><span class="o">)</span>
+<span class="kt">def</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AddNode</span><span class="o">(</span><span class="nl">left:</span> <span class="n">node3</span><span class="o">,</span> <span class="nl">right:</span> <span class="n">node4</span><span class="o">)</span>
+<span class="kt">def</span> <span class="n">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Calculator</span><span class="o">()</span>
+<span class="kt">def</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">visit</span><span class="o">(</span><span class="n">node5</span><span class="o">)</span>
+
+<span class="k">assert</span> <span class="n">actual</span> <span class="o">==</span> <span class="o">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>またScalaではパターンマッチを使えば良いです。
+ケースの漏れはsealedを使えば検出可能だったと思います。</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span/><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Node</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">NumNode</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Node</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">AddNode</span><span class="o">(</span><span class="n">left</span><span class="k">:</span> <span class="kt">Node</span><span class="o">,</span> <span class="n">right</span><span class="k">:</span> <span class="kt">Node</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Node</span>
+
+<span class="k">def</span> <span class="n">calc</span><span class="o">(</span><span class="n">node</span><span class="k">:</span> <span class="kt">Node</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">node</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">NumNode</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">value</span>
+  <span class="k">case</span> <span class="nc">AddNode</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">calc</span><span class="o">(</span><span class="n">left</span><span class="o">)</span> <span class="o">+</span> <span class="n">calc</span><span class="o">(</span><span class="n">right</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">node1</span> <span class="o">=</span> <span class="nc">NumNode</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">node2</span> <span class="o">=</span> <span class="nc">NumNode</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">node3</span> <span class="o">=</span> <span class="nc">AddNode</span><span class="o">(</span><span class="n">node1</span><span class="o">,</span> <span class="n">node2</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">node4</span> <span class="o">=</span> <span class="nc">NumNode</span><span class="o">(</span><span class="mi">4</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">node5</span> <span class="o">=</span> <span class="nc">AddNode</span><span class="o">(</span><span class="n">node3</span><span class="o">,</span> <span class="n">node4</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">calc</span><span class="o">(</span><span class="n">node5</span><span class="o">)</span>
+
+<span class="n">assert</span><span class="o">(</span><span class="n">actual</span> <span class="o">==</span> <span class="o">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="o">))</span>
+</pre></div>
+</div>
+<p>それに、Nodeを分解してvalueやleft、rightを取り出したりできてvisitorパターンより超高機能です。
+しかもコード短いし。
+静的なアレだし。</p>
+</div>
+<div class="section" id="id7">
+<h2>まとめ</h2>
+<p>Javaではデータとアルゴリズムを分離するとき、</p>
+<ul class="simple">
+<li>instanceofはケースの漏れを静的に検出できない</li>
+<li>switchはString、primitive、enumしか受け付けない</li>
+<li>パターンマッチが無い</li>
+</ul>
+<p>などの理由によりVisitorパターンを使わざるを得ない場合があります。
+しかし数あるデザインパターンの中でもVisitorパターンは理解するのが難しいように思います。
+またそれなりに汎用的にしようと思うとジェネリクスを使って複雑な定義になってしまったり。</p>
+<p>よって、使わなくて済むならそれに越した事は無く、使う場合でも本当にVisitorパターンが必要なのかしっかり検討すべきだと思います。</p>
+<p>私も最近、色々あってVisitorパターンを使ってしまいましたが、もっと良い設計があったような気がしています。</p>
+<p>こんなまとめでええんか？</p>
+<p>まあいいか。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/sandbox/tree/master/visitor-example">本日のコード</a></li>
+</ul>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/design_pattern.html">Design pattern</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page34.html">Newer</a></li>
+            <li class="right"><a href="page36.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

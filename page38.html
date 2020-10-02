@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 38 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page39.html" /><link rel="prev" title="Newer" href="page37.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>July 14, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/07/14/websocket.html">Java SEでWebSocketサーバを立てて遊ぶ</a></h1>
+<p>先だってリリースされたJava EE 7に <a class="reference external" href="http://jcp.org/en/jsr/detail?id=356">JSR 356: Java API for WebSocket</a> が入りました。
+GlassFish v4などを利用すればWebSocketで遊べます。</p>
+<p>が、やっぱJava SEで動かしたいですよね？
+ね？</p>
+<p>というわけでJSR 356の参照実装であるTyrusを使います。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://tyrus.java.net/">Tyrus Project</a></li>
+</ul>
+<p>サーバ側のエンドポイントを作成します。
+POJOにアノテーションを付ける感じです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">javax.websocket.OnClose</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.websocket.OnMessage</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.websocket.OnOpen</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.websocket.Session</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.websocket.server.ServerEndpoint</span><span class="p">;</span>
+
+<span class="nd">@ServerEndpoint</span><span class="p">(</span><span class="s">"/echo"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EchoServerEndPoint</span> <span class="p">{</span>
+
+    <span class="nd">@OnOpen</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOpen</span><span class="p">(</span><span class="n">Session</span> <span class="n">session</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"[open] "</span> <span class="o">+</span> <span class="n">session</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@OnMessage</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">onMessage</span><span class="p">(</span><span class="n">String</span> <span class="n">message</span><span class="p">,</span> <span class="n">Session</span> <span class="n">session</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">"] "</span> <span class="o">+</span> <span class="n">session</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">message</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@OnClose</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClose</span><span class="p">(</span><span class="n">Session</span> <span class="n">session</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"[close] "</span> <span class="o">+</span> <span class="n">session</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>@OnOpenはセッションが確立したとき、@OnMessageはクライアントからメッセージが届いたとき、@OnCloseはセッションが切断されたときに呼ばれます。
+@OnMessageを付けたメソッドではクライアントが送信したテキストをStringの引数で受け取ることができます。
+なお、バイナリメッセージだとbyte[]やByteBufferで受け取れるようです。
+また、このメソッドはStringを返していますがこれはクライアントへ送信されるテキストメッセージとなります。</p>
+<p>では次にこれをJava SEで動かすためのコードを書きます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.websocket.DeploymentException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.tyrus.server.Server</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EchoMain</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Server</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Server</span><span class="p">(</span><span class="s">"localhost"</span><span class="p">,</span> <span class="mi">8080</span><span class="p">,</span> <span class="s">"/ws"</span><span class="p">,</span> <span class="n">EchoServerEndPoint</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">.</span><span class="na">read</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+            <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Serverのコンストラクタにホスト、ポート、ルートパス、エンドポイントのクラスを渡してインスタンス化し、startメソッドを呼べばWebSocketサーバの出来上がりです。
+あとはクライアントから ws://localhost:8080/ws/echo に接続すればOKです。
+簡単ですね。</p>
+<div class="section" id="id1">
+<h2>今日のソース</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/backpaper0/sandbox/tree/master/websocket-example">https://github.com/backpaper0/sandbox/tree/master/websocket-example</a></li>
+</ul>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/websocket.html">WebSocket</a>, <a href="tags/tyrus.html">Tyrus</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>July 07, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/07/07/devkan_jaxrs.html">DevLOVE関西「開発スターターキット」におけるJAX-RSの簡単な解説</a></h1>
+<p>どうも、GlassFishとJAX-RSを（・∀・）ｲｲﾖｲｲﾖｰと言っていた2番テーブルTAのうらがみです。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://devlove-kansai.doorkeeper.jp/events/4363">DevLOVE関西「開発スターターキット」</a></li>
+</ul>
+<p>というわけで参加されたみなさん、お疲れ様でした。
+いいよいいよと言いまくってた手前、今回のJAX-RSを利用していたソースコードをかるーく解説しておこうと思います。</p>
+<p>まずはDevKanApplication.javaです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@ApplicationPath</span><span class="p">(</span><span class="s">"/services"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DevKanApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Applicationを継承して@ApplicationPathで注釈していますが、このクラスがあればGlassFishさんが
+「お、これはJAX-RSの出番やな( ｰ`дｰ´)ｷﾘｯ」
+という感じで認識してくれます。
+なお@ApplicationPathに設定している /services が基点となるパスになります。</p>
+<p>次いでCalculator.javaです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Path</span><span class="p">(</span><span class="s">"/calc"</span><span class="p">)</span>
+<span class="nd">@Produces</span><span class="p">(</span><span class="n">MediaType</span><span class="p">.</span><span class="na">TEXT_PLAIN</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="p">{</span>
+
+    <span class="nd">@GET</span>
+    <span class="nd">@Path</span><span class="p">(</span><span class="s">"add"</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">add</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"b"</span><span class="p">)</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+        <span class="k">return</span> <span class="s">"2"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>アノテーションがもりもり書かれていますが、これらはHTTPリクエスト/レスポンスに対応しています。
+足し算のHTTPリクエスト/レスポンスはこんな感じになりますよー、っていうのを何となく書き出します。</p>
+<p>リクエストはこんな感じ。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span/>GET /devkan-calc/services/calc/add?a=2&amp;b=3 HTTP/1.1
+</pre></div>
+</div>
+<p>レスポンスはこんな感じ。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span/>HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 1
+
+2
+</pre></div>
+</div>
+<p>見比べるとよく分かりますが、</p>
+<ul class="simple">
+<li>メソッドに書かれた@GETはリクエストメソッドに、</li>
+<li>クラスとメソッドに書かれた@Pathはリクエストのパスに、</li>
+<li>メソッドのパラメータに書かれた@QueryParamはリクエストのクエリパラメータに、</li>
+<li>クラスに書かれた@ProducesはレスポンスのContent-Typeに、</li>
+</ul>
+<p>それぞれ対応しています。
+ついでに言うと、戻り値はレスポンスのエンティティボディに対応していますね。
+HTTPを知っていればJAX-RSは使えるよー、という感じですね。</p>
+<p>以上、JAX-RSの簡単な解説おわり。</p>
+<div class="section" id="war">
+<h2>WARを覗く</h2>
+<p>jar -tf build/libs/devkan-calc.war と打ってWARの中身を覗いてみましょう。
+WARファイルの中身、WEB-INFディレクトリの下にあるのは DevKanApplication.class と Calculator.class だけです。
+フレームワークのJARファイルはおろか、web.xmlすらありません。</p>
+<p>JAX-RSはJava EEの一部であり、Java EEのアプリケーションサーバであるGlassFishにデプロイする場合はフレームワークのJARファイルは不要です。</p>
+<p>また、最近ではサーブレットの登録にもweb.xmlは必須ではありません。
+@WebServletというアノテーションで登録するか、ServletContextのaddServletメソッドで動的に登録できます。</p>
+<p>この辺りはまた別の機会に詳しく紹介するとして(やらないフラグ)、大事なのは「JAX-RSなら2クラスでWebアプリ作れるですよ(｀・ω・´)ｼｬｷｰﾝ」ということです。
+お手軽ですね。</p>
+</div>
+<div class="section" id="jax-rs">
+<h2>JAX-RSをもっと知りたい場合は</h2>
+<p><a class="reference external" href="https://twitter.com/btnrouge">@btnrougeさん</a> のブログ <a class="reference external" href="http://www.coppermine.jp/docs/programming/">Programming Studio</a> を読むと良いでしょう。
+JAX-RSのタグが付けられたエントリをざくざく読んで行けばもりもり知識がつくと思います。</p>
+<p>それと、手前味噌ですが、私もJAX-RSを一通り紹介するエントリを書きました。</p>
+<ul class="simple">
+<li><a class="reference internal" href="2013/05/02/jaxrs.html"><span class="doc">JAX-RSとかの話</span></a></li>
+</ul>
+<p>ただし対象バージョンはちょっと古いです。
+エントリは1.1。
+最新は2.0。
+そのうちエントリも2.0にアップデートしたいです(やらないフラグ)。</p>
+<p>書籍なら「JavaによるRESTfulシステム構築」(ISBN:978-4873114675)が良いですかねー。
+日本語訳が2010年に出版された書籍で、こちらも内容はJAX-RS 1系ですが今でも通用する情報が載っているとは思います。</p>
+<p>そんな感じで、JAX-RSの回し者、うらがみでした(・∀・)</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/jax_rs.html">JAX-RS</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page37.html">Newer</a></li>
+            <li class="right"><a href="page39.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

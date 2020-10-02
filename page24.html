@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="My blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 24 &mdash; 裏紙</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerbelizehole.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="shortcut icon" href="_static/backpaper0.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        <link rel="search" title="Search" href="search.html" /><link rel="next" title="Older" href="page25.html" /><link rel="prev" title="Newer" href="page23.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><nav>
+    <ul>
+      <li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/about.html">これはなに？</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/ghosts.html">資料</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li></ul>
+  </nav>
+    <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">裏紙</a></h1><h2>I ❤️ BotW.</h2></hgroup>
+          </header>
+      <div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>December 04, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/12/04/validation.html">BeanValidationの相関バリデーションとそもそもの話</a></h1>
+<p>BeanValidationで相関バリデーションするときに新しいメソッド作って@AssertTrueを使うよ！
+っていう話があったので、それについて思う事を書きます。</p>
+<p>なお、以下はWebアプリケーションでリクエストパラメータをPOJOにマッピングして
+BeanValidationを行うという流れを想定しています。</p>
+<div class="section" id="asserttrue">
+<h2>@AssertTrueでバリデーション</h2>
+<p>件の相関バリデーションはたぶんこんな感じです。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kt">int</span> <span class="n">from</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">to</span><span class="p">;</span>
+
+<span class="nd">@AssertTrue</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isFromLessThanTo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">from</span> <span class="o">&lt;</span> <span class="n">to</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>私は、これは</p>
+<ul class="simple">
+<li>メソッド内にバリデーションロジックを書くので再利用性が低い</li>
+<li>@AssertTrue、そしてbooleanは宣言的ではない</li>
+</ul>
+<p>と思っています。</p>
+</div>
+<div class="section" id="id1">
+<h2>じゃあ、どうすればいいのか</h2>
+<p><span class="docutils literal"><span class="pre">from</span> <span class="pre">&lt;</span> <span class="pre">to</span></span> を検証するアノテーションとカスタムバリデータを作りましょう。
+そしてそれを付けるメソッドはbooleanではなくタプル(のような何か)を返します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="kt">int</span> <span class="n">from</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">to</span><span class="p">;</span>
+
+<span class="nd">@FromLessThanTo</span>
+<span class="kd">public</span> <span class="n">Pair</span> <span class="nf">isFromLessThanTo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Pair</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>こうする事で、</p>
+<ul class="simple">
+<li>バリデーションのロジックはカスタムバリデータに閉じ込めたので再利用性高まる</li>
+<li>アノテーションで大小関係があるって分かって宣言的っぽい</li>
+</ul>
+<p>となるかと。</p>
+</div>
+<div class="section" id="id2">
+<h2>そもそも</h2>
+<p>アノテーションを使ったバリデーションってどうなんでしょうね？</p>
+<p>例えば、次のようなコードがあったとします。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="nd">@Isbn</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="n">isbn1</span><span class="p">;</span>
+
+<span class="nd">@Isbn</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="n">isbn2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>アノテーションを見ればisbn1もisbn2もISBNであるということは分かるのですが、
+でもそれってアノテーションの役割じゃなくて型じゃないの？と思うのです。</p>
+<p>本来あるべき姿はこんな感じ。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kd">public</span> <span class="n">Isbn</span> <span class="n">isbn1</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="n">Isbn</span> <span class="n">isbn2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>この場合バリデーションはIsbn型へ変換するときに行うのが良いと思われます。</p>
+</div>
+<div class="section" id="id3">
+<h2>型よ</h2>
+<p>基本的にバリデーションは次の順番で行われると思います。</p>
+<ul class="simple">
+<li>必須バリデーション</li>
+<li>フォーマットバリデーション(日付とされる値がyyyy/MM/ddになっているか？みたいなことです)</li>
+<li>相関バリデーション</li>
+</ul>
+<p>必須バリデーションを行うか否かも型で表したい。
+Optionalでないものは必須！という感じです。
+たぶんそれが良いと思う。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="c1">//必須</span>
+<span class="kd">public</span> <span class="n">Isbn</span> <span class="n">isbn1</span><span class="p">;</span>
+
+<span class="c1">//必須でない</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Isbn</span><span class="o">&gt;</span> <span class="n">isbn2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>フォーマットも先述の通り型で表す事ができます。</p>
+<p>それから相関バリデーションですが、最初の例であればRangeといった型を作ってそこにfromとtoを
+詰め込めばfromとtoの大小関係を型で表す事ができます。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="k">new</span> <span class="n">Range</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>まとめ</h2>
+<p>まとまりません！
+もっと理想的なバリデーションフレームワークが欲しい！</p>
+<p>というわけでバリデーションへの悩みは尽きません。
+悩ましい。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/beanvalidation.html">BeanValidation</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 01, 2014</span>
+        </div>
+        <div class="section">
+            <h1><a href="2014/12/01/javaee_advent_calendar_2014.html">JAX-RSを始める #javaee</a></h1>
+<p>これは <a class="reference external" href="http://qiita.com/advent-calendar/2014/javaee">Java EE Advent Calendar 2014</a>
+の1日目です。</p>
+<p>今回は参照実装である <a class="reference external" href="https://jersey.java.net/">Jersey</a>
+を使ってJAX-RSを始めるための環境構築などをだらだら書こうと思います。</p>
+<div class="section" id="id1">
+<h2>ビルドツール</h2>
+<p>昨今はGradleが人気のような雰囲気漂っていますが、
+<a class="reference external" href="http://maven.apache.org/">Maven</a> を使いましょう。</p>
+<p>JerseyはMavenのprofileという機能を使っていてGradleではその辺のサポートがないっぽいのでたぶんしんどいです。</p>
+<ul class="simple">
+<li>参考： <a class="reference external" href="http://d.hatena.ne.jp/irof/20130505/p1">JAX-RSをGradleでアレしたい - 日々常々</a></li>
+</ul>
+<p>……と書きましたが最近のGradleはprofile対応してるようです。</p>
+<blockquote class="twitter-tweet" lang="ja"><p>JAX-RSを始める <a href="https://twitter.com/hashtag/javaee?src=hash">#javaee</a> — 裏紙 <a href="http://t.co/mAX6m50PMd">http://t.co/mAX6m50PMd</a> 現在はGradleもProfileに対応してます <a href="http://t.co/pHMXxcnt7T">http://t.co/pHMXxcnt7T</a></p>— Nobuhiro Sue (@nobusue) <a href="https://twitter.com/nobusue/status/539304292822159361">2014, 12月 1</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8">{}</script><p>というわけでサンプルにGradleのビルドファイルも追加しました。</p>
+<p>Mavenのインストールはバイナリを任意の場所にダウンロードして <span class="docutils literal"><span class="pre">bin</span></span> ディレクトリにパスを通せばおkです。</p>
+</div>
+<div class="section" id="id2">
+<h2>ビルドファイルの準備</h2>
+<div class="section" id="id3">
+<h3>Mavenの場合</h3>
+<p>まず、 <span class="docutils literal"><span class="pre">mvn</span> <span class="pre">archetype:generate</span></span> してください。
+それから出来たpom.xmlを編集します。</p>
+<p>次のdependencyManagement要素を追加してください。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;dependencyManagement&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>jersey-bom<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.13<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+      <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/dependencyManagement&gt;</span>
+</pre></div>
+</div>
+<p>それからjersey-bomのpom.xmlを見ながら好きなものを選んでdependency要素に追加します。
+とはいえJerseyはサーバ側のAPI、クライアント側のAPI、MVC拡張など多数のJARに別れて提供されているので
+何を追加すれば良いのか最初は分からないと思います。</p>
+<p>今回はサーバ側のコードを書きたいので、 <span class="docutils literal"><span class="pre">jersey-server</span></span> を追加します。
+また、Jerseyは <a class="reference external" href="https://grizzly.java.net/">Grizzly</a> や <a class="reference external" href="http://eclipse.org/jetty/">Jetty</a>
+などのコンテナ上で動きますが、今回は <a class="reference external" href="https://docs.oracle.com/javase/8/docs/jre/api/net/httpserver/spec/com/sun/net/httpserver/HttpServer.html">JDK付属のHttpServer</a>
+で動かしたいので <span class="docutils literal"><span class="pre">jersey-container-jdk-http</span></span> を追加します。
+どんなコンテナが使えるかは <a class="reference external" href="http://repo1.maven.org/maven2/org/glassfish/jersey/containers/">http://repo1.maven.org/maven2/org/glassfish/jersey/containers/</a> を参照ください。
+最後にJUnitでサクッと走らせてテストするため <span class="docutils literal"><span class="pre">jersey-test-framework-provider-jdk-http</span></span> を追加します。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.core<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-server<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.containers<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-container-jdk-http<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.test-framework.providers<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-test-framework-provider-jdk-http<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p>とまあ、こんな感じで良いでしょう。</p>
+<p>でもこんなことチンタラやってられないと思うので <a class="reference external" href="https://github.com/backpaper0/sandbox">https://github.com/backpaper0/sandbox</a> をcloneして
+<span class="docutils literal"><span class="pre">jersey-blank</span></span> ディレクトリ内の <span class="docutils literal"><span class="pre">pom.xml</span></span> をご利用ください。
+私も大抵、自分が過去に書いたビルドファイルをコピります。</p>
+</div>
+<div class="section" id="gradle">
+<h3>Gradleの場合</h3>
+<p>こんな感じ？</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span/><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s1">'org.glassfish.jersey.core:jersey-server:2.13'</span>
+    <span class="n">compile</span> <span class="s1">'org.glassfish.jersey.containers:jersey-container-jdk-http:2.13'</span>
+    <span class="n">testCompile</span> <span class="s1">'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-jdk-http:2.13'</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>コードを書く</h2>
+<p>まあ、この辺は適当に、足し算する簡単なやつで。</p>
+<p><span class="docutils literal"><span class="pre">src/main/java/app/Calc.java</span></span> を作ります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">app</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.GET</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.Path</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.Produces</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.QueryParam</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="p">;</span>
+
+<span class="nd">@Path</span><span class="p">(</span><span class="s">"calc"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calc</span> <span class="p">{</span>
+
+    <span class="nd">@Path</span><span class="p">(</span><span class="s">"add"</span><span class="p">)</span>
+    <span class="nd">@GET</span>
+    <span class="nd">@Produces</span><span class="p">(</span><span class="n">MediaType</span><span class="p">.</span><span class="na">TEXT_PLAIN</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="nd">@QueryParam</span><span class="p">(</span><span class="s">"b"</span><span class="p">)</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>で、JUnitテストです。
+<span class="docutils literal"><span class="pre">src/test/java/app/CalcTest.java</span></span> を作ります。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">app</span><span class="p">;</span>
+
+<span class="kn">import static</span> <span class="nn">org.hamcrest.CoreMatchers.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.junit.Assert.*</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Application</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.server.ResourceConfig</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.test.JerseyTest</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalcTest</span> <span class="kd">extends</span> <span class="n">JerseyTest</span> <span class="p">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">target</span><span class="p">(</span><span class="s">"calc/add"</span><span class="p">).</span><span class="na">queryParam</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                                  <span class="p">.</span><span class="na">queryParam</span><span class="p">(</span><span class="s">"b"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+                                  <span class="p">.</span><span class="na">request</span><span class="p">()</span>
+                                  <span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">is</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Application</span> <span class="nf">configure</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ResourceConfig</span><span class="p">(</span><span class="n">Calc</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>test-frameworkを使うととても簡単にJUnitテストを書ける事が分かると思います。</p>
+</div>
+<div class="section" id="id5">
+<h2>テスト走らせる</h2>
+<p>IDEから実行するかMavenで。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span/>mvn <span class="nb">test</span>
+</pre></div>
+</div>
+<p>簡単ですね！</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span/>-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running app.CalcTest
+11 30, 2014 10:55:12 午後 org.glassfish.jersey.test.jdkhttp.JdkHttpServerTestContainerFactory$JdkHttpServerTestContainer &lt;init&gt;
+情報: Creating JdkHttpServerTestContainer configured at the base URI http://localhost:9998/
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.109 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="main">
+<h2>mainメソッドでサーバーを立てる</h2>
+<p>JUnitテストを走らせている事からもお分かり頂けると思いますが、
+簡単にサーバーを立てる事もできます。</p>
+<p>こんな感じ。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span/><span class="kn">package</span> <span class="nn">app</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.jdkhttp.JdkHttpServerFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.server.ResourceConfig</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpServer</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Server</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">URI</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">URI</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">"http://localhost:8080/rest/"</span><span class="p">);</span>
+
+        <span class="n">ResourceConfig</span> <span class="n">rc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResourceConfig</span><span class="p">();</span>
+        <span class="n">rc</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">Calc</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+
+        <span class="n">HttpServer</span> <span class="n">httpServer</span> <span class="o">=</span> <span class="n">JdkHttpServerFactory</span><span class="p">.</span><span class="na">createHttpServer</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">rc</span><span class="p">);</span>
+        <span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">().</span><span class="na">addShutdownHook</span><span class="p">(</span><span class="k">new</span> <span class="n">Thread</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">httpServer</span><span class="p">.</span><span class="na">stop</span><span class="p">(</span><span class="mi">0</span><span class="p">)));</span>
+
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"JAX-RS started"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>アプリケーションサーバにデプロイする</h2>
+<p>GlassFishにデプロイする場合はdependencyのscopeをprovidedにしてWARファイルを作ってそれをデプロイすれば良いと思います。</p>
+<p>Tomcatにデプロイする場合は <span class="docutils literal"><span class="pre">jersey-container-jdk-http</span></span> を消して、
+<span class="docutils literal"><span class="pre">jersey-container-servlet</span></span> を追加してWARファイルを作りましょう。
+こんな感じです。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span/><span class="nt">&lt;dependencies&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.core<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-server<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.containers<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jersey-container-servlet<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p>私はServlet APIに依存しないよう作る方がポータビリティが高そうで好きなのでscopeをruntimeにしています。
+Servlet APIじゃんじゃん使いたい場合はscopeをcompileにしてください。</p>
+</div>
+<div class="section" id="id7">
+<h2>まとめ</h2>
+<p>というわけでJerseyを使用したJAX-RSの導入部分、如何でしたでしょうか？
+簡単ですよね？
+特にJava EEの一部なのにアプリケーションサーバがなくても簡単に使えるのが良いですよね！ね！</p>
+<p>最後に、手前味噌ですがJAX-RSの参考資料を挙げておきます。</p>
+<ul class="simple">
+<li><a class="reference internal" href="2013/05/02/jaxrs.html"><span class="doc">JAX-RSとかの話</span></a></li>
+<li><a class="reference internal" href="2013/07/07/devkan_jaxrs.html"><span class="doc">DevLOVE関西「開発スターターキット」におけるJAX-RSの簡単な解説</span></a></li>
+<li><a class="reference internal" href="2014/07/21/jersey_standalone.html"><span class="doc">Jerseyをjava -jarで動かす</span></a></li>
+</ul>
+<p>はー、これらの資料もJAX-RS 2.0にアップデートしないといけないなー（しろめ</p>
+<p>簡単ですが、以上。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by うらがみ</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a>, <a href="tags/jax_rs.html">JAX-RS</a>, <a href="tags/jersey.html">Jersey</a></span>
+        </div>
+        </div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="page23.html">Newer</a></li>
+            <li class="right"><a href="page25.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2018/02/22/spring_proxy.html">Springのproxyとfinalメソッド、それからnull</a>
+        </li><li>
+            <a href="2017/04/17/acrobook.html">「Java本格入門」を読んだ</a>
+        </li><li>
+            <a href="2016/12/31/good_bye_2016.html">2016年ふりかえり</a>
+        </li><li>
+            <a href="2016/12/01/wife_peropero.html">世界の中心で愛を叫んだうらがみ</a>
+        </li><li>
+            <a href="2016/10/09/scala_ks.html">Scala関西Summit 2016へ参加・登壇したぞ！ #scala_ks</a>
+        </li><li>
+            <a href="2016/10/01/unreachable_statements.html">セミコロンレスJavaで戻り値のあるメソッドを定義する(ただし返ってこない)の解説</a>
+        </li><li>
+            <a href="2016/09/11/githubwww.html">GitHubで毎日草生やし続ける運動を終了する</a>
+        </li><li>
+            <a href="2016/09/06/private_method.html">privateメソッドについての思いの変遷</a>
+        </li><li>
+            <a href="2016/07/12/doma_tokyo.html">東京でDoma勉強会やったぞ！！！ #doma_tokyo</a>
+        </li><li>
+            <a href="2016/06/12/slider.html">関Javaで使ってたスマホでスライドめくるやつ</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013-2020, うらがみ. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerbelizehole" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>
